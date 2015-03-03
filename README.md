@@ -1,7 +1,7 @@
 The status of the microbial census (2015)
 =======
 
-<Insert abstract here>
+Insert abstract here
 
 
 
