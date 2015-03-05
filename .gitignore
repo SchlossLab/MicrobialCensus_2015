@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 
-
+data/
 
 *.qsub*
 mothur*logfile
