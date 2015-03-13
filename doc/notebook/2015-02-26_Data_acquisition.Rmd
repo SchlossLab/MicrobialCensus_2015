@@ -129,6 +129,7 @@ write.table(cbind(seq_names, no.subs.str), "bacteria.tax", row.names=F,
 ```
 
 
+
 ## Get good sequences
 
 Now we need to know the start/end position of the sequences so that we can
@@ -139,7 +140,7 @@ make sure the reads overlap the same alignment space.
 mothur "#summary.seqs(fasta=bacteria.fasta, processors=12)"
 ```
 
-
+```
                 Start   End     NBases  Ambigs  Polymer NumSeqs
 Minimum:        1       9693    900     0       4       1
 2.5%-tile:      1004    12895   1279    0       5       32539
@@ -150,7 +151,7 @@ Median:         1044    13267   1382    0       5       650771
 Maximum:        6448    15767   3281    51      38      1301541
 Mean:   1096.18 13442   1399.39 0.176343        5.49738
 # of Seqs:      1301541
-
+```
 
 
 Notes...
@@ -178,20 +179,50 @@ nrow(trimmed)
 summary(trimmed$nbases)
 ```
 
-Now let's run these parameters using mothur. We'll also filter the sequences to
-overlap in the same alignment space, unique them, and precluster them...
+Now let's run these parameters using mothur.
 
 ```{r screen_data, engine="bash"}
 mothur "#set.current(processors=8);
-        screen.seqs(fasta=bacteria.fasta, taxonomy=bacteria.tax, start=2000, end=13000, maxambig=2, minlength=1200);
-        filter.seqs(vertical=T, trump=.);
+        set.dir(input=data/raw, output=data/process)
+        screen.seqs(fasta=bacteria.fasta, taxonomy=bacteria.tax, start=2000, end=13000, maxambig=2, minlength=1200);"
+```
+
+
+
+## Single cell genomics data
+
+Using 16S rRNA gene sequences from the single cell genomics projects we'd like
+to see whether that type of data has had a meaningful impact on the trajectory
+of the microbial census. The LSU team scraped these 251 sequences from a
+database and have provided them to me as a fasta file. Some of them are quite
+short and none of them are aligned. Let's go ahead and align them to the SILVA
+alignment and then screen them to keep sequences that overlap with the SILVA
+sequences.
+
+```{r single_cell, engine="bash"}
+mothur "#align.seqs(fasta=single_cell.bacteria.fasta, reference=bacteria.good.fasta);
+        screen.seqs(fasta=current, start=2000, end=13000, maxambig=2, minlength=1200);
+        classify.seqs(fasta=current, reference=trainset10_082014.pds.fasta, taxonomy=trainset10_082014.pds.tax, cutoff=80, processors=8)"
+```
+
+
+## Pooling the data
+
+Now we want to merge the SILVA and single cell genomics 16S rRNA gene sequence
+collections. We'll also filter the sequences to overlap in the same alignment
+space, unique them, and precluster them...
+
+```{r pool_data, engine="bash"}
+cat bacteria.good.fasta single_cell.bacteria.good.align > all_bacteria.align
+cat bacteria.good.tax single_cell.bacteria.good.pds.wang.taxonomy > all_bacteria.taxonomy
+
+mothur "#filter.seqs(fasta=all_bacteria.align, vertical=T, trump=.);
         unique.seqs();
         pre.cluster(fasta=current, name=current, diffs=10);"
 
 #need to make the taxonomy file match the fasta and names files...
 cut -f 1 *ster.names > precluster.accnos
-mothur "#get.seqs(taxonomy=bacteria.good.tax, accnos=precluster.accnos)"
-
+mothur "#get.seqs(taxonomy=all_bacteria.taxonomy, accnos=precluster.accnos)"
 ```
 
 Now we're ready to cluster the sequences. We'll do it by the classic approach
@@ -199,7 +230,7 @@ without any cutoffs and see what we get. Let's start by splitting things at the
 phylum level and cluster from there...
 
 ```{r cluster_data, engine="bash"}
-mothur "#cluster.split(fasta=bacteria.good.filter.unique.precluster.fasta, name=bacteria.good.filter.unique.precluster.names, taxonomy=bacteria.good.pick.tax, taxlevel=2, classic=T, processors=8)"
+mothur "#cluster.split(fasta=all_bacteria.filter.unique.precluster.fasta, name=all_bacteria.filter.unique.precluster.names, taxonomy=all_bacteria.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
 ```
 
 
@@ -250,7 +281,7 @@ metadata_fields <- c(
 )
 
 
-metadata <- read.table(file="metadata.nds", sep="\t", stringsAsFactors=FALSE,
+metadata <- read.table(file="data/raw/metadata.nds", sep="\t", stringsAsFactors=FALSE,
                             col.names=metadata_fields, fill=TRUE, na.strings="",
                             quote="")
 rownames(metadata) <- paste(metadata$name, metadata$acc, sep=".")
@@ -261,17 +292,24 @@ Now we want to read in `bacteria.bad.accnos` so that we can figure out which
 sequences to cull from the metadata table.
 
 ```{r}
-bad_accnos_data <- read.table(file="bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="data/process/bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
 bad_accnos <- bad_accnos_data$name.accnos
 metadata_good <- metadata[-c(bad_accnos),]
-write.table(metadata_good, file="bacteria.good.metadata", quote=F, sep="\t")
+write.table(metadata_good, file="data/process/all_bacteria.good.metadata", quote=F, sep="\t")
 ```
 
+We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `bacteria.good.metadata`.
 
-## Finally...
+```{r}
+if(!"openxlsx" %in% rownames(installed.packages())){
+    install.packages("openxlsx")
+}
+library("openxlsx")
 
-Let's compress everything that is relevant for the rest of the project...
+spread_sheet <- read.xlsx("data/raw/BacterialSSUMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
+bad_accnos_data <- read.table(file="data/process/single_cell.bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos <- bad_accnos_data$name.accnos
+spread_sheet_good <- spread_sheet[-c(bad_accnos),]
 
-```{r, engine="bash"}
-tar cvzf bacteria.good.tgz bacteria.good.metadata bacteria.good.filter.unique.precluster.an.list bacteria.good.tax
+write.table(spread_sheet_good, file="data/process/all_bacteria.good.metadata", quote=F, sep="\t", col.names=F, append=T)
 ```
