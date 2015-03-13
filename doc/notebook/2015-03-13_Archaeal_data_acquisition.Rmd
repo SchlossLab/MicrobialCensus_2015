@@ -285,7 +285,7 @@ metadata_fields <- c(
 )
 
 
-metadata <- read.table(file="data/raw/metadata.nds", sep="\t", stringsAsFactors=FALSE,
+metadata <- read.table(file="archaea_metadata.nds", sep="\t", stringsAsFactors=FALSE,
                             col.names=metadata_fields, fill=TRUE, na.strings="",
                             quote="")
 rownames(metadata) <- paste(metadata$name, metadata$acc, sep=".")
@@ -296,10 +296,10 @@ Now we want to read in `archaea.bad.accnos` so that we can figure out which
 sequences to cull from the metadata table.
 
 ```{r}
-bad_accnos_data <- read.table(file="data/process/archaea.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="archaea.bad.accnos", col.names=c("name.accnos", "reason"))
 bad_accnos <- bad_accnos_data$name.accnos
 metadata_good <- metadata[-c(bad_accnos),]
-write.table(metadata_good, file="data/process/all_archaea.good.metadata", quote=F, sep="\t")
+write.table(metadata_good, file="all_archaea.good.metadata", quote=F, sep="\t")
 ```
 
 We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `archaea.good.metadata`.
