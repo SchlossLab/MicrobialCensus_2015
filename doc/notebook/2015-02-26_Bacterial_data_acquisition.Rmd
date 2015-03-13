@@ -10,7 +10,7 @@ opts_chunk$set(eval = FALSE)
 opts_chunk$set(echo = FALSE)
 ```
 
-
+# Getting the bacterial sequence data and metadata
 
 ## Get data out of ARB
 
