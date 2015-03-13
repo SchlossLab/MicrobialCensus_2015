@@ -221,7 +221,7 @@ mothur "#filter.seqs(fasta=all_bacteria.align, vertical=T, trump=.);
         pre.cluster(fasta=current, name=current, diffs=10);"
 
 #need to make the taxonomy file match the fasta and names files...
-cut -f 1 *ster.names > precluster.accnos
+cut -f 1 all_bacteria.filter.unique.precluster.names > precluster.accnos
 mothur "#get.seqs(taxonomy=all_bacteria.taxonomy, accnos=precluster.accnos)"
 ```
 
