@@ -2,7 +2,9 @@
 .Rhistory
 .RData
 
-data/
+data/*/*
+!data/process/*
+!README.md
 
 *.qsub*
 mothur*logfile
