@@ -183,7 +183,7 @@ Now let's run these parameters using mothur.
 
 ```{r screen_data, engine="bash"}
 mothur "#set.current(processors=8);
-        set.dir(input=data/raw, output=data/process)
+        set.dir(input=data/raw, output=data/mothur)
         screen.seqs(fasta=bacteria.fasta, taxonomy=bacteria.tax, start=2000, end=13000, maxambig=2, minlength=1200);"
 ```
 
@@ -292,10 +292,10 @@ Now we want to read in `bacteria.bad.accnos` so that we can figure out which
 sequences to cull from the metadata table.
 
 ```{r}
-bad_accnos_data <- read.table(file="data/process/bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="data/mothur/bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
 bad_accnos <- bad_accnos_data$name.accnos
 metadata_good <- metadata[-c(bad_accnos),]
-write.table(metadata_good, file="data/process/all_bacteria.good.metadata", quote=F, sep="\t")
+write.table(metadata_good, file="data/mothur/all_bacteria.good.metadata", quote=F, sep="\t")
 ```
 
 We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `bacteria.good.metadata`.
@@ -307,9 +307,9 @@ if(!"openxlsx" %in% rownames(installed.packages())){
 library("openxlsx")
 
 spread_sheet <- read.xlsx("data/raw/BacterialSSUMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
-bad_accnos_data <- read.table(file="data/process/single_cell.bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="data/mothur/single_cell.bacteria.bad.accnos", col.names=c("name.accnos", "reason"))
 bad_accnos <- bad_accnos_data$name.accnos
 spread_sheet_good <- spread_sheet[-c(bad_accnos),]
 
-write.table(spread_sheet_good, file="data/process/all_bacteria.good.metadata", quote=F, sep="\t", col.names=F, append=T)
+write.table(spread_sheet_good, file="data/mothur/all_bacteria.good.metadata", quote=F, sep="\t", col.names=F, append=T)
 ```

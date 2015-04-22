@@ -311,9 +311,9 @@ if(!"openxlsx" %in% rownames(installed.packages())){
 library("openxlsx")
 
 spread_sheet <- read.xlsx("data/raw/ArchaealSSUMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
-bad_accnos_data <- read.table(file="data/process/single_cell.archaea.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="data/mothur/single_cell.archaea.bad.accnos", col.names=c("name.accnos", "reason"))
 bad_accnos <- bad_accnos_data$name.accnos
 spread_sheet_good <- spread_sheet[-c(bad_accnos),]
 
-write.table(spread_sheet_good, file="data/process/all_archaea.good.metadata", quote=F, sep="\t", col.names=F, append=T)
+write.table(spread_sheet_good, file="data/mothur/all_archaea.good.metadata", quote=F, sep="\t", col.names=F, append=T)
 ```
