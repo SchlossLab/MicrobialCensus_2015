@@ -84,18 +84,16 @@ want to remove the names of any sub taxa (e.g. suborder). To do this we need
 to get the RDP list of names and the taxonomic level they belong to...
 
 ```{r get_rdp_names, engine="bash"}
-rm -rf RDPClassifier_16S_trainsetNo10_rawtrainingdata* Trainset9_032012.pds.zip
-
 wget -N http://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/RDPClassifier_16S_trainsetNo10_rawtrainingdata.zip
 unzip -o RDPClassifier_16S_trainsetNo10_rawtrainingdata.zip
-mv RDPClassifier_16S_trainsetNo10_rawtrainingdata/trainset10_db_taxid.txt ./
+mv RDPClassifier_16S_trainsetNo10_rawtrainingdata/* data/references/
 rm -rf RDPClassifier_16S_trainsetNo10_rawtrainingdata*
 ```
 
 Now we're read to do some R'ing to get the taxonomy file formatted properly...
 
 ```{r format_taxonomy}
-tax_data <- read.table(file="archaea.taxonomy.nds", sep="\t")
+tax_data <- read.table(file="data/mothur/archaea.taxonomy.nds", sep="\t")
 
 #get the names to match the fasta file
 seq_names <- paste(tax_data$V2, tax_data$V1, sep=".")
@@ -105,7 +103,7 @@ taxonomy <- gsub("[^;]*_incertae_sedis$", "", taxonomy) #remove the unknowns
 taxonomy <- gsub('\"', '', taxonomy) #remove quote marks
 
 #now we need to pull out the taxon names for the sub taxa levels
-levels <- read.table(file="trainset10_db_taxid.txt", sep="*", stringsAsFactors=F)
+levels <- read.table(file="data/references/trainset10_db_taxid.txt", sep="*", stringsAsFactors=F)
 subs <- levels[grep("sub", levels$V5),] #get the sub taxa names
 sub.names <- subs$V2
 
@@ -125,7 +123,7 @@ no.subs.str <- unlist(lapply(no.subs, paste, collapse=";"))
 #Tack a semicolon on to the end of each sequence
 no.subs.str <- paste0(no.subs.str, ";")
 
-write.table(cbind(seq_names, no.subs.str), "archaea.tax", row.names=F,
+write.table(cbind(seq_names, no.subs.str), "data/mothur/archaea.tax", row.names=F,
                                                 col.names=F, quote=F, sep="\t")
 ```
 
@@ -138,7 +136,7 @@ make sure the reads overlap the same alignment space.
 
 
 ```{r get_summary, engine="bash", results="hide", echo=TRUE}
-mothur "#summary.seqs(fasta=archaea.fasta, processors=12)"
+mothur "#summary.seqs(fasta=data/mothur/archaea.fasta, processors=12)"
 ```
 
 ```
@@ -161,7 +159,7 @@ ridiculously long homopolymrs - how large?
 
 
 ```{r find_screening_points}
-data <- read.table(file="archaea.summary", header=T, row.names=1)
+data <- read.table(file="data/mothur/archaea.summary", header=T, row.names=1)
 quantile(data$start, probs=seq(0.9,1,0.01))
 start <- 2000
 
@@ -188,7 +186,7 @@ Now let's run these parameters using mothur.
 
 ```{r screen_data, engine="bash"}
 mothur "#set.current(processors=8);
-        screen.seqs(fasta=archaea.fasta, taxonomy=archaea.tax, start=2000, end=4058, maxambig=2, maxhomop=8, minlength=900);"
+        screen.seqs(fasta=archaea.fasta, taxonomy=archaea.tax, start=2000, end=4058, maxambig=2, maxhomop=8, minlength=900, inputdir=data/mothur/, outputdir=data/mothur/);"
 ```
 
 
@@ -204,9 +202,10 @@ alignment and then screen them to keep sequences that overlap with the SILVA
 sequences.
 
 ```{r single_cell, engine="bash"}
-mothur "#align.seqs(fasta=single_cell.archaea.fasta, reference=archaea.good.fasta);
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        align.seqs(fasta=single_cell.archaea.fasta, reference=archaea.good.fasta);
         screen.seqs(fasta=current, start=2000, end=4058, maxambig=2, maxhomop=8, minlength=900);
-        classify.seqs(fasta=current, reference=trainset10_082014.pds.fasta, taxonomy=trainset10_082014.pds.tax, cutoff=80, processors=8)"
+        classify.seqs(fasta=current, reference=data/references/trainset10_082014.pds.fasta, taxonomy=data/references/trainset10_082014.pds.tax, cutoff=80, processors=8)"
 ```
 
 
@@ -217,16 +216,18 @@ collections. We'll also filter the sequences to overlap in the same alignment
 space, unique them, and precluster them...
 
 ```{r pool_data, engine="bash"}
-cat archaea.good.fasta single_cell.archaea.good.align > all_archaea.align
-cat archaea.good.tax single_cell.archaea.good.pds.wang.taxonomy > all_archaea.taxonomy
+cat data/mothur/archaea.good.fasta data/mothur/single_cell.archaea.good.align > data/mothur/all_archaea.align
+cat data/mothur/archaea.good.tax data/mothur/single_cell.archaea.good.pds.wang.taxonomy > data/mothur/all_archaea.taxonomy
 
-mothur "#filter.seqs(fasta=all_archaea.align, vertical=T, trump=.);
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        filter.seqs(fasta=all_archaea.align, vertical=T, trump=.);
         unique.seqs();
         pre.cluster(fasta=current, name=current, diffs=9);"
 
 #need to make the taxonomy file match the fasta and names files...
-cut -f 1 all_archaea.filter.unique.precluster.names > precluster.accnos
-mothur "#get.seqs(taxonomy=all_archaea.taxonomy, accnos=precluster.accnos)"
+cut -f 1 data/mothur/all_archaea.filter.unique.precluster.names > data/mothur/precluster.accnos
+mothur "#set.dir(input=data/mothur/, output=data/mothur/);
+        get.seqs(taxonomy=all_archaea.taxonomy, accnos=precluster.accnos)"
 ```
 
 Now we're ready to cluster the sequences. We'll do it by the classic approach
@@ -234,7 +235,8 @@ without any cutoffs and see what we get. Let's start by splitting things at the
 phylum level and cluster from there...
 
 ```{r cluster_data, engine="bash"}
-mothur "#cluster.split(fasta=all_archaea.filter.unique.precluster.fasta, name=all_archaea.filter.unique.precluster.names, taxonomy=all_archaea.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
+mothur "#set.dir(input=data/mothur/, output=data/mothur/);
+        cluster.split(fasta=all_archaea.filter.unique.precluster.fasta, name=all_archaea.filter.unique.precluster.names, taxonomy=all_archaea.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
 ```
 
 
@@ -285,10 +287,10 @@ metadata_fields <- c(
 )
 
 
-metadata <- read.table(file="archaea_metadata.nds", sep="\t", stringsAsFactors=FALSE,
-                            col.names=metadata_fields, fill=TRUE, na.strings="",
-                            quote="")
-rownames(metadata) <- paste(metadata$name, metadata$acc, sep=".")
+metadata <- read.table(file="data/mothur/archaea_metadata.nds", sep="\t",
+                        stringsAsFactors=FALSE, col.names=metadata_fields,
+                        fill=TRUE, na.strings="", quote="")
+rownames(metadata) <- paste(metadata$acc, metadata$name, sep=".")
 metadata <- metadata[,-c(1,2)]
 ```
 
@@ -296,24 +298,69 @@ Now we want to read in `archaea.bad.accnos` so that we can figure out which
 sequences to cull from the metadata table.
 
 ```{r}
-bad_accnos_data <- read.table(file="archaea.bad.accnos", col.names=c("name.accnos", "reason"))
-bad_accnos <- bad_accnos_data$name.accnos
-metadata_good <- metadata[-c(bad_accnos),]
-write.table(metadata_good, file="all_archaea.good.metadata", quote=F, sep="\t")
-```
-
-We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `archaea.good.metadata`.
-
-```{r}
 if(!"openxlsx" %in% rownames(installed.packages())){
     install.packages("openxlsx")
 }
 library("openxlsx")
 
-spread_sheet <- read.xlsx("data/raw/ArchaealSSUMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
-bad_accnos_data <- read.table(file="data/mothur/single_cell.archaea.bad.accnos", col.names=c("name.accnos", "reason"))
+bad_accnos_data <- read.table(file="data/mothur/archaea.bad.accnos",
+                    col.names=c("name.accnos", "reason"), stringsAsFactors=F)
 bad_accnos <- bad_accnos_data$name.accnos
-spread_sheet_good <- spread_sheet[-c(bad_accnos),]
+metadata_good <- metadata[-which(rownames(metadata) %in% bad_accnos),]
 
-write.table(spread_sheet_good, file="data/mothur/all_archaea.good.metadata", quote=F, sep="\t", col.names=F, append=T)
+categories_sheet <- read.xlsx("data/raw/FinalCategories.xlsx", sheet=1, startRow=1, colNames=TRUE)
+categories <- categories_sheet[,1]
+names(categories) <- categories_sheet[,2]
+
+categories_sheet_missing <- read.xlsx("data/raw/ExtraCategoriesArchaea.xlsx", sheet=1, startRow=1, colNames=FALSE)
+categories_missing <- categories_sheet_missing[,"X1"]
+names(categories_missing) <- categories_sheet_missing[,"X2"]
+
+categories <- c(categories, categories_missing)
+
+
+metadata_good$category <- toupper(categories[metadata_good$isolation_source])
+
+extra <- table(metadata_good$isolation_source[is.na(metadata_good$category)])
+
+if(length(extra) == 0){
+    write.table(extra, file="missing.txt", row.names=F, col.names=F, quote=FALSE,  sep="\t")
+}
+
+write.table(metadata_good, file="data/mothur/archaea.good.metadata", quote=F, sep="\t")
+```
+
+We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `archaea.good.metadata`.
+
+```{r}
+spread_sheet <- read.xlsx("data/raw/FormattedArchaealMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
+rownames(spread_sheet) <- spread_sheet$name
+spread_sheet <- spread_sheet[,-c(1,2)]
+
+#need actual category from LSU group
+spread_sheet$category <- NA
+
+
+metadata_genome_id <- gsub(".* (P?SCGC \\S*).*", "\\1", spread_sheet$full_name)
+metadata_genome_id[metadata_genome_id=="SCGC AAA011-J2"] <- "SCGC AAA011-J02"
+
+#need to fix mapping between genome and gene sequences
+fasta <- scan("data/mothur/single_cell.archaea.fasta", what="", quiet=TRUE, sep="\n")
+headers <- fasta[grepl(">", fasta)]
+seq_numbers <- gsub(">(\\d*) .*", "\\1", headers)
+parse_header <- gsub(".* (P?SCGC \\S*) .*", "\\1", headers)
+parse_header <- gsub(".*SAG-(\\S*) .*", "SCGC \\1", parse_header)
+
+names(seq_numbers) <- parse_header
+
+#recreate a metadata table using sequence names and spread_sheet
+full_spread_sheet <- spread_sheet[names(seq_numbers) %in% metadata_genome_id,]
+rownames(full_spread_sheet) <- seq_numbers
+
+bad_accnos_data <- read.table(file="data/mothur/single_cell.archaea.bad.accnos", col.names=c("name.accnos", "reason"),  stringsAsFactors=FALSE)
+bad_accnos <- as.character(bad_accnos_data$name.accnos)
+
+spread_sheet_good <- spread_sheet[-which(rownames(spread_sheet) %in% bad_accnos),]
+
+write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=F, sep="\t", col.names=F, append=T)
 ```
