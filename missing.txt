@@ -1,0 +1,727 @@
+0-7.5 cm soil sample from a meadow incubated as anoxic slurry	32
+1000m deep, Adriatic Sea	7
+1000m deep, South Atlantic	5
+10 cm-deep methane seep sediment in Cinarcik, Marmara Sea	9
+13oN East-Pacific Rise hydrothermal chimney, Sarah Spring	1
+1L labscale digester inoculated with anaerobic digester sludge	4
+1 m depth of Lake Llebreta	29
+2600 m depth	1
+2-day old chimney sample where previous array had been deployed, depth 1989m, collected during Guaymas Basin Expedition 2009	1
+3010m deep, Ionian Sea	9
+7.5 cm sediment depth Guaymas Basin	1
+9 degrees North, East Pacific Rise P-vent sulfide chimney	1
+abyssal bottom water	2
+abyssal gyre marine sediments and bottom water	3
+abyssal marine sediment	11
+abyssal marine sediments	5
+abyssal marine sediments or overlying water	91
+acidic hot spring, Boiling Springs Lake in Lassen Volcanic National Park	12
+acidic hot springs soil	10
+acidic mine	1
+acidic peatland	33
+acidic red soil	89
+acidic spring	50
+acidic subaerial cave biofilm	6
+acid mine water pool in abandoned Cae Coch pyrite mine	1
+acid soil	7
+activated sludge from anaerobic methane oxidation reactor	14
+activated sludge from palm oil mill effluent (POME) industrial anearobic digesters	21
+active hydrothermal chimney collected from the Dudley site of Juan de Fuca ridge	40
+active layer of permafrost	1
+Aibi salt lake	1
+a Japanese rice paddy soil	1
+Algerien salt lake	2
+a long-chain fatty acids-degrading methanogenic consortium	3
+a lotus filed mud	1
+Amazon soil	4
+ambient rhizosphere soil in the vicinity of the hot springs; no geothermal influence inferred	5
+a mesophilic anaerobic BSA digester	19
+a mesophilic anaerobic butyrate degrading reactor	14
+a mesophilic anaerobic glycerol-fed reactor	4
+Amsterdam Mud Volcano sapropel sediment, East Mediterranean Sea	21
+an acetate-degrading methanogenic consortium	2
+anaerobic biofilm reactor treating high sulfate wastewater	34
+anaerobic bioreactors treating synthetic sewage-based wastewater	3
+anaerobic digested sludge	7
+anaerobic digesters fed with mango peel kernel and press mud cake	1
+anaerobic sludge-blanket reactor fed with methanethiol	6
+anaerobic top layer (5 to 10 cm) of sediment in a eutrophic freshwater pond (-0.5 m depth)	2
+ancient rock salt	1
+anoxic methane-seep sediments	2
+anoxic zone of a meromictic lake	10
+Antarctic polar front, 500-m deep plankton	1
+a propionate-degrading methanogenic consortium	17
+aquifer of artesian spring	2
+Arabian Sea sediment, anoxic season	1
+Arabian Sea sediment, OMZ	1
+Argentinean Sea	1
+artificial marine Lainyungang Taibei solar saltern	2
+Arzakan hot spring	2
+associated with rumen protozoan Metadinium medium	6
+associated with rumen protozoan Ophryoscolex caudatum	3
+a thermophilic anaerobic municipal solid waste digester	8
+batch enrichment	34
+beige sand	2
+benthic sand	6
+'Beowulf' geothermal spring from a 62 C hydrous ferric oxide (HFO) mat	1
+big chunk of chimney, depth 1989m, collected during Guaymas Basin Expedition 2009	2
+Big Red Hot Spring	16
+Big Red Hot Spring/Echinus Hot Spring/Whirligig Hot Spring	1
+Big Run bog; ombotrophic bog; pH 4.8	41
+biofilm of the subsurface lake	1
+biogas fermenter	4
+biogas plant supplied with food left-overs	7
+biogas reactor manure	1
+bioleaching reactor	52
+biological soil crust sample	18
+biomat 102m deep in cenote La Palita	15
+biomat 7m deep in cenote Zacaton	2
+black coarse sand	3
+black colored rocks	1
+black particles	1
+Black rust formation on a borehole observatory, CORK 1026B	11
+black rust formations on a borehole observatory, ODP CORK 1026B	1
+Black Sea density surface 15.9	8
+black sediment	4
+black silt	1
+black smoker chimney in the Central Indian Ridge	1
+black smoker chimney rock at Guaymas Basin	1
+black smoker rocks; Central Indian Ridge, Triple Junction	1
+black smoker rocks; East Pacific Rise, site Biovent	1
+black smoker rocks; East Pacific Rise, site Pulsar	1
+blacks moker rocks; East Pacific Rise,site Totem	1
+black smoker rocks; Mid-Atlantic Ridge, site Rainbow	2
+Black smoker wall, 3500 m depth	1
+Blake Ridge PC26	1
+boreal forest tree fine roots	1
+borehole fluids	13
+both thermophilic (55degC) and mesophilic (35degC) anaerobic solid waste digestors	40
+bovine rumen contents	9
+brackish-marine sediments	17
+brackish marine sediments, core 173 GC, SMTZ	1
+Bride Cave Lake (Lacul Grota Miresei)	1
+brine enrichment supplemented with glycinebetaine	2
+brine enrichment supplemented with trimethylamine	2
+brine from concentration area 10	1
+brine from concentration area 9	1
+brown/gray aggregated sediment	1
+brown sediment	5
+brown sediment with orange & black filaments	1
+Buzzards Bay sediments, NW Atlantic Ocean, depth 12 m	3
+calcerous grassland soil	1
+Calzon Udera	1
+camel feces	3
+carbonate hydrothermal chimney at the Lost City Field, Mid-Atlantic Ridge	9
+carbonate hydrothermal vent chimney	2
+Carmen Basin deep-sea background B (2000 m depth; 46.49 umol/kg O2; 2.6 deg C; 42 total manganese concentration; 5 dissolved manganese concentration)	77
+catheter type in situ growth chamber samples deployed in a hydrothermal fluid at Suiyo seamount	29
+catheter type in situ growth chamber samples deployed in a hydrothermal fluid at Suiyo Seamount	1
+cave water	7
+ceca	2
+Central Indian Ridge (CIR) deep-sea hydrothermal vent site	43
+Central Indian Ridge deep sea hydrothermal vent	1
+Chattam waste water treatment anaerobic digestor	7
+Chicago bog; quaking bog; pH 4.2	35
+Chimney structure at hydrothermal active area of Yonaguni Knoll IV, Southern Okinawa Trough	3
+chimney surface at 9 degrees East Pacific Rise	1
+closed copper mine	5
+cold seep sediment	16
+cold seep sediments of the gas-hydrate-bearing Okhotsk Sea	68
+collected during the ARCHIMEDES 2 cruise with RV Pelagia, on 0.2um Sterivex filter at a depth of 249m, water mass: North Atlantic Central Water (NACW), temperature: 15.90 degrees C, salinity: 36.26, pot temperature: 15.86 degrees C, density: 26.75 kg/m3, oxygen concentration: 183.9 umol/kg, apparent oxygen utilization: 57.52 umol/kg	15
+collected during the ARCHIMEDES 2 cruise with RV Pelagia, on 0.2um Sterivex filter at a depth of 249m, water mass: North Atlantic Central Water (NACW), temperature: 15.90 degrees C, salinity: 36.26, pot temperature: 15.86 degrees C, density:26.75 kg/m3, oxygen concentration: 183.9 umol/kg, apparent oxygen utilization: 57.52 umol/kg	15
+collected during the ARCHIMEDES 2 cruise with RV Pelagia, on 0.2um Sterivex filter at a depth of 2750m, water mass: Middle North East Atlantic Deep Water (MNEADW), temperature: 2.92 degrees C, salinity: 34.95, pot temperature: 2.70 degrees C, density: 27.87 kg/m3, oxygen concentration: 230.9 umol/kg, apparent oxygen utilization: 95.24 umol/kg	31
+collected during the ARCHIMEDES 3 cruise with RV Pelagia, on 0.2um Sterivex filter at a depth of 7155m, water mass: Antarctic Bottom Water (AABW), temperature: 1.42 degrees C, salinity: 34,75, pot temperature: 0.70 degrees C, density: 27.87 kg/m3, oxygen concentration: 222.40, apparent oxygen utilization: 121.40 umol/kg	19
+collected during the TRANSAT 1 cruise with RV Pelagia, on 0.2um polycarbonate filter at a depth of 2071m, water mass: Iceland-Scotland Overflow Water(ISOW), temperature: 2.57 degrees C, salinity: 34.98, pot temperature: 2.42 degrees C, density: 27.92 kg/m3, oxygen concentration: 292.3 umol/kg, apparent oxygen utilization: 36.10 umol/kg	14
+Colonization device deployed into the hydrothermal conduit	6
+Commercial salt made in Ehime prefecture, Japan	1
+confluence of the Ohio and Mississippi River water	4
+copepod (Acartia tonsa) fecal pellet	1
+crushed coral	1
+crystal pond of Sheyang salt field	1
+crystals from Crystallizer 20	1
+dairy manure inoculated digester	50
+deep anoxic hypersaline basin	12
+deepest cold-seep area of the Japan Trench	5
+deep marine sediments, depth:2164m	29
+deep marine sediments, depth:2621m	10
+deep marine sediments, depth:3406m	12
+deep-sea hydrothermal samples of the Eastern Lau Spreading Centre	1
+deep-sea hydrothermal sulfide chimney	1
+deep-sea hydrothermal vent area at PACMANUS field	3
+deep-sea hydrothermal vent Axial Seamount, 9m Vent, depth 1519 meters	4
+deep-sea hydrothermal vent Axial Seamount, Marker 113 Vent, depth 1526 meters	1
+Deep-sea hydrothermal vent chimney	10
+deepsea hydrothermal vent chimney at Ashadze-1	1
+deep-sea hydrothermal vent chimney at the Iheya Ridge in the Okinawa Trough	2
+deep-sea hydrothermal vent chimney sample	1
+deep-sea hydrothermal vent deposit	15
+deep-sea hydrothermal vent Endeavour Segment, Easter Island Vent, depth 2198 meters	1
+deep sea hydrothermal vent environments, 13 degree North EPR	41
+deep-sea hydrothermal vent NW Rota-1, Fault Shrimp Vent, depth 568 meters	5
+deep-sea hypersaline anoxic Urania Basin of the Mediterranean Sea	2
+deep-sea plankton 1000 m deep, 0.2-5 microm fraction	9
+deep-sea plankton 1250 m deep, 0.2-5 microm fraction	6
+deep-sea plankton 500 m deep, 0.2-5 microm fraction	10
+deep sea sediment in Ulleung Basin and continental slope at East Sea	99
+deep-sea sediment of west Pacific ocean	2
+deep-sea sediments from the Western Pacific	74
+deep-sea sediments from the West Pacific Ocean	81
+deep sea surface sediment in northern South China Sea	1
+deep-seawater near Baby Bare Seamount	1
+deep-sea whale fall sediment at 3000 m depth	5
+deep subsurface groundwater from sedimentary rock milieu	40
+digesta samples from rumen	1
+DUSEL soil from Homestake Mine	61
+DUSEL water from Homestake Mine	20
+East African alkaline saltern	11
+East-Pacific Rise deep-sea hydrothermal vent	46
+East Sea sediment	15
+Echinus Hot Spring/Whirligig Hot Spring	1
+EGSB-hybrid anaerobic bioreactor treating acidified wastewaters between 4-15C	4
+EGSB-hybrid anaerobic bioreactor treating pentachlorophenol-contaminated wastewaters at 12C	7
+El-Biban hot spring	1
+Eleusine sp. rhizosphere up to 20 cm depth	5
+Endeavour Segment, Juan de Fuca Ridge	1
+endolithic community in the acidic Rio Tinto basin	13
+enrichment culture from Coastal North Sea water	1
+enrichment culture from feces	1
+enrichment culture from hydrothermal black smoker	4
+enrichment culture from soil	1
+enrichment culture of anaerobic oxidation of methane	30
+enrichment culture of tomato rhizosphere	5
+enrichment from aquifer of artesian spring	3
+enrichment from deep subsurface groundwater from coal mine field	4
+enrichment from deep subsurface groundwater from sedimentary rock milieu	10
+Environmental archaeal DNA from a deep-sea sponge, Characella sp. (Pachastrelliidae)	1
+environmental DNA from subsurface geothermal water	2
+estuarine environment	1
+estuarine sediments; water depth: 2m; sediment depth: 54cm	12
+estuarine sediments; water depth: 2m; sediment depth: 69cm	1
+expanded granular sludge bed (EGSB) bioreactor treating primary settled sewage wastewaters at 12C	1
+expanded granular sludge bed (EGSB) bioreactor treating raw municipal sewage at 12C	3
+feldspar minerals	2
+Fish sauce	3
+flange at the Juan de Fuca ridge hydrothermal vent system	1
+flange sample, smelled sulfide, depth 2013m, collected during Guaymas Basin Expedition 2009	1
+flange sample, smelled sulfide, depth 2013m, collected during Guaymas Basin Expedition 2010	1
+flange with hard exterior extended from the hydrothermal vent, depth 1987m, homogenized pieces, collected during Guaymas Basin Expedition 2009	1
+flowing borehole in South African gold mine, Evander 2 shaft, 19 level, BH5	3
+fosmid library DeepAnt constructed from 0.2-5 um-sized, 500 m-deep plankton collected at the Antarctic Polar Front	1
+fosmid library from a methane rich Black Sea microbial mat	1
+fosmid library from a sediment above gas hydrates at Hydrate Ridge	3
+fragile chimney structure, homogenized for culturing, depth 2011.6m, collected during Guaymas Basin Expedition 2009	2
+Frasassi cave system, acidic snottite biofilm	25
+fresh grass leaves	4
+freshwater hot spring	1
+freshwater of Lake Aixeus	5
+freshwater of Lake bassa d'Oles	64
+freshwater of Lake Botornas	1
+freshwater of Lake Filia	1
+freshwater of Lake Muntany	14
+freshwater of Lake Pois	16
+freshwater of Lake Roi	9
+freshwater sulfurous lake	2
+from 10exp4 dilution step of decimal dilution series of Guaymas Basin sediment with in situ temperature of ca. 75C	1
+from 10exp4 dilution step of decimal dilution series of Guaymas Basin sediment with in situ temp of ca. 85C	1
+from first dilution step of a decimal dilution series of Guaymas Basin sediment with in situ temp of ca. 85C	1
+from homogenated worm tube casing at 11 degrees N East Pacific Rise	1
+from Prof Marti cruise of North Atlantic at depth of 500m	7
+from the brine water of Bannock, Mediterranean Sea	1
+from the brine water of Discovery, Mediterranean Sea	1
+from the brine water of L'Atalante, Mediterranean Sea	2
+from the brine water of Urania, Mediterranean Sea	1
+Garga hot spring	1
+gas-associated formation water	1
+geothermal pool	1
+geothermal spring	1
+geothermal well	23
+granular activated carbon used for drinking water treatment	5
+gray/green sediment	1
+gray sediment, green/brown mat	1
+gray sediment, green filaments	1
+gray sediment, green mat	1
+Great Salt Plains; terrestrial nonmarine hypersaline soil	12
+Green Bath Lake (Lacul Baia Verde)	1
+grey sand	2
+groundwater samples from Inner Mongolia	51
+Guaymas Basin deep-sea hydrothermal plume B (1775 m depth; 27.04 umol/kg O2; 3 deg C; 257 total manganese concentration; 59 dissolved manganese concentration)	38
+Guaymas Basin hydrothermal vent site in the Gulf of California	1
+Guaymas Basin sediment	1
+Gulf of California, Guaymas Basin, BIG 1, hydrothermally active sediments	3
+gut homogenate from the colon of millipede	1
+gut homogenate from the colon of the cockroach Panesthia angustipennis	1
+gut homogenate from the colon of the cockroach Salganea esakii	4
+gut homogenate from the colon of the termite Cubitermes ugandensis	2
+gut homogenate from the colon region P4 of the termite Cubitermes ugandensis	4
+gut homogenate from the colon region P4 of the termite Ophiotermes sp.	5
+gut homogenate from the colon region P5 of the termite Ophiotermes sp.	7
+Heart Lake 1 hot spring sediment	11
+Hibernia produced water	3
+High arsenic aquifer	10
+high pH freshwater microbial mat	1
+high temperature mud pool at Tokaanu, North Island	4
+high-temperature Samotlor oil reservoir	1
+Hikurangi margin, Omakere Ridge, station 45; SO191_2_45	7
+Hikurangi margin, Wairarapa - Takahae, station 309	8
+Hodotermopsis japonica	1
+Holocene sediment	3
+hot solfataric sediment	3
+hot spring at Mt.Maquiling, the Philippines	1
+hot spring richen with sulfur	1
+human gut	1
+hydrothermal chimney 4148	13
+hydrothermal field of the East Pacific Rise	1
+hydrothermal fluid at a shallow submarine hot spring	15
+hydrothermal fluid in Lost City Hydrothermal Field	12
+hydrothermal sediment	22
+hydrothermal sulfide structures from the Main Endeavour Field, the Juan de Fuca Ridge	26
+hydrothermal vent area; 1650 m depth	1
+hydrothermal vent, black smoker sulfide structure slurry, Main Endeavour Field, Endeavour, Juan de Fuca Ridge	1
+hydrothermal vent chimney samples, depth 1988m, collected during Guaymas Basin Expedition 2009	1
+hydrothermal vent water collected at the main vent site	3
+hydrothermal water collected just above the main vent site	2
+hypersaline anoxic basin; brine interface of Bannock, Mediterranean Sea	1
+hypersaline anoxic basin; brine interface of Discovery, Mediterranean Sea	1
+hypersaline anoxic basin; brine interface of L'Atalante, Mediterranean Sea	1
+hypersaline crystallizer pond	20
+hypersaline microbial mat collected from concentrating area 4 located in Exportadora De Sal, S.A. (ESSA)	32
+hypersaline pond water sediment interface in a saltern site	2
+Iheya North field in the Mid-Okinawa Trough	4
+Indian continental shelf	164
+in situ colonization system deployed at 365 degree C of hydrothermal fluid	1
+IODP expedition 313, 8.94 mbsf	102
+IODP expedition 313, 8.94 mbsf, 10.23mbsf, 12.99 mbsf	1
+isolated from slime streamers and attached to pyrite surfaces at a sulfide ore body	1
+Jing-Mei River	9
+Kazan mud volcano sediments in east Mediterranean Sea	3
+Kolbeinsey Ridge, north of Iceland	1
+Lake Fumarolic in the Uzon Caldera	1
+Lake Griffy sediment sample, Bloomington, IN	2
+Lake Lucerne, Chrueztrichter Basin, water column	186
+Lake Matano	5
+Lake Pavin sediment	1
+Lake Pavin sediments	2
+Lake Pavin water column (68 m)	3
+Lake Redon	34
+Lake Vilar	1
+landfill drainage layer	23
+landfill sludge	24
+leachate of landfill	24
+light brown sand	1
+light brown sediment & rocks	1
+Loch Creran pelagic material	1
+Lomonosov Ridge, Arctic Ocean Basin, subseafloor sediment core from 242 mbsf (IODP Leg 302)	7
+lotus field sediment	12
+low discharge paper/board mill	22
+low-salt, anaerobic sulfur spring	3
+low-temperature toluene degrading methanogenic consortium	1
+Macrotermes gilvus	1
+Madovi Estuary sediment	162
+marine hydrothermal sediments	14
+marine hydrothermal vent fluids	1
+marine methane seep sediment	1
+marine samples from the Santa Barbara Channel	2
+marine sediment; 900 m water depth, 0-24 cm sediment depth	17
+marine sediment collected from South China Sea	1
+marine sediment from South China Sea	30
+marine sediment from the tropical western Pacific Ocean	134
+marine sediment P13; brown clay; 447 depth	63
+marine sediment R15; grey clay; 175 depth	89
+marine sediment S16; brown mud; 3800 depth	91
+marine sediments 247 m below the seafloor surface under 950 m water in Nankai Trough, Japan	1
+marine sediment S26; grey mud; 3000 depth	90
+marine sediments above gas hydrate	32
+marine sediments from HQ08-48PC cruise HY4-2008-1 at the station in the northern South China Sea, 1474 m	30
+marine sediments from the tropical Western Pacific	127
+marine sediments from the Yonaguni Knoll IV hydrothermal field, southern Okinawa Trough	2
+Marine sediments from the Yonaguni Knoll IV hydrothermal field, southern Okinawa Trough	1
+marine sediments from Western Pacific	37
+marine sediments microcosms	72
+marine sediments, ODP leg 204 site 1249,54 mbsf	1
+marine sediments; site GC234, water depth 550 m; DNA isol from 0-10cm sed.depth	3
+marine subsurface core samples from Peru Margin and Peru Trench	2
+marine tidal flat sediment	1
+marker 113, Axial Volcano	1
+MC118 400 m water column in the GOM	8
+Mediterranean Sea at 450m	1
+meromictic Lake Faro anoxic zone	1
+meromictic Lake Faro tpper interface	1
+mesopelagic seawater	1
+mesophilic anaerobic digester fed with brown water and food waste	11
+mesophilic anaerobic digester which treats dairy cow manure	16
+mesophilic anaerobic digester which treats dairy cow manure and chicken litter	16
+mesophilic anaerobic digester which treats municipal wastewater	4
+mesophilic, anaerobic granular sludge	6
+mesophilic soil, agricultural field, Arlington Agricultural Research Station	9
+mesophilic soil, agricultural field, Hancock Agricultural Research Station	8
+mesophilic soil, forest, Picnic Point, UW Campus Natural Areas	5
+mesophilic soil, prairie, Curtis Prairie, UW Arboretum	10
+mesophilic soil, turf field, Walnut St. Research Fields, UW Campus	5
+mesophilic soil, turf field, West Madison Agricultural Research Station	5
+mesophilic UASB sludge granules	31
+Methane hydrate bearing sediments in Mackenzie Delta	5
+Methane Production Process	9
+methanogenic propionate-degradation enrichment culture	7
+methanogenic reactor	14
+methanogenic sludge in a mesophilic upflow anaerobic sludge blanket (UASB) reactor used to treat a beer brewery effluent	1
+Michigan Hollow; rich minerotrophic fen; pH 6.8	64
+microbial mat developed at the main vent site	5
+microbial mat formation in subsurface geothermal water	1
+microbial mats on polychaete nests at the Hatoma Knoll in the Okinawa Trough	10
+Microcerotermes sp.	1
+mid-Atlantic ridge	1
+mine	1
+Mitchs Last Stand, 16m downstream, Yellowstone NP	1
+mixed inoculum bioreactor including sediment from a fresh water lake, anaerobic digester sludge, and return activated sludge	2
+mixed sediment	3
+mixed sediment from hypersaline soda lake	1
+mixture of sediments from hypersaline soda lakes	2
+mixture of sediments from hypersaline soda lakes in Kulunda Steppe (altai, Russia)	6
+Monarch Hot Spring	17
+Monterey Bay	11
+Monterey Canyon	1
+Mothra sediments in Juan de Fuca segments	42
+Mound Spring, 14.3m downstream, Yellowstone NP	8
+muddy water of green sulfur hot spring of Geothermal Valley	2
+mud from a salt lagoon	2
+mud wedge from East China Sea shelf	1
+mule feces	3
+muscovite minerals	1
+Naica mine 700m depth, water temperature 60 C	8
+Napoli mud volcano hypersaline marine sediments	1
+NASA spacecraft assembly facility	30
+nascent hydrothermal chimney	11
+Nasutitermes takasagoensis	2
+natural gas field sand and formation water	1
+natural vent fluids	9
+NELHA at 670m, North Central Pacific Gyre	11
+NELHA at 915m, North Central Pacific Gyre	6
+neotropical forest	6
+Neuston of Lake Llebreta	26
+nice pagoda structure from Guaymas Basin hydrothermal vent, depth 2008m, collected during Guaymas Basin Expedition 2009	3
+nice sample with white areas, from Guaymas Basin hydrothermal vent, depth 2013m, collected during Guaymas Basin Expedition 2009	3
+Niigata oil well	2
+Nirano mud volcano	59
+Nisargruna Biogas Plant	7
+nitrifying enrichment from coastal sand of an eelgrass zone	1
+nitrifying enrichment from Heart Lake 1 hot spring	1
+nitrifying enrichment inoculated with substratum from tropical seawater tank at Seattle Aquarium	1
+northern peatland	23
+North Pacific Ocean water from depth of 150 m	1
+North Pacific Subtropical Gyre (Hawaii), 10 m below sea surface	23
+North Pacific Subtropical Gyre (Hawaii), 130 m below sea surface	34
+North Pacific Subtropical Gyre (Hawaii), 200 m below sea surface	21
+North Pacific Subtropical Gyre (Hawaii), 500 m below sea surface	12
+North Pacific Subtropical Gyre (Hawaii), 70 m below sea surface	14
+nutrient-poor calcerous grassland soil	1
+Obsidian pool	1
+Obsidian Pool hot spring, Yellowstone National Park	4
+obtained from Mariana Trough hydrothermal vent water, 0.2 micro-m-filterable fraction	7
+obtained from Suiyo Seamount hydrothermal vent water, 0.2 micro-m-captured fraction	19
+obtained from Suiyo Seamount hydrothermal vent water, 0.2 micro-m-filterable fraction	15
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P12, 1000m depth	122
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P12, 10m depth	147
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P12, 2000m depth	112
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P12, 500m depth	145
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P26, 1000m depth	98
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P26, 10m depth	147
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P26, 2000m depth	95
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P26, 500m depth	160
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P4, 1000m depth	112
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P4, 10m depth	86
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P4, 1400m depth	122
+ocean water marine sample, Northeast subarctic Pacific Ocean, Station P4, 500m depth	136
+ocean water marine sample, Saanich Inlet, Station S3, 100m depth	1611
+ocean water marine sample, Saanich Inlet, Station S3, 10m depth	573
+ocean water marine sample, Saanich Inlet, Station S3, 125m depth	342
+ocean water marine sample, Saanich Inlet, Station S3, 200m depth	1276
+ocean water marine sample, Saanich Inlet, Station S3, 215m depth	356
+ODP Leg 195 Site 1200	6
+off shore oil field from Gulf of Guinea	2
+oil-contaminated groundwater	9
+oil sands of Shengli oil-fields	1
+oil sands tailings pond	7
+oil sludge from petroleum storage tank	1
+oily sludge enrichment cultures after exhaustion of the indigenous carbon from the sludge and amended with n-alkanes and incubated for another 500 days	2
+oily spire, attached white biofilm, depth 2013m, collected during Guaymas Basin Expedition 2009	1
+oily spire, depth 2013m, collected during Guaymas Basin Expedition 2009	1
+oily spire from Guaymas Basin hydrothermal vent, depth 2011m, collected during Guaymas Basin Expedition 2009	1
+oily spire from Guaymas Basin hydrothermal vent, depth 2013m, collected during Guaymas Basin Expedition 2009	1
+oily spire, white covered with oily areas, depth 2003m, collected during Guaymas Basin Expedition 2009	2
+oligotrophic fen	21
+orange subaqueous amorphous precipitate	5
+organic acid layer under silica ledge	5
+organically rich wetland	3
+'OSP' geothermal spring from a 65 C hydrous ferric oxide (HFO) mat	1
+outfall sediment	32
+oxygen-depleted marine environment	2
+oyser shell	7
+Pacific Ocean, Mariana Volcanic Arc	8
+pagoda structure from Guaymas Basin hydrothermal vent, depth 2008m, collected during Guaymas Basin Expedition 2009	2
+PAH-contaminated sediment near Gwangyang bay	6
+Panesthia angustipennis	4
+PCB-dechlorinating St. Lawrence River sediment	1
+PCR amplicon from a single fosmid clone from an environmental library sampled from 200m depth at HOT station ALOHA 22.45 deg. N 158 deg. W	2
+PCR amplicon from a single fosmid clone from an environmental library sampled from 4000m depth at HOT station ALOHA 22.45 deg. N 158 deg. W	24
+PCR amplicon from a single fosmid clone from an environmental library sampled from 500m depth at HOT station ALOHA 22.45 deg. N 158 deg. W	11
+PCR amplicon from a single fosmid clone from an environmental library sampled from 770m depth at HOT station ALOHA 22.45 deg. N 158 deg. W	30
+PCR-derived sequence from chimney structure at hydrothermal active area of Hatoma Knoll, Okinawa Trough	21
+PCR-derived sequence from chimney structure at hydrothermal active area of Yonaguni Knoll IV, Southern Okinawa Trough	16
+PCR-derived sequence from chimney structure at Mariner and Vai Lili hydrothermal fields in Lau Basin	2
+PCR-derived sequence from chimney structures at Brothers Caldera North Slope hydrothermal field in Kermadec Volcanic Arc	5
+PCR-derived sequence from chimney structures at Mariner hydrothermal field in Lau Basin	9
+PCR-derived sequence from deep-sea water	1
+PCR-derived sequence from deep subseafloor sediments at the Brazos-Trinity Basin, the Gulf of Mexico (IODP site 1319)	4
+PCR-derived sequence from deep subseafloor sediments at the Brazos-Trinity Basin, the Gulf of Mexico (IODP site 1320)	7
+PCR-derived sequence from deep subseafloor sediments at the Ursa Basin, the Gulf of Mexico (IODP site 1324)	8
+PCR-derived sequence from hydrothermal	4
+PCR-derived sequence from hydrothermal fluids	11
+PCR-derived sequence from hydrothermal sediments from the Yonaguni Knoll IV, Southern Okinawa Trough	12
+PCR-derived sequence from hydrothermal sediments from the Yonaguni Knoll IV, the Southern Okinawa Trough	13
+PCR-derived sequence from hydrothermal vent	1
+PCR-derived sequence from mesophilic digested sludge	1
+PCR-derived sequence from methane hydrate bearing subseafloor sediment at the Cascadia margin (ODP Leg 204)	32
+PCR-derived sequence from methane hydrate bearing subseafloor sediment at the Peru margin (ODP Leg 201)	5
+PCR-derived sequence from subseafloor sediment at the Peru margin (ODP Leg 201)	14
+PCR derived sequence from subseafloor sediments off Shimokita Peninsula	32
+PCR-derived sequence from subsurface geothermal water	11
+Pearl River sediment	49
+peat soil	2
+pelagic central Baltic Sea redoxcline	1
+pelagic material	1
+Pericapritermes nitobei	3
+Pericapritermes sp.	1
+permafrost soil from Kunlun Mountains Pass, Mt. Kunlun	27
+petroleum contminated soil	1
+pig manure storage pit	1
+pilot-scale anaerobic digester	6
+porewater fluid in white vent off Kueishan Island	1
+porewater fluid in yellow vent off Kueishan Island	7
+quartz minerals	2
+rain	1
+Red Bath Lake (Lacul Baia Rosie)	1
+red soil cropland	9
+rhizosphere of Littorella uniflora, Lake Hampen	11
+ridge flank	15
+Ridge Flank Abyssal Hills sea floor	24
+Rimicaris exoculata gut	1
+rock fragments from chimney of Lucky strike deep sea hydrothermal vent field	7
+rock fragments from chimney of TAG deep sea hydrothermal vent field	5
+Rock samples collected by BMS in Suiyo Seamount	2
+Romashkinskoe oil field formation water	3
+Romashkinskoe oil field methanogenic enrichment culture	2
+Romashkinskoe oil field sulfate-reducing enrichment culture	2
+Rome bog; peat bog; pH 3.8	27
+Rudong marine solar saltern	1
+Rudong marine solar saltern near Yellow Sea	2
+Rudong solar saltern	1
+rumen fluid from animal fed diet 3	1
+rumen from buffalo (Bubalus bubalis)	1
+Saanich Inlet, anoxic marine water column, 200 m depth	1
+Saanich Inlet, depth of 215m in anoxic marine fjord	4
+Saanich Inlet, oxygenated marine water column, 10 m depth	1
+saline water released from a coal seam located 926 meters below the surface via a methane-producing well	1
+salted fermented crab (Poo Kem)	1
+salted soil	5
+salted water	4
+salted water of Ichakaben	1
+salted water of Oran	3
+Saltern	1
+salt lick soil	7
+salt soil (sebkha)	1
+salt waters of slam-storage of SKRU-3 mine	1
+sand samples of Andaman Islands	2
+scrapings of chimney sulfide subsurface at 9 degrees East Pacific Rise	1
+scrapings of hot smoker subsurface sulfide at Snake Pit on Mid-Atlantic Ridge	1
+seawater adjacent to the Southwest Indian Ocean Ridge	5
+sea water aquarium	1
+seawater aquarium	11
+seawater at 2m below surface	3
+Sea water column (50 m depth) from Mendeleyev Ridge, Arctic Ocean	1
+Sea water column (50 m depth) from the Canada Basin, Arctic Ocean	1
+seawater filtered on 0.2 um membrane filter at a depth of 100m, temperature: 12.91 celsius degree, salinity: 34.87, dissolved oxygen concentration:1.9 uM	4
+seawater filtered on 0.2 um membrane filter at a depth of 100m, temperature: 12.91 Celsius degree, salinity: 34.87, dissolved oxygen concentration:1.9 uM	11
+seawater filtered on 0.2 um membrane filter at a depth of 15m, temperature: 11.45 celsius degree, salinity: 34.5, dissolved oxygen concentration:167.7 uM	10
+seawater filtered on 0.2 um membrane filter at a depth of 15m, temperature:13.2 celsius degree, salinity: 33.5, dissolved oxygen concentration:225.68 uM	9
+seawater filtered on 0.2 um membrane filter at a depth of 180m, temperature: 12.22 celsius degree, salinity: 34.88, dissolved oxygen concentration: 2.0 uM	3
+seawater filtered on 0.2 um membrane filter at a depth of 180m, temperature: 12.22 Celsius degree, salinity: 34.88, dissolved oxygen concentration: 2.0 uM	10
+seawater filtered on 0.2 um membrane filter at a depth of 260m, temperature: 11.28 celsius degree, salinity: 34.82, dissolved oxygen concentration: 2.2 uM	4
+seawater filtered on 0.2 um membrane filter at a depth of 260m, temperature: 11.28 Celsius degree, salinity: 34.82, dissolved oxygen concentration: 2.2 uM	10
+seawater filtered on 0.2 um membrane filter at a depth of 30m, temperature: 14.32 celsius degree, salinity: 34.98, dissolved oxygen concentration: 10.6 uM	2
+seawater filtered on 0.2 um membrane filter at a depth of 30m, temperature: 14.32 Celsius degree, salinity: 34.98, dissolved oxygen concentration: 10.6 uM	5
+seawater filtered on 0.2 um membrane filter at a depth of 350m, temperature: 9.99 celsius degree, salinity: 34.72, dissolved oxygen concentration:2.2 uM	2
+seawater filtered on 0.2 um membrane filter at a depth of 350m, temperature: 9.99 Celsius degree, salinity: 34.72, dissolved oxygen concentration:2.2 uM	9
+seawater filtered on 0.2 um membrane filter at a depth of 50m, temperature: 10.45 celsius degree, salinity: 34.54, dissolved oxygen concentration:6.69 uM	3
+seawater filtered on 0.2 um membrane filter at a depth of 50m, temperature:12.98 celsius degree, salinity: 33.73, dissolved oxygen concentration:11.15 uM	2
+seawater filtered on 0.2 um membrane filter at a depth of 5m, temperature: 16.12 celsius degree, salinity: 35.03, dissolved oxygen concentration: 160.7 uM	5
+seawater filtered on 0.2 um membrane filter at a depth of 5m, temperature: 16.12 Celsius degree, salinity: 35.03, dissolved oxygen concentration: 160.7 uM	6
+seawater filtered on 0.2 um membrane filter at a depth of 5m, temperature: 16.44 celsius degree, salinity: 35.05, dissolved oxygen concentration:226.9 uM	4
+seawater filtered on 0.2 um membrane filter at a depth of 5m, temperature: 16.44 Celsius degree, salinity: 35.05, dissolved oxygen concentration:226.9 uM	8
+seawater filtered on 0.2 um membrane filter at a depth of 60m, temperature: 13.53 Celsius degree, salinity: 34.85, dissolved oxygen concentration:1.8 uM	3
+seawater filtered on 0.2 um membrane filter at a depth of 80m, temperature: 13.37 celsius degree, salinity: 34.95, dissolved oxygen concentration: 1.9 uM	4
+seawater filtered on 0.2 um membrane filter at a depth of 80m, temperature: 13.37 Celsius degree, salinity: 34.95, dissolved oxygen concentration: 1.9 uM	9
+seawater outside a shallow submarine hot spring	5
+seawater overlaying anoxic brine lake Urania, eastern Mediterranean Sea	1
+secretory glands	7
+sediment (11 cm)	19
+sediment (1 cm)	11
+sediment (37 cm)	10
+sediment at 22 cm depth	13
+sediment at 50 cm depth	11
+sediment at 6 cm depth	2
+sediment from Barents Sea	20
+sediment; IODP expedition 313, 10.23 mbsf	99
+sediment; IODP expedition 313, 10.23 mbsf, 12.99 mbsf	4
+sediment; IODP expedition 313, 10.23 mbsf, 12.99 mbsf, 16.71 mbsf	1
+sediment; IODP expedition 313, 10.23 mbsf, 16.71 mbsf	3
+sediment; IODP expedition 313, 12.99 mbsf	73
+sediment; IODP expedition 313, 16.71 mbsf	91
+sediment; IODP expedition 313, 8.94 mbsf, 10.23 mbsf	6
+sediment; IODP expedition 313, 8.94 mbsf, 10.23 mbsf, 12.99 mbsf, 16.71 mbsf	3
+sediment; IODP expedition 313, 8.94 mbsf, 10.23 mbsf, 16.71 mbsf	1
+sediment; IODP expedition 313, 8.94 mbsf, 12.99 mbsf	2
+sediment; IODP expedition 313, 8.94 mbsf, 16.71 mbsf	1
+sediment of a beach microcosm treated with a nutrient solution only, but without oil added: day 26 of experiment	8
+sediment of alkaline lake	3
+sediment of west pacific warm pool	23
+sediments above gas hydrate	1
+sediment sample from the Tucurui hydropower station reservoir	3
+sediment sample retrieved from the White Oak River Estuary (North Carolina) at 8-10 cm depth	9
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 1, depth 10-14 cm	47
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 1, depth 26-30 cm	24
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 1, depth 52-54 cm	43
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 2, depth 30-32 cm	25
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 2, depth 32-36 cm	10
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 2, depth 36-40 cm	4
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 2, depth 8-12 cm	12
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 3, depth 24-28 cm	13
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 3, depth 32-36 cm	23
+sediment sample retrieved from the White Oak River Estuary (North Carolina), site 3, depth 44-48 cm	12
+sediment samples from fresh water stream	1
+sediments containing oil near Cape Gorevoy Utes	5
+sediment; sediment; anoxic zone; tucurui hydroeletric power plant reservoir	83
+sediments from hypersaline soda lake Bitter-1	2
+sediments from hypersaline soda lake Cock Soda	2
+Sediments in Sagara petroleum reservoir	1
+sediments of Pang Chau, west side of Victoria Harbour	26
+sediments of Victoria Harbour	9
+sediment trap anaerobic incubation expt. with dimethyl sulphide	5
+sediment with black mat & filaments	1
+Sensient Flavors Canada Inc wastewater treatment plant in Cornwall	3
+shallow hydrothermal vent sediment	25
+shallow subarine vent system at the Kolbeinskey Ridge	2
+silica microstromatilites	3
+slaughterhouse sludge inoculated digester	40
+sludge from a labscale upflow anaerobic sludge bed (UASB) reactor fed with methanethiol	6
+sludge from a manure pit	30
+sludge from full-scale anaerobic digester	1
+sludge samples of anaerobic digesters treating sewage sludge or mixture of sewage sludge and food waste	93
+Snake River Plain Aquifer	21
+soft limestone soil	2
+soil and saline water collected from the Daishan solar saltern	8
+soil from coconut husk retting zone in the Kadinamkulam backwater	18
+soil from Ruoergai plateau wetland	3
+soil samples from high altitude meadow in Tibetan Plateau	7
+soil samples from permafrost along the Shule River	7
+solar saltern (high salt concentration)	1
+solar saltern lake on a Mediterranean Sea island	2
+solar saltern of Sfax; HNA2 of M1 pond	8
+solar saltern of Sfax; HNA2 of TS pond	11
+solar saltern of Sfax; LNA1 of M1 pond	17
+solar saltern of Sfax; LNA1 of TS pond	16
+solfataric field of Uzon caldera	1
+Solfataric soil	1
+solfataric thermal field close to Moutnovsky volcano	1
+solfataric thermal field close to Moutnovsky volcano, Kamchatka	1
+solid waste landfill	5
+South China Sea, 500m depth, station S2	1
+South China Sea marine sediment	3
+sperm whale-fall ecosystems	10
+submarine hydrothermal system	1
+submarine permafrost	36
+submersed membrane bioreactor enrichment of Eckernforde Bay sediment from German Baltic Sea	11
+suboxic freshwater-pond plankton	22
+subseafloor sediment	18
+subseafloor sediments from Sea of Okhotsk	16
+subsurface thermal spring, water, 45 degree C	2
+subsurface thermal spring, water and biofilm, 45 degree C	2
+sulfide at the clambed vent of Juan de Fuca field; depth 2181m	2
+sulfide at the Clambed vent of Juan de Fuca field, depth 2181m	8
+sulfide chimney	23
+sulfide mound	10
+sulfide rock samples collected from the 'Kairei' hydrothermal vent field, located (at 25 19.2' S and 70 02.5' E) along the Central Indian Ridge, at a depth of 2,500 m.	1
+sulfidic cave hot spring	1
+sulfidic springs in the marsh	6
+sulfuric hot spring	2
+surface cold seep sediments of the gas-hydrate-bearing Okhotsk Sea	38
+surface cold seep sediments of the Okhotsk Sea	81
+surface layer sediments from the East China Sea	2
+surface of methane seep sediment in Cinarcik, Marmara Sea	22
+surface sediment layer of Posolskaya banka (Lake Baikal)	1
+surface sediment of the Pearl River estuary	204
+swine manure inoculated digester	63
+Tanggu marine solar saltern	1
+Telega Lake (Lacul Telega)	1
+temperate spring water column	10
+Termes comis	1
+terrestrial hot spring at 70 degrees C and pH 5	9
+terrestrial hot spring at 74 degrees C and pH 6	15
+terrestrial hot spring at 76 degrees C and pH 6.5	11
+terrestrial hot spring at 80.5 degrees C and pH 5.5	6
+terrestrial hot spring at 80 degrees C and pH 6	3
+terrestrial hot spring at 81 degrees C and pH 5.5	12
+terrestrial hot spring at 82 degrees C and pH 5	8
+terrestrial hot spring at 83 degrees C and pH 6	11
+terrestrial hot spring at 84 degrees C and pH 5.5	3
+terrestrial hot spring at 84 degrees C and pH 6.5	9
+terrestrial hot spring at 97 degrees C and pH 6.5	13
+Thai fish sauce fermentation process	6
+The Glades bog; raised bog; pH 4.8	33
+thermal acidity pool	1
+thermal pool	16
+thermoacidic hot spring	7
+the sediment of Lake Soyang at an approximate depth of 90 meters	2
+Thysanolaena agrostis rhizosphere up to 20 cm depth	2
+top of deep-sea black smoker chimney in the East Pacific Rise (Pulsar site) at 2500m depth	1
+total DNA isolated from fresh water sediment, Dec. 2003, Chevreuse, France	3
+tropical estuary	176
+tropical seawater tank substratum at Seattle Aquarium	3
+UASB granule	3
+Ulleung Basin deep-sea sediment	1
+underground heat water	2
+underground water	1
+under-ice seawater	32
+undisclosed oilfield	3
+upper layer of garden soil	1
+vent 4, transect B, sediment 0-10 cm depth, 140m from source	8
+vent 4, transect B, sediment 0-10 cm depth, 300m from source	6
+vent 4, transect B, sediment 0-10 cm depth, 60m from source	5
+volcanic soil	1
+wall biomat sample in El Zacaton at 82m depth	3
+wastewater treatment plant, oil refinery	14
+water, 0.2 um-filtered (after 1.0 um-prefiltering) surrounding 9 degrees North, East Pacific Rise deep-sea hydrothermal vent Tica. This sample was obtained on Dec 7, 2002 from Elevator 3, while on R/V Atlantis and DSV Alvin cruise AT-07, Leg 26.	2
+water and biofilm samples from a microbial electrolysis cell bioreactor	17
+water; aphotic layer; anoxic zone; tucurui hydroeletric power plant reservoir	34
+water collecting area of soda lakes Tanatar II	1
+water column sample in El Zacaton at 17m depth	9
+water from a solar saltern	1
+water from shallow hydrothermal vent	1
+water from the Indian coast of the Arabian Sea	8
+water in a coastal location of the Gulf of Mexico	2
+water in the lower Mississippi River New Orleans	11
+water samples produced in the process of oil exploration in the first district of Chenghai of Dagang oilfield	3
+waters of Yangtze River	6
+Woopo wetland	1
+Xidi solar saltern	2
+Yellowstone National Park Angel Terrace hot spring 03YMAM001 filamentous mat	1
+Yellowstone National Park Beckler hot spring 04YBEC050.5 powdery filaments	1
+Yellowstone National Park Cascade Corner hot spring 04YCAS055 filamentous mat	1
+Yellowstone National Park Hot Spring Basin hot spring 03YHSB042 filamentous mat	2
+Yellowstone National Park iron mat pH 3	1
+Yellowstone National Park Joseph's Coat hot spring 03YJOS038 filamentous mat	1
+Yellowstone National Park Shoshone hot spring 04YSHO041 filamentous mat	1
+Yellowstone National Park Shoshone hot spring 04YSHO041 sediment	1
+Yellowstone National Park Spring Joseph's Coat JC3A	1
+Yellowstone National Park Washburn Inkpot 	1
+Yellowstone obsidian pool	5
+Yinggehai solar saltern	3
