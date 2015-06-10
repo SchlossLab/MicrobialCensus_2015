@@ -340,12 +340,8 @@ spread_sheet <- read.xlsx("data/raw/FormattedBacterialMetadata.xlsx", sheet=1, s
 rownames(spread_sheet) <- spread_sheet$name
 spread_sheet <- spread_sheet[,-c(1,2)]
 
-#need actual category from LSU group
-spread_sheet$category <- NA
-
-
 metadata_genome_id <- gsub(".* (P?SCGC \\S*)", "\\1", spread_sheet$full_name)
-metadata_genome_id["SCGC AAA003-L8"] <- "SCGC AAA003-L08"
+metadata_genome_id[metadata_genome_id=="SCGC AAA003-L8"] <- "SCGC AAA003-L08"
 
 #need to fix mapping between genome and gene sequences
 fasta <- scan("data/mothur/single_cell.bacteria.fasta", what="", quiet=TRUE, sep="\n")
@@ -357,7 +353,7 @@ names(seq_numbers) <- gsub(".* (P?SCGC \\S*) .*", "\\1", headers)
 full_spread_sheet <- spread_sheet[names(seq_numbers) %in% metadata_genome_id,]
 rownames(full_spread_sheet) <- seq_numbers
 
-#these sequences are missing from metadata file
+#these sequences are missing from fasta file
 #metadata_genome_id[! metadata_genome_id %in% names(seq_numbers)]
 #probably not a horrible thing since not all genomes could give a 16S rRNA gene
 #sequence
@@ -365,7 +361,7 @@ rownames(full_spread_sheet) <- seq_numbers
 bad_accnos_data <- read.table(file="data/mothur/single_cell.bacteria.bad.accnos", col.names=c("name.accnos", "reason"),  stringsAsFactors=FALSE)
 bad_accnos <- as.character(bad_accnos_data$name.accnos)
 
-spread_sheet_good <- spread_sheet[-which(rownames(spread_sheet) %in% bad_accnos),]
+spread_sheet_good <- full_spread_sheet[-which(rownames(full_spread_sheet) %in% bad_accnos),]
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/bacteria.good.metadata", quote=F, sep="\t", col.names=F, append=T)
 ```
