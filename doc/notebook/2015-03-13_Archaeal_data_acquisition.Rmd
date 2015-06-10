@@ -327,7 +327,7 @@ if(length(extra) == 0){
     write.table(extra, file="missing.txt", row.names=F, col.names=F, quote=FALSE,  sep="\t")
 }
 
-write.table(metadata_good, file="data/mothur/archaea.good.metadata", quote=F, sep="\t")
+write.table(metadata_good, file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t")
 ```
 
 We'd also like to get the metadata from the single cell data. We have an `xlsx` that the LSU group pulled together that we'll read in and concatenate to the end of `archaea.good.metadata`.
@@ -336,10 +336,6 @@ We'd also like to get the metadata from the single cell data. We have an `xlsx` 
 spread_sheet <- read.xlsx("data/raw/FormattedArchaealMetadata.xlsx", sheet=1, startRow=1, colNames=TRUE)
 rownames(spread_sheet) <- spread_sheet$name
 spread_sheet <- spread_sheet[,-c(1,2)]
-
-#need actual category from LSU group
-spread_sheet$category <- NA
-
 
 metadata_genome_id <- gsub(".* (P?SCGC \\S*).*", "\\1", spread_sheet$full_name)
 metadata_genome_id[metadata_genome_id=="SCGC AAA011-J2"] <- "SCGC AAA011-J02"
@@ -360,7 +356,8 @@ rownames(full_spread_sheet) <- seq_numbers
 bad_accnos_data <- read.table(file="data/mothur/single_cell.archaea.bad.accnos", col.names=c("name.accnos", "reason"),  stringsAsFactors=FALSE)
 bad_accnos <- as.character(bad_accnos_data$name.accnos)
 
-spread_sheet_good <- spread_sheet[-which(rownames(spread_sheet) %in% bad_accnos),]
+spread_sheet_good <- full_spread_sheet[-which(rownames(full_spread_sheet) %in% bad_accnos),]
+colnames(spread_sheet_good) <- gsub("\\.", "_", colnames(spread_sheet_good))
 
-write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=F, sep="\t", col.names=F, append=T)
+write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
 ```
