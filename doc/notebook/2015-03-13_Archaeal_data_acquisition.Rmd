@@ -361,3 +361,60 @@ colnames(spread_sheet_good) <- gsub("\\.", "_", colnames(spread_sheet_good))
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
 ```
+
+Let's now take the big metadata file that we have and concatenate on the OTU assignment and taxonomy information:
+
+```{r}
+#here we'll read in the list file and extract the OTU assignments for the 0.03
+#cutoff
+list_text <- scan(file="data/mothur/all_archaea.filter.unique.precluster.an.list", sep="\n", what="")[5]
+
+#let's remove the otu label and the number of OTUs at this cutoff
+list_otus <- unlist(strsplit(list_text, "\t"))[-c(1,2)]
+n_otus <- length(list_otus)
+
+#this function will take the sequence names in an OTU, split them up and then
+#assign them the number of that OTU
+split_otu <- function(counter){
+    seq_vector <- unlist(strsplit(list_otus[counter], ","))
+    n_seqs <- length(seq_vector)
+    otu_number <- rep(counter, n_seqs)
+    names(otu_number) <- seq_vector
+    otu_number
+}
+
+#now we get the OTU number for each sequence in the dataset
+otu_assignment <- unlist(lapply(1:n_otus, split_otu))
+
+
+#let's get the sequence classification data and remove the confidence score data
+taxonomy_file <- read.table(file="data/mothur/all_archaea.taxonomy", header=F, row.names=1, stringsAsFactors=T)
+taxonomy_data <- gsub("\\(\\d*\\)", "", taxonomy_file$V2)
+names(taxonomy_data) <- rownames(taxonomy_file)
+
+
+#let's get the metadata file and paste in the OTU and taxonomy data
+metadata <- read.table(file="data/mothur/archaea.good.metadata", header=T, stringsAsFactors=FALSE)
+metadata$otu <- otu_assignment[as.character(rownames(metadata))]
+metadata$taxonomy <- taxonomy_data[as.character(rownames(metadata))]
+
+
+#let's make sure all of the category names are upper cased
+metadata$category <- toupper(metadata$category)
+
+
+#... and we output the metadata file...
+write.table(metadata, file="data/mothur/archaea.final.metadata", sep="\t")
+
+
+#... and we output a group file to use for splitting up the list file
+write.table(file="data/mothur/archaea.category.groups", x=cbind(rownames(metadata), metadata$category), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
+```
+
+One thing we'd like to look at are the rarefaction curves for each environmental category. To do this we'll run the mothur command like so..
+
+```{r, engine="bash"}
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.category.groups, label=unique-0.03-0.05-0.10-0.20);
+        rarefaction.single(shared=all_archaea.filter.unique.precluster.an.shared)"
+```
