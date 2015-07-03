@@ -402,19 +402,64 @@ metadata$taxonomy <- taxonomy_data[as.character(rownames(metadata))]
 #let's make sure all of the category names are upper cased
 metadata$category <- toupper(metadata$category)
 
+#correct typos:
+metadata$category[metadata$category == 'AQD'] <- 'AQO'
+metadata$category[metadata$category == 'AQHS'] <- 'AQH'
+metadata$category[metadata$category == 'AQS'] <- 'AQMS'
+metadata$category[metadata$category == 'VD'] <- 'BD'
+metadata$category[metadata$category == 'BM'] <- 'BI'
+metadata$category[metadata$category == 'AH'] <- 'AQH'
+
 
 #... and we output the metadata file...
 write.table(metadata, file="data/mothur/archaea.final.metadata", sep="\t")
 
+#... and we output a group file to use for splitting up the list file into the individual categories...
+write.table(file="data/mothur/archaea.all_category.groups", x=cbind(rownames(metadata), metadata$category), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
 
-#... and we output a group file to use for splitting up the list file
-write.table(file="data/mothur/archaea.category.groups", x=cbind(rownames(metadata), metadata$category), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
+#... and we output a group file to use for splitting up the list file into the pooled categories...
+#   For archaea: AQH, AQM, AQMS, and ZV into one. the rest into the other
+#   per Rene 6/24/2015...
+pool1 <- c("AQH", "AQM", "AQMS", "ZV")
+pool_categories <- rep(NA, nrow(metadata))
+pool_categories[metadata$category %in% pool1] <- "pool1"
+pool_categories[!metadata$category %in% pool1] <- "pool2"
+pool_categories[is.na(metadata$category)] <- "NA"
+write.table(file="data/mothur/archaea.pool_category.groups", x=cbind(rownames(metadata), pool_categories), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
+
+
+#... and we pool the categories by environment
+env_categories <- rep(NA, nrow(metadata))
+env_categories[metadata$category == "AE"] <- "aerosol"
+env_categories[metadata$category == "OT"] <- "other"
+env_categories[metadata$category %in% c("AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "AQS")] <- "aquatic"
+env_categories[metadata$category %in% c("BD", "BF", "BI", "BO", "BP")] <- "built"
+env_categories[metadata$category %in% c("PO", "PR", "PS")] <- "plant"
+env_categories[metadata$category %in% c("SA", "SD", "SO", "SP")] <- "soil"
+env_categories[metadata$category %in% c("ZA", "ZN", "ZO", "ZV")] <- "zoonotic"
+write.table(file="data/mothur/archaea.env_category.groups", x=cbind(rownames(metadata), env_categories), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
 ```
 
-One thing we'd like to look at are the rarefaction curves for each environmental category. To do this we'll run the mothur command like so..
+One thing we'd like to look at are the rarefaction curves for each set of group files and the entire dataset. To do this we'll run the mothur command like so..
 
 ```{r, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
-        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.category.groups, label=unique-0.03-0.05-0.10-0.20);
-        rarefaction.single(shared=all_archaea.filter.unique.precluster.an.shared)"
+        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.all_category.groups, label=unique-0.03-0.05-0.10-0.20);
+        system(mv data/mothur/all_archaea.filter.unique.precluster.an.shared data/mothur/all_archaea.all_categories.shared);
+        rarefaction.single(shared=all_archaea.all_categories.shared);
+        summary.single(shared=all_archaea.all_categories.shared, calc=nseqs-sobs-coverage)"
+
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.pool_category.groups, label=unique-0.03-0.05-0.10-0.20);
+        system(mv data/mothur/all_archaea.filter.unique.precluster.an.shared data/mothur/all_archaea.pool_category.shared);
+        rarefaction.single(shared=all_archaea.pool_category.shared);
+        summary.single(shared=all_archaea.pool_category.shared, calc=nseqs-sobs-coverage)"
+
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.env_category.groups, label=unique-0.03-0.05-0.10-0.20);
+        system(mv data/mothur/all_archaea.filter.unique.precluster.an.shared data/mothur/all_archaea.env_category.shared);
+        rarefaction.single(shared=all_archaea.env_category.shared);
+        summary.single(shared=all_archaea.env_category.shared, calc=nseqs-sobs-coverage)"
+
+mothur "#rarefaction.single(list=data/mothur/all_archaea.filter.unique.precluster.an.list, label=unique-0.03-0.05-0.10-0.20);"
 ```
