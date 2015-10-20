@@ -25,3 +25,8 @@ local({
   r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
   options(repos = r)
 })
+
+
+
+library('rmarkdown')
+
