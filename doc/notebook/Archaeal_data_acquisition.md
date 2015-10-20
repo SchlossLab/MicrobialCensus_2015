@@ -23,16 +23,22 @@ completion...
 Within ARB, we will exclude color group 1, chloroplasts, and
 mitochondria.
 
-To get good sequences... \* Go to search window \* Set Search\_Fields to
-"ARB\_color" and use "1"; click on the equal sign to make it not equal
-\* Hit Mark Listed, Unmark Rest button (N=1493493) \* The problem with
-the taxonomies is that the sequences don't all have taxonomies. Need to
-figure out which taxonomy to base the analysis on. Do the following
-searches... \* ARB\_color != 1 & tax\_rdp == "*Archaea*" (N=40288) \*
-ARB\_color != 1 & tax\_greengenes == "*Archaea*" (N=19795) \* ARB\_color
-!= 1 & tax\_slv == "*Archaea*" (N=17641) \* ARB\_color != 1 & tax\_embl
-== "*Archaea*" (N=44574) \* ARB\_color != 1 & (tax\_rdp |
-tax\_greengenes | tax\_embl | tax\_slv) (N=46387 )
+To get good sequences...
+
+-   Go to search window
+-   Set Search\_Fields to "ARB\_color" and use "1"; click on the equal
+    sign to make it not equal
+-   Hit Mark Listed, Unmark Rest button (N=1493493)
+-   The problem with the taxonomies is that the sequences don't all
+    have taxonomies. Need to figure out which taxonomy to base the
+    analysis on. Do the following searches...
+
+    -   ARB\_color != 1 & tax\_rdp == "*Archaea*" (N=40288)
+    -   ARB\_color != 1 & tax\_greengenes == "*Archaea*" (N=19795)
+    -   ARB\_color != 1 & tax\_slv == "*Archaea*" (N=17641)
+    -   ARB\_color != 1 & tax\_embl == "*Archaea*" (N=44574)
+    -   ARB\_color != 1 & (tax\_rdp | tax\_greengenes | tax\_embl
+        | tax\_slv) (N=46387 )
 
 Let's stick with the archaeal sequences that have an RDP taxonomy and we
 will analyze them in RDP space, but we can always go back to the
@@ -55,11 +61,17 @@ than that of the EBML taxonomy information.
     format
 -   Rename `noname.fasta` to `archaea.fasta`
 
-Now we need the taxonomy information. \* Go Tree -&gt; NDS \* Click
-"name", "acc", "tax\_rdp". The "tax\_rdp" field should have 250
-characters \* Unclick everything else \* Click "Close" \* Go
-File-&gt;Export-&gt;Export fields \* Set the file name to
-"archaea.taxonomy" and Column output to "TAB separated" \* Click "SAVE"
+Now we need the taxonomy information.
+
+-   Go Tree -&gt; NDS
+-   Click "name", "acc", "tax\_rdp". The "tax\_rdp" field should have
+    250 characters
+-   Unclick everything else
+-   Click "Close"
+-   Go File-&gt;Export-&gt;Export fields
+-   Set the file name to "archaea.taxonomy" and Column output to "TAB
+    separated"
+-   Click "SAVE"
 
 Finally, let's save the database by doing File -&gt; Quick Save Changes
 and then quit out of ARB.

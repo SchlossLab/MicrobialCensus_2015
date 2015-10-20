@@ -22,16 +22,21 @@ Get data out of ARB
 Within ARB, we will exclude color group 1, chloroplasts, and
 mitochondria.
 
-To get good sequences... \* Go to search window \* Set Search\_Fields to
-"ARB\_color" and use "1"; click on the equal sign to make it not equal
-\* Hit Mark Listed, Unmark Rest button (N=1493493) \* The problem with
-the taxonomies is that the sequences don't all have taxonomies. Need to
-figure out which taxonomy to base the analysis on. Do the following
-searches... \* ARB\_color != 1 & tax\_rdp == "*Bacteria*" (N=1324558) \*
-ARB\_color != 1 & tax\_greengenes == "*Bacteria*" (N=1123144) \*
-ARB\_color != 1 & tax\_slv == "*Bacteria*" (N=426917) \* ARB\_color != 1
-& tax\_embl == "*Bacteria*" (N=1207210) \* tax\_rdp | tax\_greengenes |
-tax\_embl | tax\_slv (N=1376910)
+To get good sequences...
+
+-   Go to search window
+-   Set Search\_Fields to "ARB\_color" and use "1"; click on the equal
+    sign to make it not equal
+-   Hit Mark Listed, Unmark Rest button (N=1493493)
+-   The problem with the taxonomies is that the sequences don't all
+    have taxonomies. Need to figure out which taxonomy to base the
+    analysis on. Do the following searches...
+
+    -   ARB\_color != 1 & tax\_rdp == "*Bacteria*" (N=1324558)
+    -   ARB\_color != 1 & tax\_greengenes == "*Bacteria*" (N=1123144)
+    -   ARB\_color != 1 & tax\_slv == "*Bacteria*" (N=426917)
+    -   ARB\_color != 1 & tax\_embl == "*Bacteria*" (N=1207210)
+    -   tax\_rdp | tax\_greengenes | tax\_embl | tax\_slv (N=1376910)
 
 Let's stick with the bacterial sequences that have an RDP taxonomy and
 we will analyze them in RDP space, but preserve the taxonomy generated
@@ -56,12 +61,17 @@ the chloroplast sequences
     format
 -   Rename `noname.fasta` to `data/mothur/bacteria.fasta`
 
-Now we need the taxonomy information. \* Go Tree -&gt; NDS \* Click
-"name", "acc", "tax\_rdp". The "tax\_rdp" field should have 250
-characters \* Unclick everything else \* Click "Close" \* Go
-File-&gt;Export-&gt;Export fields \* Set the file name to
-"data/mothur/bacteria.taxonomy" and Column output to "TAB separated" \*
-Click "SAVE"
+Now we need the taxonomy information.
+
+-   Go Tree -&gt; NDS
+-   Click "name", "acc", "tax\_rdp". The "tax\_rdp" field should have
+    250 characters
+-   Unclick everything else
+-   Click "Close"
+-   Go File-&gt;Export-&gt;Export fields
+-   Set the file name to "data/mothur/bacteria.taxonomy" and Column
+    output to "TAB separated"
+-   Click "SAVE"
 
 Finally, let's save the database by doing File -&gt; Quick Save Changes
 and then quit out of ARB.

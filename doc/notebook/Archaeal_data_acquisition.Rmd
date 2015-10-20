@@ -39,11 +39,13 @@ tar xvzf SSURef_119_SILVA_14_07_14_opt.arb.tgz
 Within ARB, we will exclude color group 1, chloroplasts, and mitochondria.
 
 To get good sequences...
+
 * Go to search window
 * Set Search_Fields to "ARB_color" and use "1"; click on the equal sign to make it not equal
 * Hit Mark Listed, Unmark Rest button (N=1493493)
 * The problem with the taxonomies is that the sequences don't all have taxonomies. Need to figure
     out which taxonomy to base the analysis on. Do the following searches...
+
     * ARB_color != 1 & tax_rdp == "*Archaea*" (N=40288)
     * ARB_color != 1 & tax_greengenes == "*Archaea*" (N=19795)
     * ARB_color != 1 & tax_slv == "*Archaea*" (N=17641)
@@ -69,6 +71,7 @@ information.
 * Rename `noname.fasta` to `archaea.fasta`
 
 Now we need the taxonomy information.
+
 * Go Tree -> NDS
 * Click "name", "acc", "tax_rdp". The "tax_rdp" field should have 250 characters
 * Unclick everything else
