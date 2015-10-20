@@ -1,7 +1,8 @@
 ---
-title: 'The status of the microbial census: an update'
-author: 
-output: md_document
+title: "The status of the microbial census: an update"
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 Updating the status of the microbial census
