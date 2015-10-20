@@ -1,3 +1,7 @@
+---
+output: md_document
+---
+
 ```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
 opts_chunk$set("dev" = "png")
 opts_chunk$set(results = "hold")
@@ -7,7 +11,7 @@ opts_chunk$set(fig.align = "center")
 opts_chunk$set(cache = FALSE)
 
 opts_chunk$set(eval = FALSE)
-opts_chunk$set(echo = FALSE)
+opts_chunk$set(echo = TRUE)
 ```
 
 # Getting the bacterial sequence data and metadata
