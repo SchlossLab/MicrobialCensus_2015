@@ -208,7 +208,7 @@ mothur "#set.dir(input=data/mothur, output=data/mothur);
         pre.cluster(fasta=current, name=current, diffs=10);"
 
 #need to make the taxonomy file match the fasta and names files...
-cut -f 1 all_bacteria.filter.unique.precluster.names > precluster.accnos
+cut -f 1 data/mothur/all_bacteria.filter.unique.precluster.names > precluster.accnos
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         get.seqs(taxonomy=all_bacteria.taxonomy, accnos=precluster.accnos)"
 ```
