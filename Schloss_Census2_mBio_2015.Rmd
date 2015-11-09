@@ -1,27 +1,65 @@
 ---
-title: "The status of the microbial census: an update"
+title: "**The status of the microbial census: an update**"
+bibliography: references.bib
 output:
-  md_document:
-    variant: markdown_github
+  pdf_document:
+    includes:
+      in_header: header.tex
+csl: mbio.csl
+fontsize: 11pt
+geometry: margin=1.0in
 ---
 
-# The status of the microbial census: an update
 
-Patrick D. Schloss<sup>1*</sup>, Rene Girard<sup>2</sup>, Thomas Martin<sup>2</sup>, Joshua Edwards<sup>2</sup>, J. Cameron Thrash<sup>2*</sup>
+```{r knitr_settings, eval=TRUE, echo=FALSE, cache=FALSE}
+opts_chunk$set("tidy" = TRUE)
+opts_chunk$set("echo" = FALSE)
+opts_chunk$set("eval" = TRUE)
+opts_chunk$set("warning" = FALSE)
+opts_chunk$set("cache" = FALSE)
 
-1.	Department of Microbiology and Immunology, University of Michigan, Ann Arbor, MI 48109, U.S.A.
-2.	Department of Biological Sciences, Louisiana State University, Baton Rouge, LA 70803, U.S.A.
+inline_hook <- function(x){
+	print(x)
+	if(is.numeric(x)){
+		if(abs(x - round(x)) < .Machine$double.eps^0.5){
+			paste(format(x,big.mark=',', digits=0, scientific=FALSE))
+		} else {
+			paste(format(x,big.mark=',', digits=2, nsmall=2, scientific=FALSE))
+		}
 
-\* Correspondence: pschloss@umich.edu, thrashc@lsu.edu
+	} else {
+    	paste(x)      
+	}
+}
+knitr::knit_hooks$set(inline=inline_hook)
+```
+\vspace{35mm}
+
+
+Patrick D. Schloss^1$\dagger$^, Rene Girard^2^, Thomas Martin^2^, Joshua Edwards^2^, and J. Cameron Thrash^2$\dagger$^
+
+\vspace{40mm}
+
+$\dagger$ To whom correspondence should be addressed: pschloss@umich.edu and thrashc@lsu.edu
+
+1\. Department of Microbiology and Immunology, University of Michigan, Ann Arbor, MI 48109
+
+2\. Department of Biological Sciences, Louisiana State University, Baton Rouge, LA 70803
 
 
 \newpage
+\linenumbers
+
 
 ## Abstract
 
 Abstract goes here.
 
 
+## Importance
+
+
+\newpage
 
 ## Introduction
 
@@ -64,7 +102,6 @@ Our analysis made use of ARB [OS X v.6.0, @Pruesse2007], mothur mothur [v.1.37.0
 
 
 ***Caveats.***
-Recent data suggests that a considerable diversity of microorganisms may be missing based on biases in existing 16S rRNA gene primers. This dataset does not include sequences from metagenomic assemblies but Brown et al. (2015) have used such assemblies to show evidence for introns in the 16S rRNA genes of organisms within the so-called "Candidate Phyla Radiation” (CPR- Saccharibacteria (TM7), Peregrinibacteria, Berkelbacteria (ACD58), WWE3 Microgenomates (OP11), Parcubacteria (OD1), et al.), that would preclude detection with standard cultivation-independent microbial surveys. Furthermore, many of these CPR organisms are very small and frequently pass through 0.2 µm filters (Luef, 2015). Thus, for many environments, the estimates within must be considered as lower bounds. 
-
+Recent data suggests that a considerable diversity of microorganisms may be missing based on biases in existing 16S rRNA gene primers. This dataset does not include sequences from metagenomic assemblies but Brown et al. (2015) have used such assemblies to show evidence for introns in the 16S rRNA genes of organisms within the so-called "Candidate Phyla Radiation” (CPR- Saccharibacteria (TM7), Peregrinibacteria, Berkelbacteria (ACD58), WWE3 Microgenomates (OP11), Parcubacteria (OD1), et al.), that would preclude detection with standard cultivation-independent microbial surveys. Furthermore, many of these CPR organisms are very small and frequently pass through 0.2 µm filters (Luef, 2015). Thus, for many environments, the estimates within must be considered as lower bounds.
 
 **Table 1. Habitat classifications**
