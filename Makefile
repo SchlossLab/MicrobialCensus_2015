@@ -2,7 +2,7 @@ FIGS = results/figures
 MOTHUR = data/mothur
 
 $(FIGS)/fifty_authors_deposited.pdf $(FIGS)/phyla_deposited.pdf $(FIGS)/otus_deposited.pdf		$(FIGS)/sequences_deposited.pdf : code/time_course_plots.R $(MOTHUR)/archaea.final.metadata	$(MOTHUR)/bacteria.final.metadata
-	R -e 'source(code/time_course_plots.R)'
+	R -e 'source("code/time_course_plots.R")'
 
 
 doc/notebook/%_data_acquisition.Rmd:
