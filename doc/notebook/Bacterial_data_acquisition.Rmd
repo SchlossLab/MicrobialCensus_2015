@@ -351,11 +351,14 @@ Let's now take the big metadata file that we have and concatenate on the OTU ass
 
 ```{r}
 #here we'll read in the list file and extract the OTU assignments for the 0.03
-#cutoff
-list_text <- scan(file="data/mothur/all_bacteria.filter.unique.precluster.an.list", sep="\n", what="")[5]
+#cutoff (for some reason mothur was repeating the header line for each OTU threshold)
+list_text <- scan(file="data/mothur/all_bacteria.filter.unique.precluster.an.list", sep="\n", what="")
+
+list_text_03 <- list_text[grepl("^0\\.03", list_text)]
+
 
 #let's remove the otu label and the number of OTUs at this cutoff
-list_otus <- unlist(strsplit(list_text, "\t"))[-c(1,2)]
+list_otus <- unlist(strsplit(list_text_03, "\t"))[-c(1,2)]
 n_otus <- length(list_otus)
 
 #this function will take the sequence names in an OTU, split them up and then
@@ -403,6 +406,12 @@ metadata$category[metadata$category == 'ZOZO'] <- 'ZO'
 metadata$category[metadata$category == 'AH'] <- 'AQH'
 metadata$category[metadata$category == 'AQOS'] <- 'AQS'
 metadata$category[metadata$category == 'BS'] <- 'BD'
+metadata$category[metadata$category == 'AQS'] <- 'AQFS'
+metadata$category[metadata$category == 'ZL'] <- 'ZV'
+metadata$category[metadata$category == 'SR'] <- 'PR'
+metadata$category[metadata$category == 'M'] <- 'AQM'
+metadata$category[metadata$category == 'AQFM'] <- 'AQFS'
+metadata$category[metadata$category == 'SV'] <- 'ZV'
 
 #... and we output the metadata file...
 write.table(metadata, file="data/mothur/bacteria.final.metadata", sep="\t")
