@@ -32,6 +32,15 @@ inline_hook <- function(x){
 	}
 }
 knitr::knit_hooks$set(inline=inline_hook)
+
+
+year_of_analysis <- "2015"
+
+bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+bact_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", bact$date)
+
+arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
 ```
 \vspace{35mm}
 
@@ -79,11 +88,11 @@ Here we update the status of the microbial census with nearly or completely full
 ## Materials and Methods
 
 ***Sequence data curation.***
-The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained 1,412,682 bacterial and 53,619 archaeal 16S rRNA gene sequences. Sequences were assigned to operational taxonomic units (OTUs) with a 3% distance threshold using the average neighbor clustering algorithm.
+The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained `r nrow(bact)` bacterial and `r nrow(arch)` archaeal 16S rRNA gene sequences. Sequences were assigned to operational taxonomic units (OTUs) with a 3% distance threshold using the average neighbor clustering algorithm.
 
 
 ***Metadata curation.***
-The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse” categories, and further refined to facilitate additional analyses with twenty-six more specific "fine” categories (Table 1). These were assigned based on manual curation of the `isolation_source` category within the ARB database associated with each of the sequences. There were 20,084 bacterial and 1,613 archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were 150,378 bacterial and 2,604 archaeal sequences where an `isolation_source` term was not collected. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
+The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse” categories, and further refined to facilitate additional analyses with twenty-six more specific "fine” categories (Table 1). These were assigned based on manual curation of the `isolation_source` category within the ARB database associated with each of the sequences. There were `r length(unique(bact$isolation_source))-1` bacterial and `r length(unique(arch$isolation_source))-1` archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were `r sum(is.na(bact$isolation_source))` bacterial and `r sum(is.na(arch$isolation_source))` archaeal sequences where an `isolation_source` term was not collected. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
 
 
 ***Data analysis.***
@@ -107,7 +116,47 @@ Recent data suggests that a considerable diversity of microorganisms may be miss
 Generating a comprehensive understanding of any system with a single gene may seem a fool’s errand, yet we have learned a considerable amount regarding the diversity, dynamics, and natural history of microorganisms using the venerable 16S rRNA gene. Indeed, continual community efforts to obtain 16S rRNA gene assessments of every environment possible have presented us with an ever-increasing estimate of total microbial diversity and the concomitant excitement of frontier science. While reliance on this gene subjects us to biases created by primer selection [REFS], differences in amplification strength [REFS] and fidelity [REFS], internal features which may disrupt traditional measurements [REFS], and potentially misleading classification due to infrequent horizontal gene transfer [REFS], the total data available from persistent collection of 16S rRNA gene sequences nevertheless dwarfs that of any other genetic marker. Thus, an attempt to quantify how much of the microbial world has been revealed inevitably starts there.
 
 
+
+## Conclusions
+
+Future for PacBio in generating full-length sequences
+
 The first 16S sequence was published in 1978, not deposited until 1983. A bit of an allegory for our time.
 
 
+
+\newpage
+\singlespacing
+
 **Table 1. Habitat classifications**
+
+```{r table1}
+
+coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No isolation_source", "Total")
+
+fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Hydrothermal vent", "Ice", "Marine", "Marine sediment", "Other", "Digesters", "Food-associated", "Industrial/mining", "Other", "Pollution associated", "Other", "Root", "Surface", "Agriculture", "Desert", "Other", "Permafrost", "Arthropod", "Non-arthropod invertebrate", "Other", "Vertebrate", "", "", "")
+
+abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "BD", "BF", "BI", "BO", "BP", "PO", "PR", "PS", "SA", "SD", "SO", "SP", "ZA", "ZN", "ZO", "ZV", "OT")
+
+bact_count <- table(bact$category)[abbreviation]
+bact_count[is.na(bact_count)] <- 0
+bact_count <- c(bact_count, nrow(bact) - sum(bact_count))
+bact_count <- c(bact_count, nrow(bact))
+
+arch_count <- table(arch$category)[abbreviation]
+arch_count[is.na(arch_count)] <- 0
+arch_count <- c(arch_count, nrow(arch) - sum(arch_count))
+arch_count <- c(arch_count, nrow(arch))
+
+abbreviation <- c(abbreviation, "", "")
+composite <- cbind(coarse, fine, abbreviation, bact_count, arch_count)
+
+kable(composite, row.names=FALSE, col.names=c("Coarse", "Fine", "Abbreviation", "Bacterial", "Archaeal"), align=c('l', 'l', 'c', 'c', 'c'), format='latex')
+
+```
+
+\newpage
+\doublespacing
+
+
+## References

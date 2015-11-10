@@ -58,7 +58,7 @@ Here we update the status of the microbial census with nearly or completely full
 ## Materials and Methods
 
 ***Sequence data curation.***
-The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained 1,412,682 bacterial and 53,619 archaeal 16S rRNA gene sequences. Sequences were assigned to operational taxonomic units (OTUs) with a 3% distance threshold using the average neighbor clustering algorithm.
+The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained 1,412,681 bacterial and 53,618 archaeal 16S rRNA gene sequences. Sequences were assigned to operational taxonomic units (OTUs) with a 3% distance threshold using the average neighbor clustering algorithm.
 
 
 ***Metadata curation.***
@@ -86,7 +86,87 @@ Recent data suggests that a considerable diversity of microorganisms may be miss
 Generating a comprehensive understanding of any system with a single gene may seem a fool’s errand, yet we have learned a considerable amount regarding the diversity, dynamics, and natural history of microorganisms using the venerable 16S rRNA gene. Indeed, continual community efforts to obtain 16S rRNA gene assessments of every environment possible have presented us with an ever-increasing estimate of total microbial diversity and the concomitant excitement of frontier science. While reliance on this gene subjects us to biases created by primer selection [REFS], differences in amplification strength [REFS] and fidelity [REFS], internal features which may disrupt traditional measurements [REFS], and potentially misleading classification due to infrequent horizontal gene transfer [REFS], the total data available from persistent collection of 16S rRNA gene sequences nevertheless dwarfs that of any other genetic marker. Thus, an attempt to quantify how much of the microbial world has been revealed inevitably starts there.
 
 
+
+## Conclusions
+
+Future for PacBio in generating full-length sequences
+
 The first 16S sequence was published in 1978, not deposited until 1983. A bit of an allegory for our time.
 
 
+
+\newpage
+\singlespacing
+
 **Table 1. Habitat classifications**
+
+
+\begin{tabular}{l|l|c|c|c}
+\hline
+Coarse & Fine & Abbreviation & Bacterial & Archaeal\\
+\hline
+Aerosol &  & AE & 3444 & 2\\
+\hline
+Aquatic & Brackish & AQB & 1272 & 1368\\
+\hline
+ & Brackish sediment & AQBS & 387 & 525\\
+\hline
+ & Freshwater & AQF & 21445 & 1540\\
+\hline
+ & Freshwater sediment & AQFS & 23965 & 1324\\
+\hline
+ & Hydrothermal vent & AQH & 10650 & 3807\\
+\hline
+ & Ice & AQI & 2022 & 42\\
+\hline
+ & Marine & AQM & 130529 & 11007\\
+\hline
+ & Marine sediment & AQMS & 27586 & 14049\\
+\hline
+ & Other & AQO & 8214 & 772\\
+\hline
+Built & Digesters & BD & 32551 & 4488\\
+\hline
+ & Food-associated & BF & 11721 & 117\\
+\hline
+ & Industrial/mining & BI & 16209 & 1254\\
+\hline
+ & Other & BO & 8018 & 444\\
+\hline
+ & Pollution associated & BP & 38224 & 716\\
+\hline
+Plant associated & Other & PO & 9529 & 22\\
+\hline
+ & Root & PR & 19059 & 200\\
+\hline
+ & Surface & PS & 4819 & 0\\
+\hline
+Soil & Agriculture & SA & 9944 & 146\\
+\hline
+ & Desert & SD & 3040 & 245\\
+\hline
+ & Other & SO & 58936 & 2091\\
+\hline
+ & Permafrost & SP & 1884 & 39\\
+\hline
+Zoological & Arthropod & ZA & 12835 & 87\\
+\hline
+ & Non-arthropod invertebrate & ZN & 7392 & 67\\
+\hline
+ & Other & ZO & 10714 & 54\\
+\hline
+ & Vertebrate & ZV & 768601 & 5389\\
+\hline
+Other &  & OT & 19219 & 882\\
+\hline
+No isolation\_source &  &  & 150472 & 2941\\
+\hline
+Total &  &  & 1412681 & 53618\\
+\hline
+\end{tabular}
+
+\newpage
+\doublespacing
+
+
+## References

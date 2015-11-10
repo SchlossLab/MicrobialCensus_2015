@@ -1,9 +1,9 @@
 year_of_analysis <- "2015"
 
-bact <- read.table(file='data/mothur/bacteria.final.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 bact_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", bact$date)
 
-arch <- read.table(file='data/mothur/archaea.final.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
 
 
