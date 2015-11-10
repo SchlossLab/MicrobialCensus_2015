@@ -66,12 +66,13 @@ The environmental origins of the 16S rRNA gene sequences were manually classifie
 
 
 ***Data analysis.***
-Our analysis made use of ARB [OS X v.6.0, @Pruesse2007], mothur mothur [v.1.37.0; @Schloss2009], and R [v.3.2.2; @language2015]. Within R we utilized knitr [v.1.10.5; @xie2013dynamic] and openxlsx [v. 2.4.0; @Walker2015] packages. A reproducible version of this manuscript including data extraction and processing is available at https://www.github.com/SchlossLab/Schloss_Census2_mBio_2015.
+Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Schloss2009], and R (v.3.2.2) [@language2015]. Within R we utilized knitr (v.1.10.5) [@xie2013dynamic] and openxlsx (v. 2.4.0) [@Walker2015] packages. A reproducible version of this manuscript including data extraction and processing is available at https://www.github.com/SchlossLab/Schloss_Census2_mBio_2015.
 
 
 ## Results and Discussion
 
 Issues we sought to solve...
+
 * How have the number of full-length sequences changed over the past N years?
 * How does this vary by environment?
 * How has the coverage of the OTUs represented by these sequences changed over the last N years?
