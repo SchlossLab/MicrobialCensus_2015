@@ -13,3 +13,4 @@ mothur*logfile
 
 *.pdf
 
+*_cache/
