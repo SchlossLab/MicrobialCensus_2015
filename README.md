@@ -3,7 +3,6 @@ The status of the microbial census (2015)
 
 Insert abstract here
 
-Pat, we need the abstract!
 
 
 Overview
