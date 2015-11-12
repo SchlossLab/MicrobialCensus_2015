@@ -1,10 +1,20 @@
 FIG = results/figures
-MOTHUR = data/mothur
+PROCESS = data/process
 NB = doc/notebook
 
+
+#$(PROCESS)/bacteria.v123.metadata :
+#	wget
+#	gunzip
+#
+#$(PROCESS)/archaea.v123.metadata :
+#	wget
+#	gunzip
+
+
 $(FIG)/fifty_authors_deposited.pdf $(FIGS)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIGS)/sequences_deposited.pdf : code/time_course_plots.R\
-												$(MOTHUR)/archaea.final.metadata\
-												$(MOTHUR)/bacteria.final.metadata
+												$(PROCESS)/archaea.final.metadata\
+												$(PROCESS)/bacteria.final.metadata
 	R -e 'source("code/time_course_plots.R")'
 
 

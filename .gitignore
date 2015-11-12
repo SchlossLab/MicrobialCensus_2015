@@ -3,7 +3,7 @@
 .RData
 
 data/*/*
-!data/process/*
+data/process/*
 !README.md
 
 *.qsub*
@@ -13,3 +13,4 @@ mothur*logfile
 
 *.pdf
 
+*_cache/
