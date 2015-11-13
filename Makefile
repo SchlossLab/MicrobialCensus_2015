@@ -10,6 +10,9 @@ NB = doc/notebook
 #$(PROCESS)/archaea.v123.metadata :
 #	wget
 #	gunzip
+#  curl -c COOKIE_JAR -XGET http://figshare.com/s/82ae99a887c811e5a7ab06ec4bbcf141
+#  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433945 > archaea.final.metadata.gz
+#  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433946 > bacteria.final.metadata.gz
 
 
 $(FIG)/fifty_authors_deposited.pdf $(FIGS)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIGS)/sequences_deposited.pdf : code/time_course_plots.R\
