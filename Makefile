@@ -14,15 +14,20 @@ NB = doc/notebook
 #  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433945 > archaea.final.metadata.gz
 #  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433946 > bacteria.final.metadata.gz
 
+$(NB)/%_data_acquisition.Rmd:
+	R -e 'render("doc/notebook/%_data_acquisition.Rmd")'
 
-$(FIG)/fifty_authors_deposited.pdf $(FIGS)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIGS)/sequences_deposited.pdf : code/time_course_plots.R\
+
+$(FIG)/fifty_authors_deposited.pdf $(FIG)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIG)/sequences_deposited.pdf : code/time_course_plots.R\
 												$(PROCESS)/archaea.final.metadata\
 												$(PROCESS)/bacteria.final.metadata
 	R -e 'source("code/time_course_plots.R")'
 
+$(FIG)/domain_rarefaction.pdf : data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
+								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
+								code/domain_rarefaction.R
+	R -e 'source("code/domain_rarefaction.R")'
 
-$(NB)/%_data_acquisition.Rmd:
-	R -e 'render("doc/notebook/%_data_acquisition.Rmd")'
 
 
 
@@ -40,6 +45,7 @@ Schloss_Census2_XXXX_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(FIGS)/phyla_deposited.pdf\
 								$(FIG)/otus_deposited.pdf\
 								$(FIGS)/sequences_deposited.pdf\
+								$(FIG)/domain_rarefaction.pdf\
 								results/tables/table1.pdf\
 								Schloss_Census2_XXXX_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
