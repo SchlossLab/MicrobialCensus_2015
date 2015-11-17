@@ -32,12 +32,15 @@ results/tables/table1.pdf : data/process/bacteria.v123.metadata\
 							results/tables/table_1_header.tex
 	R -e 'render("results/tables/build_table_1.Rmd", output_file="table1.pdf")'
 
+
+
 Schloss_Census2_XXXX_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(NB)/Archaeal_data_acquisition.Rmd\
 								$(FIG)/fifty_authors_deposited.pdf\
 								$(FIGS)/phyla_deposited.pdf\
 								$(FIG)/otus_deposited.pdf\
 								$(FIGS)/sequences_deposited.pdf\
+								results/tables/table1.pdf\
 								Schloss_Census2_XXXX_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
