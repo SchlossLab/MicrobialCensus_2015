@@ -1,0 +1,86 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_1_header.tex
+tables: true
+fontsize: 8pt
+geometry: margin=0.8in
+---
+
+**Table 1. Habitat classifications**
+
+```{r table1, results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+
+bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+
+arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+
+coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
+
+fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Hydrothermal vent", "Ice", "Marine", "Marine sediment", "Other", "Digesters", "Food-associated", "Industrial/mining", "Other", "Pollution associated", "Other", "Root", "Surface", "Agriculture", "Desert", "Other", "Permafrost", "Arthropod", "Other invertebrate", "Other", "Vertebrate", "", "", "")
+
+abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZA", "ZN", "ZV", "ZO", "OT")
+
+get_sobs <- function(x, db){
+	if(x == "NA"){
+		length(table(db[is.na(db$category), "otu"]))
+	} else if(x == "total"){
+		length(table(db[, "otu"]))
+	} else {
+		length(table(db[db$category==x, "otu"]))
+	}
+}
+
+get_coverage <- function(x, db){
+	if(x=="NA"){
+		x_table <- table(db[is.na(db$category), "otu"])
+	} else if(x == "total") {
+		x_table <- table(db[, "otu"])
+	} else {
+		x_table <- table(db[db$category==x, "otu"])
+	}
+
+	singletons <- sum(x_table == 1)
+	total_seqs <- sum(x_table)
+
+	if(total_seqs != 0){
+		100*(1-singletons/total_seqs)
+	} else {
+		NA
+	}
+
+}
+
+
+
+
+bact_count <- table(bact$category)[abbreviation]
+bact_count[is.na(bact_count)] <- 0
+bact_count <- c(bact_count, nrow(bact) - sum(bact_count))
+bact_count <- format(c(bact_count, nrow(bact)), big.mark=',')
+bact_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, bact), big.mark=',')
+bact_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_coverage, bact), nsmall=1, digits=3)
+
+arch_count <- table(arch$category)[abbreviation]
+arch_count[is.na(arch_count)] <- 0
+arch_count <- c(arch_count, nrow(arch) - sum(arch_count))
+arch_count <- format(c(arch_count, nrow(arch)), big.mark=',')
+arch_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, arch), big.mark=',')
+arch_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_coverage, arch), nsmall=1, digits=3)
+
+#abbreviation <- c(abbreviation, "", "")
+composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_coverage, arch_count, arch_sobs, arch_coverage)
+composite <- rbind(c("", "", "Sequences", "OTUs", "Coverage (%)", "Sequences", "OTUs", "Coverage (%)"), composite)
+
+
+composite <- xtable(composite)
+
+addtorow <- list(pos=list(0, 1),
+				command=c('\\multirow{2}{*}{Coarse} & \\multirow{2}{*}{Fine} & \\multicolumn{3}{c}{Bacterial} & \\multicolumn{3}{c}{Archaeal} \\\\ \\cmidrule(r){3-5}	\\cmidrule(r){6-8}', '\\hline '))
+
+
+align(composite) <- "lllcccccc"
+print(composite, add.to.row=addtorow, include.rownames=FALSE, include.colnames=FALSE, hline.after = c(-1,nrow(composite)-1, nrow(composite)), comment=FALSE, size="small")
+```

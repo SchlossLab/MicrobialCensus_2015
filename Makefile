@@ -26,6 +26,11 @@ $(NB)/%_data_acquisition.Rmd:
 
 
 
+results/tables/table1.pdf : data/process/bacteria.v123.metadata\
+							data/process/archaea.v123.metadata\
+							results/tables/build_table_1.Rmd\
+							results/tables/table_1_header.tex
+	R -e 'render("results/tables/build_table_1.Rmd", output_file="table1.pdf")'
 
 Schloss_Census2_XXXX_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(NB)/Archaeal_data_acquisition.Rmd\
