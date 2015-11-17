@@ -39,7 +39,7 @@ results/tables/table1.pdf : data/process/bacteria.v123.metadata\
 
 
 
-Schloss_Census2_XXXX_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
+Schloss_Census2_mBio_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(NB)/Archaeal_data_acquisition.Rmd\
 								$(FIG)/fifty_authors_deposited.pdf\
 								$(FIGS)/phyla_deposited.pdf\
@@ -47,7 +47,7 @@ Schloss_Census2_XXXX_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(FIGS)/sequences_deposited.pdf\
 								$(FIG)/domain_rarefaction.pdf\
 								results/tables/table1.pdf\
-								Schloss_Census2_XXXX_2015.Rmd
+								Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
 	rm Schloss_Census2_mBio_2015.utf8.md
