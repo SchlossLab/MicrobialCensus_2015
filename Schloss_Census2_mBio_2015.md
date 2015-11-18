@@ -52,13 +52,13 @@ The increase in sequencing volume has come at the cost of sequence length. The c
 
 Previously, Schloss and Handelsman [-@Schloss2004] assigned the then available 56,215 partial rRNA gene sequences to operational taxonomic units (OTUs) that were available in the Ribosomal Database Project and concluded that the sampling methods of the time were insufficient to identify the previously estimated 10^7^ to 10^9^ different species [@Dykhuizen1998, @Curtis2002]. That census called for a broader and deeper characterization of all environments. Refreshingly, this challenge was largely met. There have been major investments in studying the Earth's microbiome using 16S rRNA gene sequencing through initiatives such as the Human Microbiome Project [@reference], the Earth Microbiome Project [@reference], and the International Census of Marine Microorganisms. But most important, the original census was performed on the cusp of radical developments in sequencing technologies. That advancement has largely moved the bulk of sequencing throughput from large sequencing centers to individual investigators and leveraged their diversity to expand the representation of organisms and environments represented in public databases.
 
-Here we update the status of the microbial census with nearly or completely full-length 16S rRNA gene sequences. In the 13 years since the collection of data for Schloss and Handelsman’s analysis, the number of full-length sequences has grown exponentially, despite the overwhelming contemporary focus by most researchers on short-read technologies. This update to the census allows us to evaluate the relative sampling thoroughness for different environments and clades, and make an argument for the continued need to collection full-length sequence data from many systems that have a long history of study. Although there has been a robust growth in the number of full-length sequences deposited to GenBank since its creation in 1983, the rate of growth has stalled over the past 5 years and the deposits have been dominated by a handful of research groups studying a limited number of environments. As researchers consider coalescing into a Unified Microbiome Initiative [@Alivisatos2015], it will be important to balance the need for mechanism-based studies with the need to generate full-length reference sequences from a diversity of environments.
+Here we update the status of the microbial census with nearly or completely full-length 16S rRNA gene sequences. In the 13 years since the collection of data for Schloss and Handelsman’s analysis, the number of full-length sequences has grown exponentially, despite the overwhelming contemporary focus by most researchers on short-read technologies. This update to the census allows us to evaluate the relative sampling thoroughness for different environments and clades, and make an argument for the continued need to collection full-length sequence data from many systems that have a long history of study. Although there has been a robust growth in the number of full-length sequences deposited to GenBank since its creation in 1983, the rate of growth has stalled over the past 5 years and the deposits have been dominated by a handful of research groups studying a limited number of environments. As researchers consider coalescing into a Unified Microbiome Initiative [@Alivisatos2015], it will be important to balance the need for mechanism-based studies with the need to generate full-length reference sequences from a diversity of environments. In this, continued technological advances, such as the reconstruction of nearly full-length sequences from metagenomics with EMIRGE (Miller 2011) and inovations in culturing (references needed: iChip, Epstein dormancy, Thrash 2015; Gifford 2014), will be vital.
 
 
 ## Materials and Methods
 
 ***Sequence data curation.***
-The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained 1,412,681 bacterial and 53,618 archaeal 16S rRNA gene sequences. Sequences were assigned to operational taxonomic units (OTUs) with a 3% distance threshold using the average neighbor clustering algorithm.
+The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) reference database (SSU Ref v.123) was downloaded from http://www.arb-silva.de/fileadmin/silva_databases/release_123/ARB_files/SSURef_123_SILVA_19_07_15_opt.arb.tgz [@REF]. This release is based on the EMBL-EBI/ENA Release 123, which was released in March 2015. The SILVA curators identify potential SSU sequences using keyword searches and sequence-based search using RNAmmer (http://www.arb-silva.de/documentation/release-123/). The SILVA curators then screened the 7,168,241 resulting sequences based on a minimum length criteria (<300 nt), number of ambiguous base calls (>2%), length of sequence homopolymers (>2%), presence of vector contamination (>2%), low alignment quality value (<75), and likelihood of being chimeric (Pintail value < 50). Of the remaining sequences, the bacterial reference set retained those bacterial sequences longer than 1,200 nt and the archaeal reference set retained those archaeal sequences longer than 900 nt. The aligned 1,515,024 bacterial and 59,240 archaeal sequences were exported from the database using ARB along with the complete set of metadata. Additional sequence data was included from single-cell genomes available on the Integrated Microbial Genomes (IMG) system [@REF], many of which were recently obtained via the GEBA-MDM effort in Rinke et al. [@REF]. "SCGC” was searched on the IMG database March 12, 2015 to download the bacterial (N=249) and archaeal (N=46) 16S rRNA gene sequences and their associated metadata. The IMG sequences were aligned against the respective SILVA-based reference using mothur [@REF]. The aligned bacterial and archaeal sequence sets from SILVA and IMG were pooled and processed in parallel in mothur. Using mothur, sequences were further screened to remove any sequence with more than 2 ambiguous base calls and trimmed to overlap the same alignment coordinates while maintaining a minimum sequence length of 1,200 and 900 nt for the bacterial and archeael datasets, respectively. The final datasets contained 1,412,681 bacterial and 53,618 archaeal 16S rRNA gene sequences. Sequences were assigned to OTUs using the average neighbor clustering algorithm [@REF].
 
 
 ***Metadata curation.***
@@ -71,13 +71,53 @@ Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Sc
 
 ## Results and Discussion
 
-Issues we sought to solve...
 
-* How have the number of full-length sequences changed over the past N years?
-* How does this vary by environment?
-* How has the coverage of the OTUs represented by these sequences changed over the last N years?
-* How has the number of sequences per study changed over the past N years?
+
+***The status of the bacterial and archaeal census.***
+To assess the field's progress in characterizing the biodiversity of bacteria and archaea we assigned each 16S rRNA gene sequence to OTUs using distance threshold varying between 0 and 20%. Although it is not possible to link a specific taxonomic level (e.g. species, genus, family, etc.) to a specific distance threshold, we selected distances of 0, 3, 5, 10, and 20% because they are widely regarded as representing the range of genetic diversity of the 16S rRNA gene within each domain. By rarefaction, it was clear that the ongoing sampling efforts have started to saturate the number of current OTUs. After sampling 1,412,681 near full-length bacterial 16S rRNA gene sequences we have identified 239,622, 95,726, 54,268, 14,883, and 973 OTUs at the selected thresholds (Figure 1A, Table 1). Using on the OTUs generated using a 3% threshold, we found that 95.7% of the sequences belonged to OTUs that had been observed more than once. In contrast, only 36.6% of the OTUs that were observed had been seen more than once. Paralleling the bacterial results, after sampling 53,618 archaeal 16S rRNA gene sequences we have identified 7,543, 4,208, 2,351, 815, and 112 OTUs (Figure 1B, Table 1). Using on the OTUs generated using a 3% threshold, we found that 95.2% of the sequences belonged to OTUs that had been observed more than once. In contrast, only 38.8% of the OTUs that were observed had been seen more than once. The results for the bacterial and archaeal censuses indicate that regardless of the domain, if we continue sampling with the current strategies we will continue to sample OTUs that have already been observed even though a large fraction of OTUs have only been sampled once. Furthermore, considering more than 63.4% of the OTUs have only been observed once it is likely that an even larger number of OTUs have yet to be sampled for both domains.
+
+
+* Why aren't we doing a great job?
+  - Rate of change in full-length sequences has plateaued
+  - New sequences are submitted by a small number of investigators for a limited number of environments
+
+
+```
+## [1] "(Harris, Caporaso, Walker, et al., 2012; Li, Hamm, Gulati, et al., 2012; Kong, Oh, Deming, et al., 2012; Grice, Snitkin, Yockey, et al., 2010; Grice, Kong, Conlan, et al., 2009)"
+```
+
+***The dynamics of the bacterial census.***
+One explanation for the large number of OTUs that have only been observed once is that with the the broad adoption of highly parallelized sequencing platforms that generate short sequence reads, the rate of full-length sequence generation has declined. In fact, since 2009 the number of new bacterial sequences generated has plateaued at an average of 191,390.8 sequences per year (Figure 2A). Although this is still an impressive number of sequences, since 2008 the number of new bacterial OTUs has plateaued at an average of 9,124.6 new OTUs per year (Figure 2B). Given the expense of generating full-length sequences using the Sanger sequencing technology and the transition to other platforms, we expected that the large number of sequences were being deposited by a handful of large projects. Indeed, when we counted the number of submissions responsible for depositing 50% of the sequences, we found that with the exception of 2006 and 2013, eight or fewer studies were responsible for depositing the majority of the full-length sequences each year since 2005 (Figure 2C). Between 2009 and 2012, 904,013 total sequences were submitted and 6) submissions from 5 studies were responsible for depositing 549,009 (60.7% of all sequences). These studies generated sequences from the human gastrointestinal tract [@Li_2012], human skin [@Kong_2012; @Grice_2009], murine skin [@Grice_2010], and hypersaline microbial mats [@Kirk_Harris_2012]. In contrast to recent years, between 1995 and 2006, an average of 53.1 studies were responsible for submitting more than half of the sequences each year. Although these deep surveys represent significant contributions to our knowledge of bacterial biogeography, their small number and lack of environmental diversity is indicative of the broader problems in advancing the bacterial census.
+
+
+***The dynamics of the archaeal census.***
+The depth of sequencing being done to advance the archaeal census is 26-times less than that of the bacterial census. In contrast to the plateau that was observed in bacterial sequence submissions, prior to 2012 the submission of archaeal sequences generally increased each year; however between 2012 and 2014 the number of archaeal sequences submitted decreased from 13,968 to 11,216 sequences per year. The number of new OTUs contributed each year has largely paralleled that of the bacterial census with a plateau starting in 2005 at 359 new OTUs per year. Although the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has never been more than 19, with the exception of 2012 and 2014 there has been an average of 9.3 submissions responsible for more than 50% of the sequences each year since 1996. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
+
+
+
+* What can we do to fix this?
+  - Characterize coverage by environments
+  - Cultured vs. uncultured
+  - Single cell genomics
+
+* Figure 1A. How have the number of full-length sequences changed over the past N years?
+* Figure 1B. How does this vary by environment?
+
+* Figure 2. How has the number of sequences per study changed over the past N years?
+
+* Figure 3. How has the coverage of the OTUs represented by these sequences changed over the last N years?
+
 * How has Figure 1 changed over the past N years?
+
+* In what environments do we have the best handle on extant diversity?
+  Figure 4A,B. What are the differences in sampling effort/sequence coverage at the 97% level for the different coarse habitats, and how is this different between Bacteria and Archaea?
+  Figure 5A,B. For the most sampled coarse habitats (Zoonotic for Bacteria, Aquatic for Archaea), what are the fine-scale habitats where they have been sampled most heavily?
+
+* In what habitats do we have the poorest understanding of diversity (and thus expect to yield considerable new knowledge over the years)?
+* How is this different for Bacteria vs. Archaea?
+* What are the most significant improvements since 2004, and where are we still lacking the most data?
+* For which phyla has there been substantial increases in sampled diversity since 2004?
+* Can we make any recommendations for habitats where biodiversity is under-sampled, perhaps calls for conservation in certain environments based on how poorly we understand the microbial diversity?
 
 
 ***Caveats.***
@@ -93,77 +133,35 @@ Future for PacBio in generating full-length sequences
 
 The first 16S sequence was published in 1978, not deposited until 1983. A bit of an allegory for our time.
 
+Impact of EMIRGE
 
+Renewed call for cultivation
 
 \newpage
 \singlespacing
 
-**Table 1. Habitat classifications**
 
 
-\begin{tabular}{l|l|c|c|c}
-\hline
-Coarse & Fine & Abbreviation & Bacterial & Archaeal\\
-\hline
-Aerosol &  & AE & 3444 & 2\\
-\hline
-Aquatic & Brackish & AQB & 1272 & 1368\\
-\hline
- & Brackish sediment & AQBS & 387 & 525\\
-\hline
- & Freshwater & AQF & 21445 & 1540\\
-\hline
- & Freshwater sediment & AQFS & 23965 & 1324\\
-\hline
- & Hydrothermal vent & AQH & 10650 & 3807\\
-\hline
- & Ice & AQI & 2022 & 42\\
-\hline
- & Marine & AQM & 130529 & 11007\\
-\hline
- & Marine sediment & AQMS & 27586 & 14049\\
-\hline
- & Other & AQO & 8214 & 772\\
-\hline
-Built & Digesters & BD & 32551 & 4488\\
-\hline
- & Food-associated & BF & 11721 & 117\\
-\hline
- & Industrial/mining & BI & 16209 & 1254\\
-\hline
- & Other & BO & 8018 & 444\\
-\hline
- & Pollution associated & BP & 38224 & 716\\
-\hline
-Plant associated & Other & PO & 9529 & 22\\
-\hline
- & Root & PR & 19059 & 200\\
-\hline
- & Surface & PS & 4819 & 0\\
-\hline
-Soil & Agriculture & SA & 9944 & 146\\
-\hline
- & Desert & SD & 3040 & 245\\
-\hline
- & Other & SO & 58936 & 2091\\
-\hline
- & Permafrost & SP & 1884 & 39\\
-\hline
-Zoological & Arthropod & ZA & 12835 & 87\\
-\hline
- & Non-arthropod invertebrate & ZN & 7392 & 67\\
-\hline
- & Other & ZO & 10714 & 54\\
-\hline
- & Vertebrate & ZV & 768601 & 5389\\
-\hline
-Other &  & OT & 19219 & 882\\
-\hline
-No isolation\_source &  &  & 150472 & 2941\\
-\hline
-Total &  &  & 1412681 & 53618\\
-\hline
-\end{tabular}
+**Figure 1. Sequences deposited by year**
+
+Pat, this is a placeholder for you
+
+**Figure 2. Sequence deposition by study**
+
+Pat, ibid.
+
+**Figure 3. Sampling by OTU cutoff**
+
+I only have an old code from Rene for this, and I don't think it reports all the sequences
+
+
+**Figure 4A. Bacterial sampling by environment**
+
+
+
+**Figure 4B. Archaeal sampling by environment**
+
+
 
 \newpage
 \doublespacing
