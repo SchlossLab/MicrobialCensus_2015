@@ -4,11 +4,10 @@ output:
     includes:
       in_header: table_1_header.tex
 tables: true
-fontsize: 8pt
-geometry: margin=0.8in
+geometry: margin=1.0in
 ---
 
-**Table 1. Habitat classifications**
+**Table 1. Status of microbial census by habitat classifications and domain.** The isolation_source field from the SILVA reference database was manually curated to assign bacterial and archaeal sequences coarse and fine scale habitat classifications. We calculated the number of sequences and OTUs observed and the percent coverage on a sequence or OTU basis for each classification and domain.
 
 ```{r table1, results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
@@ -93,15 +92,14 @@ arch_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schlo
 
 #abbreviation <- c(abbreviation, "", "")
 composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_good_coverage, bact_schloss_coverage, arch_count, arch_sobs, arch_good_coverage, arch_schloss_coverage)
-composite <- rbind(c("", "", "Sequences", "OTUs", "Seq.", "OTU", "Sequences", "OTUs", "Seq.", "OTU"), composite)
-
+composite <- rbind(c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}"), composite)
 
 composite <- xtable(composite)
 
 addtorow <- list(pos=list(0, 1),
-				command=c('\\multirow{2}{*}{Coarse} & \\multirow{2}{*}{Fine} & \\multicolumn{4}{c}{Bacterial} & \\multicolumn{4}{c}{Archaeal} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
+				command=c('\\multirow{4}{*}{Coarse} & \\multirow{4}{*}{Fine} & \\multicolumn{4}{c}{Bacterial} & \\multicolumn{4}{c}{Archaeal} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
 
 
 align(composite) <- "lllcccccccc"
-print(composite, add.to.row=addtorow, include.rownames=FALSE, include.colnames=FALSE, hline.after = c(-1,nrow(composite)-1, nrow(composite)), comment=FALSE, size="small")
+print(composite, add.to.row=addtorow, include.rownames=FALSE, include.colnames=FALSE, hline.after = c(-1,nrow(composite)-1, nrow(composite)), comment=FALSE, size="scriptsize")
 ```
