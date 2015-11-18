@@ -101,6 +101,20 @@ Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Sc
 
 ## Results and Discussion
 
+* What does the ongonig census look like?
+  - flat
+* Why might it be flat?
+  - Good's coverage
+  - Schloss's coverage
+  - % of NGS reads that map to database
+* Why aren't we doig a great job?
+  - Rate of change in full-length sequences has plateaued
+  - New sequences are submitted by a small number of investigators for a limited number of environments
+* What can we do to fix this?
+  - Characterize coverage by environments
+  - Cultured vs. uncultured
+  - Single cell genomics
+
 Issues we sought to solve...
 
 * Figure 1A. How have the number of full-length sequences changed over the past N years?
