@@ -19,7 +19,7 @@ arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.name
 
 coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
 
-fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Hydrothermal vent", "Ice", "Marine", "Marine sediment", "Other", "Digesters", "Food-associated", "Industrial/mining", "Other", "Pollution associated", "Other", "Root", "Surface", "Agriculture", "Desert", "Other", "Permafrost", "Arthropod", "Other invertebrate", "Other", "Vertebrate", "", "", "")
+fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Hydrothermal vent", "Ice", "Marine", "Marine sediment", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Arthropod", "Other invertebrate", "Vertebrate", "Other", "", "", "")
 
 abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZA", "ZN", "ZV", "ZO", "OT")
 
@@ -33,7 +33,7 @@ get_sobs <- function(x, db){
 	}
 }
 
-get_coverage <- function(x, db){
+get_goods_coverage <- function(x, db){
 	if(x=="NA"){
 		x_table <- table(db[is.na(db$category), "otu"])
 	} else if(x == "total") {
@@ -53,6 +53,25 @@ get_coverage <- function(x, db){
 
 }
 
+get_schloss_coverage <- function(x, db){
+	if(x=="NA"){
+		x_table <- table(db[is.na(db$category), "otu"])
+	} else if(x == "total") {
+		x_table <- table(db[, "otu"])
+	} else {
+		x_table <- table(db[db$category==x, "otu"])
+	}
+
+	singletons <- sum(x_table == 1)
+	total_otus <- length(x_table)
+
+	if(total_otus != 0){
+		100*(1-singletons/total_otus)
+	} else {
+		NA
+	}
+
+}
 
 
 
@@ -61,26 +80,28 @@ bact_count[is.na(bact_count)] <- 0
 bact_count <- c(bact_count, nrow(bact) - sum(bact_count))
 bact_count <- format(c(bact_count, nrow(bact)), big.mark=',')
 bact_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, bact), big.mark=',')
-bact_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_coverage, bact), nsmall=1, digits=3)
+bact_good_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_goods_coverage, bact), nsmall=1, digits=3)
+bact_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schloss_coverage, bact), nsmall=1, digits=3)
 
 arch_count <- table(arch$category)[abbreviation]
 arch_count[is.na(arch_count)] <- 0
 arch_count <- c(arch_count, nrow(arch) - sum(arch_count))
 arch_count <- format(c(arch_count, nrow(arch)), big.mark=',')
 arch_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, arch), big.mark=',')
-arch_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_coverage, arch), nsmall=1, digits=3)
+arch_good_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_goods_coverage, arch), nsmall=1, digits=3)
+arch_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schloss_coverage, arch), nsmall=1, digits=3)
 
 #abbreviation <- c(abbreviation, "", "")
-composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_coverage, arch_count, arch_sobs, arch_coverage)
-composite <- rbind(c("", "", "Sequences", "OTUs", "Coverage (%)", "Sequences", "OTUs", "Coverage (%)"), composite)
+composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_good_coverage, bact_schloss_coverage, arch_count, arch_sobs, arch_good_coverage, arch_schloss_coverage)
+composite <- rbind(c("", "", "Sequences", "OTUs", "Seq.", "OTU", "Sequences", "OTUs", "Seq.", "OTU"), composite)
 
 
 composite <- xtable(composite)
 
 addtorow <- list(pos=list(0, 1),
-				command=c('\\multirow{2}{*}{Coarse} & \\multirow{2}{*}{Fine} & \\multicolumn{3}{c}{Bacterial} & \\multicolumn{3}{c}{Archaeal} \\\\ \\cmidrule(r){3-5}	\\cmidrule(r){6-8}', '\\hline '))
+				command=c('\\multirow{2}{*}{Coarse} & \\multirow{2}{*}{Fine} & \\multicolumn{4}{c}{Bacterial} & \\multicolumn{4}{c}{Archaeal} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
 
 
-align(composite) <- "lllcccccc"
+align(composite) <- "lllcccccccc"
 print(composite, add.to.row=addtorow, include.rownames=FALSE, include.colnames=FALSE, hline.after = c(-1,nrow(composite)-1, nrow(composite)), comment=FALSE, size="small")
 ```
