@@ -19,8 +19,8 @@ $(NB)/%_data_acquisition.Rmd:
 
 
 $(FIG)/fifty_authors_deposited.pdf $(FIG)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIG)/sequences_deposited.pdf data/process/by_year_analysis.tsv : code/time_course_plots.R\
-												$(PROCESS)/archaea.final.metadata\
-												$(PROCESS)/bacteria.final.metadata
+												$(PROCESS)/archaea.v123.metadata\
+												$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/time_course_plots.R")'
 
 $(FIG)/domain_rarefaction.pdf : data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
@@ -39,12 +39,12 @@ results/tables/table1.pdf : data/process/bacteria.v123.metadata\
 
 
 
-Schloss_Census2_mBio_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
+Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(NB)/Archaeal_data_acquisition.Rmd\
 								$(FIG)/fifty_authors_deposited.pdf\
-								$(FIGS)/phyla_deposited.pdf\
+								$(FIG)/phyla_deposited.pdf\
 								$(FIG)/otus_deposited.pdf\
-								$(FIGS)/sequences_deposited.pdf\
+								$(FIG)/sequences_deposited.pdf\
 								$(FIG)/domain_rarefaction.pdf\
 								results/tables/table1.pdf\
 								data/process/by_year_analysis.tsv\
@@ -55,4 +55,4 @@ Schloss_Census2_mBio_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
 	rm Schloss_Census2_mBio_2015.utf8.md
 
-write.paper : Schloss_Census2_XXXX_2015.md
+write.paper : Schloss_Census2_mBio_2015.md
