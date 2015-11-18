@@ -18,7 +18,7 @@ $(NB)/%_data_acquisition.Rmd:
 	R -e 'render("doc/notebook/%_data_acquisition.Rmd")'
 
 
-$(FIG)/fifty_authors_deposited.pdf $(FIG)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIG)/sequences_deposited.pdf : code/time_course_plots.R\
+$(FIG)/fifty_authors_deposited.pdf $(FIG)/phyla_deposited.pdf $(FIG)/otus_deposited.pdf $(FIG)/sequences_deposited.pdf data/process/by_year_analysis.tsv : code/time_course_plots.R\
 												$(PROCESS)/archaea.final.metadata\
 												$(PROCESS)/bacteria.final.metadata
 	R -e 'source("code/time_course_plots.R")'
@@ -47,6 +47,9 @@ Schloss_Census2_mBio_2015.md : $(NB)/Bacterial_data_acquisition.Rmd\
 								$(FIGS)/sequences_deposited.pdf\
 								$(FIG)/domain_rarefaction.pdf\
 								results/tables/table1.pdf\
+								data/process/by_year_analysis.tsv\
+								data/process/bacteria.v123.metadata\
+								data/process/archaea.v123.metadata\
 								Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
