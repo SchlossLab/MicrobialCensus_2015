@@ -11,6 +11,8 @@ geometry: margin=1.0in
 
 ```{r table1, results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
 
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 
