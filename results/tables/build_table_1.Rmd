@@ -20,9 +20,9 @@ arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.name
 
 coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
 
-fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Hydrothermal vent", "Ice", "Marine", "Marine sediment", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Arthropod", "Other invertebrate", "Vertebrate", "Other", "", "", "")
+fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Marine", "Marine sediment", "Hydrothermal vent", "Ice", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Vertebrate", "Arthropod", "Other invertebrate", "Other", "", "", "")
 
-abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZA", "ZN", "ZV", "ZO", "OT")
+abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQM", "AQMS", "AQH", "AQI", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZV", "ZA", "ZN",  "ZO", "OT")
 
 get_sobs <- function(x, db){
 	if(x == "NA"){
@@ -93,13 +93,16 @@ arch_good_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_goods_co
 arch_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schloss_coverage, arch), nsmall=1, digits=3)
 
 #abbreviation <- c(abbreviation, "", "")
+
 composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_good_coverage, bact_schloss_coverage, arch_count, arch_sobs, arch_good_coverage, arch_schloss_coverage)
+write.table(composite, file=paste0(PROJHOME, "/data/process/table1_data.tsv"))
+
 composite <- rbind(c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}"), composite)
 
 composite <- xtable(composite)
 
 addtorow <- list(pos=list(0, 1),
-				command=c('\\multirow{4}{*}{Coarse} & \\multirow{4}{*}{Fine} & \\multicolumn{4}{c}{Bacterial} & \\multicolumn{4}{c}{Archaeal} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
+				command=c('\\multirow{4}{*}{Coarse} & \\multirow{4}{*}{Fine} & \\multicolumn{4}{c}{Bacteria} & \\multicolumn{4}{c}{Archaea} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
 
 
 align(composite) <- "lllcccccccc"

@@ -31,7 +31,7 @@ $(FIG)/domain_rarefaction.pdf : data/mothur/all_bacteria.filter.unique.precluste
 
 
 
-results/tables/table1.pdf : data/process/bacteria.v123.metadata\
+results/tables/table1.pdf results/process/table1_data.csv : data/process/bacteria.v123.metadata\
 							data/process/archaea.v123.metadata\
 							results/tables/build_table_1.Rmd\
 							results/tables/table_1_header.tex
