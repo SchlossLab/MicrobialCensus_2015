@@ -38,6 +38,7 @@ bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.nam
 bact_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", bact$date)
 
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
 ```
 \vspace{35mm}
 
@@ -89,7 +90,7 @@ The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) referen
 
 
 ***Metadata curation.***
-The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse” categories, and further refined to facilitate additional analyses with twenty-six more specific "fine” categories (Table 1). These were assigned based on manual curation of the `isolation_source` category within the ARB database associated with each of the sequences. There were `r length(unique(bact$isolation_source))-1` bacterial and `r length(unique(arch$isolation_source))-1` archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were `r sum(is.na(bact$isolation_source))` bacterial and `r sum(is.na(arch$isolation_source))` archaeal sequences where an `isolation_source` term was not collected. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
+The metadata that was contained within the SSU Ref database was used to expand our analysis beyond a basic count of sequences and the number of OTUs in each domain. The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse" categories, and further refined to facilitate additional analyses with twenty-six more specific "fine" categories (Table 1). These were assigned based on manual curation of the "isolation_source" category within the ARB database associated with each of the sequences. There were `r length(unique(bact$isolation_source))-1` bacterial and `r length(unique(arch$isolation_source))-1` archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were `r sum(is.na(bact$isolation_source))` bacterial and `r sum(is.na(arch$isolation_source))` archaeal sequences where an "isolation_source" term was not collected. We ascertained whether a sequence came from a bacterial isolate using the "strain" and "isolate" fields within the database. If a sequence had a value for either of these fields it was considered an isolate. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
 
 
 ***Data analysis.***
@@ -124,6 +125,8 @@ To assess the field's progress in characterizing the biodiversity of bacteria an
 ```{r time_course}
   	time_data <- read.table(file="data/process/by_year_analysis.tsv", header=TRUE)
 
+
+
 	get_n50_count <- function(year){
 		sort(table(bact[bact_year_deposited==year,'submit_author']), decreasing=T)[1:time_data[as.character(year),"b_n50"]]
 	}
@@ -136,12 +139,6 @@ To assess the field's progress in characterizing the biodiversity of bacteria an
 	}
 	dominant_titles <- unlist(lapply(2009:2012, get_n50_pm_ids))
 
-	stopifnot(dominant_titles == c('19478181', '22310478', '20668241', '22310478', '22719818', '22832344'))
-
-	#require(knitcitations, quiet=TRUE)
-	#citep(c('10.1038/ismej.2012.79', '10.1371/journal.pone.0026284', '10.1101/gr.131029.111', '10.1073/pnas.1004204107', '10.1126/science.1171700'))
-
-
 	get_n50_categories <- function(year){
 		authors <- names(sort(table(bact[bact_year_deposited==year,'submit_author']), decreasing=T)[1:time_data[as.character(year),"b_n50"]])
 		dom_pm_id <- unique(bact[bact$submit_author %in% authors, c('submit_author', 'category')])$category
@@ -149,43 +146,154 @@ To assess the field's progress in characterizing the biodiversity of bacteria an
 	}
 	dominant_categories <- unlist(lapply(c(2009:2012,2014), get_n50_categories))
 
+	stopifnot(dominant_titles == c('19478181', '22310478', '20668241', '22310478', '22719818', '22832344'))
+
+	#require(knitcitations, quiet=TRUE)
+	#citep(c('10.1038/ismej.2012.79', '10.1371/journal.pone.0026284', '10.1101/gr.131029.111', '10.1073/pnas.1004204107', '10.1126/science.1171700'))
 ```
 
 ***The dynamics of the bacterial census.***
-One explanation for the large number of OTUs that have only been observed once is that with the the broad adoption of highly parallelized sequencing platforms that generate short sequence reads, the rate of full-length sequence generation has declined. In fact, since 2009 the number of new bacterial sequences generated has plateaued at an average of `r floor(mean(time_data[as.character(2009:2014),'b_nseqs']))` sequences per year (Figure 2A). Although this is still an impressive number of sequences, since 2008 the number of new bacterial OTUs has plateaued at an average of `r mean(time_data[as.character(2006:2014),'b_sobs'])` new OTUs per year (Figure 2B). Given the expense of generating full-length sequences using the Sanger sequencing technology and the transition to other platforms, we expected that the large number of sequences were being deposited by a handful of large projects. Indeed, when we counted the number of submissions responsible for depositing 50% of the sequences, we found that with the exception of 2006 and 2013, eight or fewer studies were responsible for depositing the majority of the full-length sequences each year since 2005 (Figure 2C). Between 2009 and 2012, `r sum(time_data[as.character(2009:2012), 'b_nseqs'])` total sequences were submitted and `r sum(time_data[as.character(2009:2012), 'b_n50'])` submissions from `r length(unique(dominant_titles))` studies were responsible for depositing `r dominant_studies` (`r 100*dominant_studies/sum(time_data[as.character(2009:2012), 'b_nseqs'])`% of all sequences). These studies generated sequences from the human gastrointestinal tract [@Li_2012], human skin [@Kong_2012; @Grice_2009], murine skin [@Grice_2010], and hypersaline microbial mats [@Kirk_Harris_2012]. In contrast to recent years, between 1995 and 2006, an average of `r mean(time_data[as.character(1995:2006), 'b_n50'])` studies were responsible for submitting more than half of the sequences each year. Although these deep surveys represent significant contributions to our knowledge of bacterial biogeography, their small number and lack of environmental diversity is indicative of the broader problems in advancing the bacterial census.
+One explanation for the large number of OTUs that have only been observed once is that with the the broad adoption of highly parallelized sequencing platforms that generate short sequence reads, the rate of full-length sequence generation has declined. In fact, since 2009 the number of new bacterial sequences generated has slowed two an average of `r floor(mean(time_data[as.character(2009:2014),'b_nseqs']))` sequences per year (Figure 2A). Although this is still an impressive number of sequences, since `r start<-2007;start` the number of new bacterial OTUs has plateaued at an average of `r mean(time_data[as.character(start:2014),'b_sobs'])` new OTUs per year (Figure 2B). Given the expense of generating full-length sequences using the Sanger sequencing technology and the transition to other platforms, we expected that the large number of sequences were being deposited by a handful of large projects. Indeed, when we counted the number of submissions responsible for depositing 50% of the sequences, we found that with the exception of 2006 and 2013, eight or fewer studies were responsible for depositing the majority of the full-length sequences each year since 2005 (Figure 2C). Between 2009 and 2012, `r sum(time_data[as.character(2009:2012), 'b_nseqs'])` total sequences were submitted and `r sum(time_data[as.character(2009:2012), 'b_n50'])` submissions from `r length(unique(dominant_titles))` studies were responsible for depositing `r dominant_studies` (`r 100*dominant_studies/sum(time_data[as.character(2009:2012), 'b_nseqs'])`% of all sequences). These studies generated sequences from the human gastrointestinal tract [@Li_2012], human skin [@Kong_2012; @Grice_2009], murine skin [@Grice_2010], and hypersaline microbial mats [@Kirk_Harris_2012]. In contrast to recent years, between 1995 and 2006, an average of `r mean(time_data[as.character(1995:2006), 'b_n50'])` studies were responsible for submitting more than half of the sequences each year. Although these deep surveys represent significant contributions to our knowledge of bacterial biogeography, their small number and lack of environmental diversity is indicative of the broader problems in advancing the bacterial census.
 
-
-==> The archaea census section is pretty rough still...
 
 ***The dynamics of the archaeal census.***
-The depth of sequencing being done to advance the archaeal census is `r floor(sum(time_data$b_nseqs)/sum(time_data$a_nseqs))`-times less than that of the bacterial census. In contrast to the plateau that was observed in bacterial sequence submissions, prior to 2012 the submission of archaeal sequences generally increased each year; however between 2012 and 2014 the number of archaeal sequences submitted decreased from `r time_data['2012', 'a_nseqs']` to `r time_data['2014', 'a_nseqs']` sequences per year. The number of new OTUs contributed each year has largely paralleled that of the bacterial census with a plateau starting in 2005 at `r mean(time_data[as.character(2005:2014),'a_sobs'])` new OTUs per year. Although the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has never been more than `r max(time_data[,'a_n50'])`, with the exception of 2012 and 2014 there has been an average of `r mean(time_data[as.character(c(1996:2011,2013)),'a_n50'])` submissions responsible for more than 50% of the sequences each year since 1996. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
+The depth of sequencing being done to advance the archaeal census is `r floor(sum(time_data$b_nseqs)/sum(time_data$a_nseqs))`-times less than that of the bacterial census (Table 1). The annual number of sequences submitted has largely paralleled that of the bacterial census with a plateau starting in 2009 and an average of `r mean(time_data[as.character(2009:2014),'a_nseqs'])` sequences each year since then. The number of new archaeal OTUs represented by these sequences began to slow in 2005 with an average of `r mean(time_data[as.character(2005:2014),'a_sobs'])` new OTUs per year. With the exception of 2012 and 2014, the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has varied between `r min(time_data[c(1996:2011,2013),'a_n50'])` and `r max(time_data[c(1996:2011,2013),'a_n50'])` submissions per year. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
+
+```{r environment}
+	strip <- function(x){	as.numeric(gsub(',', '', x))	}
+
+	table1_raw <- read.table(file="data/process/table1_data.tsv", row.names=NULL, stringsAsFactors=FALSE)
+	table1_raw <- table1_raw[-nrow(table1_raw),]
+	rownames(table1_raw) <- table1_raw$row.names
+	rownames(table1_raw)[nrow(table1_raw)] <- 'no_source_data'
+	table1_raw <- table1_raw[,-c(1,2)]
+	table1_raw[c("AE", "OT", "no_source_data"),"fine"] <- c("Aerosol", "Other", "no_source_data")
+
+	for(col in 2:ncol(table1_raw)){
+		table1_raw[,col] <- strip(table1_raw[,col])
+	}
+
+	table1_good <- table1_raw[-nrow(table1_raw),]
+
+	b_class_percent <- 100*sum(table1_good$bact_count)/sum(table1_raw$bact_count)
+	a_class_percent <- 100*sum(table1_good$arch_count)/sum(table1_raw$arch_count)
+
+	coarse_map <- c("A"=="aerosol", "AQ" = "aquatic", "B" = "built environment", "O" = "other", "P" = "plant", "S" = "soil", "Z" = "zoonotic")
+
+	coarse <- gsub("^(.)[A-Z]$", "\\1", rownames(table1_good))
+	coarse <- gsub("^(..)[A-Z]+$", "\\1", coarse)
+
+	b_agg_count <- aggregate(table1_good$bact_count, by=list(coarse_map[coarse]), sum)
+	a_agg_count <- aggregate(table1_good$arch_count, by=list(coarse_map[coarse]), sum)
+
+
+```
+
+***Focusing the census by environment***
+We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r b_agg_count[1]`, `r b_agg_count[2]`, and `r b_agg_count[3]` sources and among the bacterial sequences the three best represented groups were from `r a_agg_count[1]`, `r a_agg_count[2]`, and `r a_agg_count[3]` sources. For both domains, soil samples were the fourth most represented category. The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range for the bacterial OTU-based coverage only varied between `r quantile(table1_good$bact_schloss_coverage, prob=c(0.25))` to `r quantile(table1_good$bact_schloss_coverage, prob=c(0.75))` categories (median coverage=`r median(table1_good$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(table1_good$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to `r quantile(table1_good$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(table1_good$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Given the relatively low number of archaeal sequences that have been deposited for many of these categories, it is possible that the coverage for many categories may not be reliable (e.g. aerosol and plant surfaces). By decomposing the census by environmental categories, it is clear that even among the best sampled environments, our ability to claim anything but a basic characterization of microbial biodiversity is limited.
+
+
+```{r culture}
+	b_is_cult <- (!is.na(bact$strain) | !is.na(bact$isolate)) & !grepl("\\.Unc", rownames(bact))
+	a_is_cult <- (!is.na(arch$strain) | !is.na(arch$isolate)) & !grepl("\\.Unc", rownames(arch))
+
+	b_ncult_full <- sum(b_is_cult)
+	a_ncult_full <- sum(a_is_cult)
+
+	b_fract_cult <- 100 * b_ncult_full / nrow(bact)
+	a_fract_cult <- 100 * a_ncult_full / nrow(arch)
+
+
+	b_ncult_2005 <- sum((!is.na(bact$strain) | !is.na(bact$isolate)) & bact_year_deposited <= 2005, na.rm=T)
+	a_ncult_2005 <- sum((!is.na(arch$strain) | !is.na(arch$isolate)) & arch_year_deposited <= 2005, na.rm=T)
+
+
+	b_ncult_delta <- b_ncult_full - b_ncult_2005
+
+	b_before_2005 <- sum(bact_year_deposited <= 2005, na.rm=T)
+	b_since_2005 <- sum(bact_year_deposited > 2005, na.rm=T)
+
+	b_slow_cult <- (b_since_2005/b_before_2005) / (b_ncult_delta/b_ncult_2005)
+
+	a_ncult_delta <- a_ncult_full - a_ncult_2005
+
+	a_before_2005 <- sum(arch_year_deposited <= 2005, na.rm=T)
+	a_since_2005 <- sum(arch_year_deposited > 2005, na.rm=T)
+
+	a_slow_cult <- (a_since_2005/a_before_2005) / (a_ncult_delta/a_ncult_2005)
+
+
+	bact_phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", bact$taxonomy)
+	bact_phylum[bact_phylum=="Euryarchaeota"] <- NA
+	bact_phylum[bact_phylum=="aquifer1"] <- NA
+
+	b_is_cult[rownames(bact) == 'AJ224540.MxeCultu'] <- FALSE
+#	aquifer1 - scrap
+#	bact[bact_phylum=="Candidate_division_OP3" & !is.na(bact$isolate),] - AJ224540.MxeCultu
+
+#	bact[bact_phylum=="CKC4" & !is.na(bact$isolate),] -> 2 - 1 is a genome, 1 is an isolate from same research group
+#	bact[bact_phylum=="PAUC34f" & (!is.na(bact$isolate) | !is.na(bact$strain)),] - legit
+#	bact[bact_phylum=="TM6" & (!is.na(bact$isolate) | !is.na(bact$strain)) & !grepl("\\.Unc", rownames(bact)),] - legit
+
+	b_phylum_cult_table <- table(bact_phylum, b_is_cult)
+	b_phylum_cult_rate <- b_phylum_cult_table[,"TRUE"] / apply(b_phylum_cult_table, 1, sum)
+
+
+	arch_phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", arch$taxonomy)
+	arch_phylum[arch_phylum=="Archaea;"] <- "Unclassified"
+	a_phylum_cult_table <- table(arch_phylum, a_is_cult)
+	a_phylum_cult_rate <- a_phylum_cult_table[,"TRUE"] / apply(a_phylum_cult_table, 1, sum)
+
+
+cult_otus <- unique(bact$otu[b_is_cult])			# otus with a cultured representative
+b_in_cult_otu <- bact$otu %in% cult_otus
+
+
+#total number of OTUs by phylum
+n_all_otus_phylum <- aggregate(bact$otu, by=list(bact_phylum), function(x){length(unique(x))})
+
+#total number of OTUs with a cultured rep by phylum
+n_cult_otus_phylum <- aggregate(bact$otu[b_in_cult_otu], by=list(bact_phylum[b_in_cult_otu]), length)
+
+#need to merge these two tables...
 
 
 
 
-* What can we do to fix this?
-  - Characterize coverage by environments
-  - Cultured vs. uncultured
+```
+
+***The cultured census***
+In our previous analysis there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives.
+
+
+* fraction of sequences from cultured / uncultured bugs (2005 vs 2014) by domain
+	- 18.9% of bacterial sequences and 7.2% of archaeal sequences are from isolates (b_fract_cult & a_fract_cult)
+	- culture rates lagging total submissions by 2.7-fold (bacteria / archaea; b_slow_cult / a_slow_cult)
+
+* fraction of sequences from cultured / uncultured bugs (2014) by phylum
+	- b_phylum_cult_rate
+	- a_phylum_cult_rate
+
+* % of OTUs with a cultured representative by phylum
+	- basically done.
+
+
+
+* do these new cultures represent new OTUs?
+
+
+
+***The census is taxonomically skewed***
+* For which phyla has there been substantial increases in sampled diversity since 2004?
+
+
+
+
+***New technologies to access novel biodiversity***
   - Single cell genomics
 
-* Figure 1A. How have the number of full-length sequences changed over the past N years?
-* Figure 1B. How does this vary by environment?
 
-* Figure 2. How has the number of sequences per study changed over the past N years?
 
-* Figure 3. How has the coverage of the OTUs represented by these sequences changed over the last N years?
-
-* How has Figure 1 changed over the past N years?
-
-* In what environments do we have the best handle on extant diversity?
-  Figure 4A,B. What are the differences in sampling effort/sequence coverage at the 97% level for the different coarse habitats, and how is this different between Bacteria and Archaea?
-  Figure 5A,B. For the most sampled coarse habitats (Zoonotic for Bacteria, Aquatic for Archaea), what are the fine-scale habitats where they have been sampled most heavily?
-
-* In what habitats do we have the poorest understanding of diversity (and thus expect to yield considerable new knowledge over the years)?
-* How is this different for Bacteria vs. Archaea?
-* What are the most significant improvements since 2004, and where are we still lacking the most data?
-* For which phyla has there been substantial increases in sampled diversity since 2004?
-* Can we make any recommendations for habitats where biodiversity is under-sampled, perhaps calls for conservation in certain environments based on how poorly we understand the microbial diversity?
 
 
 ***Caveats.***
@@ -204,6 +312,8 @@ The first 16S sequence was published in 1978, not deposited until 1983. A bit of
 Impact of EMIRGE
 
 Renewed call for cultivation
+
+What are the most significant improvements since 2004, and where are we still lacking the most data?
 
 \newpage
 \singlespacing
