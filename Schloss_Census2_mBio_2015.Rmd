@@ -37,8 +37,13 @@ knitr::knit_hooks$set(inline=inline_hook)
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 bact_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", bact$date)
 
+bact$category[bact$category=="ZI" & !is.na(bact$category)] <- "ZA"
+
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
+
+arch$category[arch$category=="BDBD" & !is.na(arch$category)] <- "BD"
+
 ```
 \vspace{35mm}
 
@@ -229,7 +234,7 @@ We were able to assign `r b_class_percent` and `r a_class_percent`% of the seque
 
 	b_is_cult[rownames(bact) == 'AJ224540.MxeCultu'] <- FALSE
 #	aquifer1 - scrap
-#	bact[bact_phylum=="Candidate_division_OP3" & !is.na(bact$isolate),] - AJ224540.MxeCultu
+#	bact[bact_phylum=="Candidate_division_OP3" & !is.na(bact$isolate) & !is.na(bact_phylum),] - AJ224540.MxeCultu
 
 #	bact[bact_phylum=="CKC4" & !is.na(bact$isolate),] -> 2 - 1 is a genome, 1 is an isolate from same research group
 #	bact[bact_phylum=="PAUC34f" & (!is.na(bact$isolate) | !is.na(bact$strain)),] - legit
@@ -245,26 +250,36 @@ We were able to assign `r b_class_percent` and `r a_class_percent`% of the seque
 	a_phylum_cult_rate <- a_phylum_cult_table[,"TRUE"] / apply(a_phylum_cult_table, 1, sum)
 
 
-cult_otus <- unique(bact$otu[b_is_cult])			# otus with a cultured representative
-b_in_cult_otu <- bact$otu %in% cult_otus
+	b_cult_otus <- unique(bact$otu[b_is_cult])
+	b_in_cult_otu <- bact$otu %in% b_cult_otus
+
+	n_all_otus_phylum <- aggregate(bact$otu, by=list(bact_phylum), function(x){length(unique(x))})
+	n_cult_otus_phylum <- aggregate(bact$otu[b_in_cult_otu], by=list(bact_phylum[b_in_cult_otu]), function(x){length(unique(x))})
+
+	b_otus_phylum <- data.frame(matrix(rep(0, nrow(n_all_otus_phylum)*2), ncol=2, dimnames=list(n_all_otus_phylum$Group.1, c('cultured', 'total'))))
+
+	b_otus_phylum[n_all_otus_phylum$Group.1,"total"] <- n_all_otus_phylum$x
+	b_otus_phylum[n_cult_otus_phylum$Group.1,"cultured"] <- n_cult_otus_phylum$x
 
 
-#total number of OTUs by phylum
-n_all_otus_phylum <- aggregate(bact$otu, by=list(bact_phylum), function(x){length(unique(x))})
+	a_cult_otus <- unique(arch$otu[a_is_cult])
+	a_in_cult_otu <- arch$otu %in% a_cult_otus
 
-#total number of OTUs with a cultured rep by phylum
-n_cult_otus_phylum <- aggregate(bact$otu[b_in_cult_otu], by=list(bact_phylum[b_in_cult_otu]), length)
+	n_all_otus_phylum <- aggregate(arch$otu, by=list(arch_phylum), function(x){length(unique(x))})
+	n_cult_otus_phylum <- aggregate(arch$otu[a_in_cult_otu], by=list(arch_phylum[a_in_cult_otu]), function(x){length(unique(x))})
 
-#need to merge these two tables...
+	a_otus_phylum <- data.frame(matrix(rep(0, nrow(n_all_otus_phylum)*2), ncol=2, dimnames=list(n_all_otus_phylum$Group.1, c('cultured', 'total'))))
+
+	a_otus_phylum[n_all_otus_phylum$Group.1,"total"] <- n_all_otus_phylum$x
+	a_otus_phylum[n_cult_otus_phylum$Group.1,"cultured"] <- n_cult_otus_phylum$x
 
 
-
-
+	b_n1_cult_otus <- sum(table(bact$otu[b_in_cult_otu])==1)/length(table(bact$otu[b_in_cult_otu]))
+	a_n1_cult_otus <- sum(table(arch$otu[a_in_cult_otu])==1)/length(table(arch$otu[a_in_cult_otu]))
 ```
 
 ***The cultured census***
 In our previous analysis there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives.
-
 
 * fraction of sequences from cultured / uncultured bugs (2005 vs 2014) by domain
 	- 18.9% of bacterial sequences and 7.2% of archaeal sequences are from isolates (b_fract_cult & a_fract_cult)
@@ -274,24 +289,61 @@ In our previous analysis there was great concern that although culture-independe
 	- b_phylum_cult_rate
 	- a_phylum_cult_rate
 
-* % of OTUs with a cultured representative by phylum
-	- basically done.
+* % of OTUs with a cultured representative by phylum and in aggregate
+	- b_otus_phylum
+	- a_otus_phylum
 
+* do these new cultures represent new OTUs by phylum and in aggregate
+	- b_n1_cult_otus
+	- a_n1_cult_otus
 
-
-* do these new cultures represent new OTUs?
+* need a plot showing % cultured sequences and % cultured OTUs
 
 
 
 ***The census is taxonomically skewed***
+
+
+```{r taxon_census}
+	b_phylum_year <- table(bact_year_deposited, bact_phylum)
+	b_n_phylum_2015 <- ncol(b_phylum_year)
+	b_phylum_2006 <- b_phylum_year[rownames(b_phylum_year) %in% as.character(1983:2006),]
+	b_n_phylum_2006 <- sum(apply(b_phylum_2006, 2, sum) > 0) #how many phyla were there?
+	b_n_old_seqs <- sum(b_phylum_2006)						#how many seqs in 2006?
+	b_n_old_seqs_phyla <- apply(b_phylum_2006, 2, sum)		#how many sequences in each phyla?
+
+	b_new_phyla <- colnames(b_phylum_year)[apply(b_phylum_2006, 2, sum) == 0] #what are the new phyla?
+	b_new_phyla_names <- paste(paste(b_new_phyla[1:(length(b_new_phyla)-1)], collapse=", "),
+							 b_new_phyla[length(b_new_phyla)], sep=", and ")
+
+
+
+	a_phylum_year <- table(arch_year_deposited, arch_phylum)
+	a_n_phylum_2015 <- ncol(a_phylum_year)
+	a_phylum_2006 <- a_phylum_year[rownames(a_phylum_year) %in% as.character(1983:2006),]
+	a_n_phylum_2006 <- sum(apply(a_phylum_2006, 2, sum) > 0) #how many phyla were there?
+	a_n_old_seqs <- sum(a_phylum_2006)						#how many seqs in 2006?
+	a_n_old_seqs_phyla <- apply(a_phylum_2006, 2, sum)		#how many sequences in each phyla?
+
+	a_new_phyla <- colnames(a_phylum_year)[apply(a_phylum_2006, 2, sum) == 0] #what are the new phyla?
+	a_new_phyla_names <- paste(a_new_phyla, collapse=" and ")
+	a_new_phyla_names <- gsub("_", " ", a_new_phyla_names)
+	a_new_phyla_names <- gsub("\\(\\S*\\)", "", a_new_phyla_names)
+```
+
 * For which phyla has there been substantial increases in sampled diversity since 2004?
+	- new phyla: b_new_phyla_names, a_new_phyla_names
+	- Figure phylum_effort.pdf
+
+* generate a heatmap of category by phylum relative abundance
+	- Figure phylum_category_heatmap
 
 
 
 
 ***New technologies to access novel biodiversity***
   - Single cell genomics
-
+  - Metagenomes
 
 
 
