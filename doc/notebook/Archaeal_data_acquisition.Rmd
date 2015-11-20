@@ -383,10 +383,11 @@ metadata$category[metadata$category == 'AQS'] <- 'AQMS'
 metadata$category[metadata$category == 'VD'] <- 'BD'
 metadata$category[metadata$category == 'BM'] <- 'BI'
 metadata$category[metadata$category == 'AH'] <- 'AQH'
+metadata$category[metadata$category == 'BDBD'] <- 'BD'
 
 
 #... and we output the metadata file...
-write.table(metadata, file="data/mothur/archaea.v123.metadata", sep="\t")
+write.table(metadata, file="data/process/archaea.v123.metadata", sep="\t")
 
 #... and we output a group file to use for splitting up the list file into the individual categories...
 write.table(file="data/mothur/archaea.all_category.groups", x=cbind(rownames(metadata), metadata$category), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
