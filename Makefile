@@ -29,6 +29,15 @@ $(FIG)/domain_rarefaction.pdf : data/mothur/all_bacteria.filter.unique.precluste
 	R -e 'source("code/domain_rarefaction.R")'
 
 
+$(FIG)/phylum_effort.pdf : data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
+						data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
+						code/build_phylum_effort.R
+	R -e 'source("code/build_phylum_effort.R")'
+
+$(FIG)/category_phylum_heatmap.pdf : data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
+								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
+								code/build_phylum_category_heatmap.R
+	R -e 'source("code/build_phylum_category_heatmap.R")'
 
 
 results/tables/table1.pdf results/process/table1_data.csv : data/process/bacteria.v123.metadata\
