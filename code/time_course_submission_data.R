@@ -12,10 +12,10 @@ bact_year_deposited <- get_year(bact$date)
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 arch_year_deposited <- get_year(arch$date)
 
-summary_table <- data.frame(matrix(rep(0, (final_year-first_year+1)*8), ncol=8))
+summary_table <- data.frame(matrix(rep(0, (final_year-first_year+1)*10), ncol=10))
 rownames(summary_table) <- first_year:final_year
-colnames(summary_table) <- c('b_nseqs', 'b_sobs', 'b_n50', 'b_n50_doi',
-							'a_nseqs', 'a_sobs', 'a_n50', 'a_n50_doi')
+colnames(summary_table) <- c('b_nseqs', 'b_sobs', 'b_n50', 'b_n50_doi', 'b_n50_nseqs',
+							'a_nseqs', 'a_sobs', 'a_n50', 'a_n50_doi', 'a_n50_nseqs')
 
 
 get_annual_seq_deposits <- function(year_vector){
@@ -58,21 +58,21 @@ arch_data <- get_annual_otu_deposits(arch_year_deposited, arch$otu)
 summary_table[names(arch_data),'a_sobs'] <- arch_data
 
 
-how_many <- function(year, year_vector, db, fraction=0.50){
+get_n50_data <- function(year, year_vector, db, fraction=0.50){
 
 	year_db <- db[year_vector==as.character(year) & !is.na(year_vector),]
 	dummy_variable <- paste(year_db$submit_author, year_db$pubmed_id, sep='_')
-	ranked_order <- cumsum(sort(table(dummy_variable), decreasing=T))/length(dummy_variable)
+	cumsum_count <- cumsum(sort(table(dummy_variable), decreasing=T))
+	cumsum_fraction <- cumsum_count/length(dummy_variable)
 
-	count <- unname(which.max(ranked_order>=fraction))
+	count <- unname(which.max(cumsum_fraction>=fraction))
 
 	if(length(count) == 0){
-		count <- 0
-		names(count) <- "NA"
+		list(count=0, names="NA", nseqs=0)
 	} else {
-		names(count) <- paste(names(ranked_order)[1:count], collapse='|')
+		list(count=count, names=paste(names(cumsum_count)[1:count], collapse='|'), nseqs=unname(cumsum_count[count]))
 	}
-	count
+
 
 }
 
@@ -82,13 +82,14 @@ get_pubmed_id <- function(author_id){
 }
 
 
-bact_data <- sapply(first_year:final_year, how_many, bact_year_deposited, bact)
-summary_table[ ,'b_n50'] <- bact_data
-summary_table[ ,'b_n50_doi'] <- get_pubmed_id(names(bact_data))
+bact_data <- sapply(first_year:final_year, get_n50_data, bact_year_deposited, bact)
+summary_table[ ,'b_n50'] <- unlist(bact_data["count",])
+summary_table[ ,'b_n50_doi'] <- get_pubmed_id(unlist(bact_data["names",]))
+summary_table[ ,'b_n50_nseqs'] <- unlist(bact_data["nseqs",])
 
-
-arch_data <- sapply(first_year:final_year, how_many, arch_year_deposited, arch)
-summary_table[ ,'a_n50'] <- arch_data
-summary_table[ ,'a_n50_doi'] <- get_pubmed_id(names(arch_data))
+arch_data <- sapply(first_year:final_year, get_n50_data, arch_year_deposited, arch)
+summary_table[ ,'a_n50'] <- unlist(arch_data["count",])
+summary_table[ ,'a_n50_doi'] <- get_pubmed_id(unlist(arch_data["names",]))
+summary_table[ ,'a_n50_nseqs'] <- unlist(arch_data["nseqs",])
 
 write.table(summary_table, file="data/process/by_year_analysis.tsv", quote=F, sep='\t')

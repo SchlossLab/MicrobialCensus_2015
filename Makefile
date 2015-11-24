@@ -72,7 +72,9 @@ results/tables/table1.pdf : results/tables/build_table_1.Rmd\
 Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 								data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
 								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
+
 								data/process/coverage_by_category_and_time.tsv\
+
 								data/process/by_year_analysis.tsv\
 								Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'

@@ -1,6 +1,10 @@
 time_data <- read.table(file="data/process/by_year_analysis.tsv", header=T)
 year <- as.numeric(rownames(time_data))
 
+exclude_year <- 2015
+
+time_data <- time_data[year != exclude_year,]
+year <- year[year != exclude_year]
 
 pdf(file="results/figures/time_course_figure.pdf", width=3.75, height=6.0)
 	layout(matrix(c(1,2,3,4), nrow=4), height=c(1,1,1,0.25))

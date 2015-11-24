@@ -34,17 +34,13 @@ inline_hook <- function(x){
 knitr::knit_hooks$set(inline=inline_hook)
 
 
-bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+#bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 bact_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", bact$date)
 
-bact$category[bact$category=="ZI" & !is.na(bact$category)] <- "ZA"
-
-arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
-arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
-
-arch$category[arch$category=="BDBD" & !is.na(arch$category)] <- "BD"
-
+#arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+#arch_year_deposited <- gsub("^(\\d\\d\\d\\d)-.*", "\\1", arch$date)
 ```
+
 \vspace{35mm}
 
 
@@ -79,7 +75,7 @@ Importance goes here.
 \newpage
 
 ## Introduction
-In 1983, the full-length 16S rRNA gene sequence of *Escherichia coli* (accession J01695) was deposited into NCBI's GenBank making it the first of more than 10 million 16S rRNA gene sequences to be deposited into the database [@Brosius1978]. GenBank accessions represent nearly one-third of all sequences deposited in the database making it the best-represented gene. As Sanger sequencing has given way to to-called "next generation sequencing" technologies, hundreds of millions of 16S rRNA gene sequences have been deposited into the NCBI's Sequence Read Archive. The expansion in sequencing throughput and increased access to sequencing technology has allowed for more environments to be sequenced at a deeper coverage resulting in the identification of novel taxa. The ability to obtain sequence data from microorganisms without cultivation has radically altered our perspective of their role in nearly every environment from deep ocean sediment cores (e.g. accession AY436526) to the International Space Station (e.g. accession DQ497748). The effort to quantify the number of different organisms in a system remains fundamental to understanding ecology [@reference]. At the scale of microorganisms, small physical sizes, morphological ambiguity, and highly variable population sizes complicate this process. Furthermore, creating standards for delimiting what makes one microbe "different” from another has been contentious [@reference]. In spite of these challenges, we continue to peel back the curtain on the microbial world with the aid of more and more informative, if still limited, technologies like cultivation, 16S rRNA gene surveys, and metagenomics.
+In 1983, the full-length 16S rRNA gene sequence of *Escherichia coli* (accession J01695) was deposited into NCBI's GenBank making it the first of more than 10 million 16S rRNA gene sequences to be deposited into the database [@Brosius1978]. GenBank accessions represent nearly one-third of all sequences deposited in the database making it the best-represented gene. As Sanger sequencing has given way to to-called "next generation sequencing" technologies, hundreds of millions of 16S rRNA gene sequences have been deposited into the NCBI's Sequence Read Archive. The expansion in sequencing throughput and increased access to sequencing technology has allowed for more environments to be sequenced at a deeper coverage resulting in the identification of novel taxa. The ability to obtain sequence data from microorganisms without cultivation has radically altered our perspective of their role in nearly every environment from deep ocean sediment cores (e.g. accession AY436526) to the International Space Station (e.g. accession DQ497748). The effort to quantify the number of different organisms in a system remains fundamental to understanding ecology [@reference]. At the scale of microorganisms, small physical sizes, morphological ambiguity, and highly variable population sizes complicate this process. Furthermore, creating standards for delimiting what makes one microbe "different” from another has been contentious [@reference]. In spite of these challenges, we continue to peel back the curtain on the microbial world with the aid of more and more informative, if still limited, technologies like cultivation, 16S rRNA gene surveys, single cell technologies, and metagenomics.
 
 The increase in sequencing volume has come at the cost of sequence length. The commonly used MiSeq-based sequencing platform from Illumina is widely used to sequence the approximately 250 bp V4 hypervariable region of the 16S rRNA gene; other schemes have used different parts of the gene that are generally shorter than 500 bp. Perhaps most disconcerting about this development is the sense that the increased read depth is being gained using short read platforms rather than the full-length sequences. Because these short reads are used for classification to existing taxa, we are missing the opportunity to propose novel candidate taxa and vastly underappreciating the biodiversity of microbial life. We likely lack the references necessary to adequately classify the novel biodiversity we are sampling when we generate 100-times the sequence data from a community than we did using full-length sequencing.
 
@@ -95,7 +91,7 @@ The July 19, 2015 release of the ARB-formatted SILVA small subunit (SSU) referen
 
 
 ***Metadata curation.***
-The metadata that was contained within the SSU Ref database was used to expand our analysis beyond a basic count of sequences and the number of OTUs in each domain. The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse" categories, and further refined to facilitate additional analyses with twenty-six more specific "fine" categories (Table 1). These were assigned based on manual curation of the "isolation_source" category within the ARB database associated with each of the sequences. There were `r length(unique(bact$isolation_source))-1` bacterial and `r length(unique(arch$isolation_source))-1` archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were `r sum(is.na(bact$isolation_source))` bacterial and `r sum(is.na(arch$isolation_source))` archaeal sequences where an "isolation_source" term was not collected. We ascertained whether a sequence came from a bacterial isolate using the "strain" and "isolate" fields within the database. If a sequence had a value for either of these fields it was considered an isolate. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
+The metadata that was contained within the SSU Ref database was used to expand our analysis beyond a basic count of sequences and the number of OTUs in each domain. The environmental origins of the 16S rRNA gene sequences were manually classified using seven broad "coarse" categories, and further refined to facilitate additional analyses with twenty-six more specific "fine" categories (Table 1). These were assigned based on manual curation of the "isolation_source" category within the ARB database associated with each of the sequences. There were `r length(unique(bact$isolation_source))-1` bacterial and `r length(unique(arch$isolation_source))-1` archaeal isolation_source terms that were manually assigned to the coarse and fine categories in Table 1. For source definitions that were identifiable by online searches, educated guesses were made or they were placed into the coarse "Other” category. There were `r sum(is.na(bact$isolation_source))` bacterial and `r sum(is.na(arch$isolation_source))` archaeal sequences where an "isolation_source" term was not collected. We ascertained whether a sequence came from a cultured organism by including those sequences that had data in their "strain" or "isolate" fields within the database and excluded any sequences that had "Unc" as part of their database name as this is a convention in the database that represents sequences from uncultured organisms. Complete tables containing the ARB-provided metadata, taxonomic information, OTU assignment, and our categorization are available at [@figshare].
 
 
 ***Data analysis.***
@@ -105,63 +101,90 @@ Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Sc
 ## Results and Discussion
 
 ```{r rarefaction}
+# take these data out of the rarefaciton files so that we can have the unique,
+# 0.03, 0.05, 0.10, and 0.20 OTU definitions for both the bacterial and archaeal
+# data
+
 get_sobs <- function(data){
 	rownames(data) <- data[,1]
 	data <- data[,-1]
 	data <- data[,!grepl('ci', colnames(data))]
 	unlist(data[nrow(data),])
 }
-b_rare <- read.table(file='data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction', header=T)
-b_sobs <- get_sobs(b_rare)
-b_goods <- 100*(1-sum(table(bact$otu)==1)/nrow(bact))
-b_schloss <- 100*(1-sum(table(bact$otu)==1)/b_sobs["X0.03"])
 
-a_rare <- read.table(file='data/mothur/all_archaea.filter.unique.precluster.an.rarefaction', header=T)
-a_sobs <- get_sobs(a_rare)
-a_goods <- 100*(1-sum(table(arch$otu)==1)/nrow(arch))
-a_schloss <- 100*(1-sum(table(arch$otu)==1)/a_sobs["X0.03"])
+b_sobs <- get_sobs(read.table(file='data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction', header=T))
+a_sobs <- get_sobs(read.table(file='data/mothur/all_archaea.filter.unique.precluster.an.rarefaction', header=T))
 
+
+category_summary <- read.table(file="data/process/coverage_by_category_and_time.tsv", header=T)
+b_goods <- category_summary["total", "bact_good_coverage"]
+b_schloss <- category_summary["total", "bact_schloss_coverage"]
+
+a_goods <- category_summary["total", "arch_good_coverage"]
+a_schloss <- category_summary["total", "arch_schloss_coverage"]
 ```
 
 ***The status of the bacterial and archaeal census.***
 To assess the field's progress in characterizing the biodiversity of bacteria and archaea we assigned each 16S rRNA gene sequence to OTUs using distance threshold varying between 0 and 20%. Although it is not possible to link a specific taxonomic level (e.g. species, genus, family, etc.) to a specific distance threshold, we selected distances of 0, 3, 5, 10, and 20% because they are widely regarded as representing the range of genetic diversity of the 16S rRNA gene within each domain. By rarefaction, it was clear that the ongoing sampling efforts have started to saturate the number of current OTUs. After sampling `r nrow(bact)` near full-length bacterial 16S rRNA gene sequences we have identified `r b_sobs['unique']`, `r b_sobs['X0.03']`, `r b_sobs['X0.05']`, `r b_sobs['X0.10']`, and `r b_sobs['X0.20']` OTUs at the selected thresholds (Figure 1A, Table 1). Using on the OTUs generated using a 3% threshold, we found that `r b_goods`% of the sequences belonged to OTUs that had been observed more than once. In contrast, only `r b_schloss`% of the OTUs that were observed had been seen more than once. Paralleling the bacterial results, after sampling `r nrow(arch)` archaeal 16S rRNA gene sequences we have identified `r a_sobs['unique']`, `r a_sobs['X0.03']`, `r a_sobs['X0.05']`, `r a_sobs['X0.10']`, and `r a_sobs['X0.20']` OTUs (Figure 1B, Table 1). Using on the OTUs generated using a 3% threshold, we found that `r a_goods`% of the sequences belonged to OTUs that had been observed more than once. In contrast, only `r a_schloss`% of the OTUs that were observed had been seen more than once. The results for the bacterial and archaeal censuses indicate that regardless of the domain, if we continue sampling with the current strategies we will continue to sample OTUs that have already been observed even though a large fraction of OTUs have only been sampled once. Furthermore, considering more than `r 100-min(b_schloss, a_schloss)`% of the OTUs have only been observed once it is likely that an even larger number of OTUs have yet to be sampled for both domains.
 
+
+
 ```{r time_course}
-  	time_data <- read.table(file="data/process/by_year_analysis.tsv", header=TRUE)
+time_data <- read.table(file="data/process/by_year_analysis.tsv", header=TRUE, stringsAsFactors=FALSE)
 
+all_nseqs_2009_2012 <- sum(time_data[as.character(2009:2012), 'b_nseqs'])
+dominant_nseqs_2009_2012 <- sum(time_data[as.character(2009:2012), 'b_n50_nseqs'])
 
+# what were the papers that these sequences came from?
+dominant_pmids_2009_2012 <- unique(unlist(strsplit(time_data[as.character(2009:2012), "b_n50_doi"], split=',')))
 
-	get_n50_count <- function(year){
-		sort(table(bact[bact_year_deposited==year,'submit_author']), decreasing=T)[1:time_data[as.character(year),"b_n50"]]
-	}
-	dominant_studies <- sum(unlist(lapply(2009:2012, get_n50_count)))
+#require(knitcitations, quiet=TRUE)
+#citep(c('10.1038/ismej.2012.79', '10.1371/journal.pone.0026284', '10.1101/gr.131029.111', '10.1073/pnas.1004204107', '10.1126/science.1171700'))
 
-	get_n50_pm_ids <- function(year){
-		authors <- names(sort(table(bact[bact_year_deposited==year,'submit_author']), decreasing=T)[1:time_data[as.character(year),"b_n50"]])
-		dom_pm_id <- unique(bact[bact$submit_author %in% authors, c('submit_author', 'pubmed_id')])$pubmed_id
-		as.character(dom_pm_id[!is.na(dom_pm_id)])
-	}
-	dominant_titles <- unlist(lapply(2009:2012, get_n50_pm_ids))
-
-	get_n50_categories <- function(year){
-		authors <- names(sort(table(bact[bact_year_deposited==year,'submit_author']), decreasing=T)[1:time_data[as.character(year),"b_n50"]])
-		dom_pm_id <- unique(bact[bact$submit_author %in% authors, c('submit_author', 'category')])$category
-		as.character(dom_pm_id[!is.na(dom_pm_id)])
-	}
-	dominant_categories <- unlist(lapply(c(2009:2012,2014), get_n50_categories))
-
-	stopifnot(dominant_titles == c('19478181', '22310478', '20668241', '22310478', '22719818', '22832344'))
-
-	#require(knitcitations, quiet=TRUE)
-	#citep(c('10.1038/ismej.2012.79', '10.1371/journal.pone.0026284', '10.1101/gr.131029.111', '10.1073/pnas.1004204107', '10.1126/science.1171700'))
+stopifnot(dominant_pmids_2009_2012 == c("19478181", "22310478", "20668241", "22719818", "22832344"))
+#if this stops then will need to update stuff below
 ```
 
-***The dynamics of the bacterial census.***
-One explanation for the large number of OTUs that have only been observed once is that with the the broad adoption of highly parallelized sequencing platforms that generate short sequence reads, the rate of full-length sequence generation has declined. In fact, since 2009 the number of new bacterial sequences generated has slowed two an average of `r floor(mean(time_data[as.character(2009:2014),'b_nseqs']))` sequences per year (Figure 2A). Although this is still an impressive number of sequences, since `r start<-2007;start` the number of new bacterial OTUs has plateaued at an average of `r mean(time_data[as.character(start:2014),'b_sobs'])` new OTUs per year (Figure 2B). Given the expense of generating full-length sequences using the Sanger sequencing technology and the transition to other platforms, we expected that the large number of sequences were being deposited by a handful of large projects. Indeed, when we counted the number of submissions responsible for depositing 50% of the sequences, we found that with the exception of 2006 and 2013, eight or fewer studies were responsible for depositing the majority of the full-length sequences each year since 2005 (Figure 2C). Between 2009 and 2012, `r sum(time_data[as.character(2009:2012), 'b_nseqs'])` total sequences were submitted and `r sum(time_data[as.character(2009:2012), 'b_n50'])` submissions from `r length(unique(dominant_titles))` studies were responsible for depositing `r dominant_studies` (`r 100*dominant_studies/sum(time_data[as.character(2009:2012), 'b_nseqs'])`% of all sequences). These studies generated sequences from the human gastrointestinal tract [@Li_2012], human skin [@Kong_2012; @Grice_2009], murine skin [@Grice_2010], and hypersaline microbial mats [@Kirk_Harris_2012]. In contrast to recent years, between 1995 and 2006, an average of `r mean(time_data[as.character(1995:2006), 'b_n50'])` studies were responsible for submitting more than half of the sequences each year. Although these deep surveys represent significant contributions to our knowledge of bacterial biogeography, their small number and lack of environmental diversity is indicative of the broader problems in advancing the bacterial census.
+***The status of the bacterial census.***
+One explanation for the large number of OTUs that have only been observed once is that with the the broad adoption of highly parallelized sequencing platforms that generate short sequence reads, the rate of full-length sequence generation has declined. In fact, since 2009 the number of new bacterial sequences generated has slowed two an average of `r floor(mean(time_data[as.character(2009:2014),'b_nseqs']))` sequences per year (Figure 2A). Although this is still an impressive number of sequences, since `r start<-2007;start` the number of new bacterial OTUs has plateaued at an average of `r mean(time_data[as.character(start:2014),'b_sobs'])` new OTUs per year (Figure 2B). Given the expense of generating full-length sequences using the Sanger sequencing technology and the transition to other platforms at that time, we expected that the large number of sequences were being deposited by a handful of large projects. Indeed, when we counted the number of submissions responsible for depositing 50% of the sequences, we found that with the exception of 2006 and 2013, eight or fewer studies were responsible for depositing the majority of the full-length sequences each year since 2005 (Figure 2C). Between 2009 and 2012, `r all_nseqs_2009_2012` total sequences were submitted and `r sum(time_data[as.character(2009:2012), 'b_n50'])` submissions from `r length(unique(dominant_titles))` studies were responsible for depositing `r dominant_nseqs_2009_2012` (`r 100*dominant_nseqs_2009_2012/all_nseqs_2009_2012`% of all sequences). These studies generated sequences from the human gastrointestinal tract [@Li_2012], human skin [@Kong_2012; @Grice_2009], murine skin [@Grice_2010], and hypersaline microbial mats [@Kirk_Harris_2012]. In contrast to recent years, between 1995 and 2006, an average of `r mean(time_data[as.character(1995:2006), 'b_n50'])` studies were responsible for submitting more than half of the sequences each year. Although these deep surveys represent significant contributions to our knowledge of bacterial biogeography, their small number and lack of environmental diversity is indicative of the broader problems in advancing the bacterial census.
 
 
-***The dynamics of the archaeal census.***
-The depth of sequencing being done to advance the archaeal census is `r floor(sum(time_data$b_nseqs)/sum(time_data$a_nseqs))`-times less than that of the bacterial census (Table 1). The annual number of sequences submitted has largely paralleled that of the bacterial census with a plateau starting in 2009 and an average of `r mean(time_data[as.character(2009:2014),'a_nseqs'])` sequences each year since then. The number of new archaeal OTUs represented by these sequences began to slow in 2005 with an average of `r mean(time_data[as.character(2005:2014),'a_sobs'])` new OTUs per year. With the exception of 2012 and 2014, the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has varied between `r min(time_data[c(1996:2011,2013),'a_n50'])` and `r max(time_data[c(1996:2011,2013),'a_n50'])` submissions per year. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
+***The status of the archaeal census.***
+The depth of sequencing being done to advance the archaeal census has been `r floor(sum(time_data$b_nseqs)/sum(time_data$a_nseqs))`-times less than that of the bacterial census (Table 1). The annual number of sequences submitted has largely paralleled that of the bacterial census with a plateau starting in 2009 and an average of `r mean(time_data[as.character(2009:2014),'a_nseqs'])` sequences each year since then. The number of new archaeal OTUs represented by these sequences began to slow in 2005 with an average of `r mean(time_data[as.character(2005:2014),'a_sobs'])` new OTUs per year. With the exception of 2012 and 2014, the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has varied between `r min(time_data[as.character(c(1996:2011,2013)),'a_n50'])` and `r max(time_data[as.character(c(1996:2011,2013)),'a_n50'])` submissions per year. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
+
+
+```{r taxon_census}
+	b_phylum_year <- table(bact_year_deposited, bact_phylum)
+	b_phylum_n <- apply(b_phylum_year, 2, sum)
+	b_n_phylum_2015 <- ncol(b_phylum_year)
+	b_phylum_2006 <- b_phylum_year[rownames(b_phylum_year) %in% as.character(1983:2006),]
+	b_n_phylum_2006 <- sum(apply(b_phylum_2006, 2, sum) > 0) #how many phyla were there?
+	b_n_old_seqs <- sum(b_phylum_2006)						#how many seqs in 2006?
+	b_n_old_seqs_phyla <- apply(b_phylum_2006, 2, sum)		#how many sequences in each phyla?
+
+	b_new_phyla <- colnames(b_phylum_year)[apply(b_phylum_2006, 2, sum) == 0] #what are the new phyla?
+	b_new_phyla_names <- paste(paste(b_new_phyla[1:(length(b_new_phyla)-1)], collapse=", "),
+							 b_new_phyla[length(b_new_phyla)], sep=", and ")
+
+
+	a_phylum_year <- table(arch_year_deposited, arch_phylum)
+	a_phylum_n <- apply(a_phylum_year, 2, sum)
+	a_n_phylum_2015 <- ncol(a_phylum_year)
+	a_phylum_2006 <- a_phylum_year[rownames(a_phylum_year) %in% as.character(1983:2006),]
+	a_n_phylum_2006 <- sum(apply(a_phylum_2006, 2, sum) > 0) #how many phyla were there?
+	a_n_old_seqs <- sum(a_phylum_2006)						#how many seqs in 2006?
+	a_n_old_seqs_phyla <- apply(a_phylum_2006, 2, sum)		#how many sequences in each phyla?
+
+	a_new_phyla <- colnames(a_phylum_year)[apply(a_phylum_2006, 2, sum) == 0] #what are the new phyla?
+	a_new_phyla_names <- paste(a_new_phyla, collapse=" and ")
+	a_new_phyla_names <- gsub("_", " ", a_new_phyla_names)
+	a_new_phyla_names <- gsub("\\(\\S*\\)", "", a_new_phyla_names)
+```
+
+***The ability to sample microbial life is taxonomically skewed*** <-- Sucky title
+The Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes represent `r 100*sum(b_phylum_n[c("Firmicutes", "Proteobacteria", "Actinobacteria", "Bacteroidetes")])/sum(b_phylum_n)`% of the bacterial sequences and the Euryarchaeota and Thaumarchaeota `r 100*sum(a_phylum_n[c("Euryarchaeota",  "Thaumarchaeota")])/sum(a_phylum_n)`% of the archaeal sequences, yet we sought to understand how the representation individual phyla has changed relative to the state of the census in 2006. We used 2006 as a reference point for calibrating the dynamics of the bacterial and archaeal censuses since that was the year that the first highly parallelized 16S rRNA gene sequence dataset was published and ushered in a radical change in how microbial communities are studied [@Sogin2006]. Since then, the number of phyla within each domain has continued to increase. In 2006 there were `r b_n_phylum_2006` bacterial and `r a_n_phylum_2006` phyla. Since then there have been `r b_new_phyla` new  bacterial (`r b_new_phyla_names`) and `r a_new_phyla` new archaeal candidate phyla (`r a_new_phyla_names`). Relative to the overall sequencing trends before and after 2006, several phyla stand out for being over and underrepresented in sequence submissions (Figure phylum_effort.pdf). Among the bacterial phyla with at least 1,000 sequences, Kazan−3B−09 (`r something`) and Atribacteria (`r something`) were sequenced 4-fold more often while Deinococcus−Thermus (`r something`) and Tenericutes (`r something`) were sequenced 4-fold less often than would have been expected since 2006. Among the archaeal phyla with at least 1,000 sequences, the Thaumarchaeota were sequenced `r something`-fold more often and the Crenarchaeota were sequenced `r something`-fold less often than expected. Overall, these results suggest <something...>
+
+
 
 ```{r environment}
 	strip <- function(x){	as.numeric(gsub(',', '', x))	}
@@ -194,7 +217,10 @@ The depth of sequencing being done to advance the archaeal census is `r floor(su
 ```
 
 ***Focusing the census by environment***
-We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r b_agg_count[1]`, `r b_agg_count[2]`, and `r b_agg_count[3]` sources and among the bacterial sequences the three best represented groups were from `r a_agg_count[1]`, `r a_agg_count[2]`, and `r a_agg_count[3]` sources. For both domains, soil samples were the fourth most represented category. The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range for the bacterial OTU-based coverage only varied between `r quantile(table1_good$bact_schloss_coverage, prob=c(0.25))` to `r quantile(table1_good$bact_schloss_coverage, prob=c(0.75))` categories (median coverage=`r median(table1_good$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(table1_good$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to `r quantile(table1_good$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(table1_good$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Given the relatively low number of archaeal sequences that have been deposited for many of these categories, it is possible that the coverage for many categories may not be reliable (e.g. aerosol and plant surfaces). By decomposing the census by environmental categories, it is clear that even among the best sampled environments, our ability to claim anything but a basic characterization of microbial biodiversity is limited.
+We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r b_agg_count[1]`, `r b_agg_count[2]`, and `r b_agg_count[3]` sources and among the bacterial sequences the three best represented groups were from `r a_agg_count[1]`, `r a_agg_count[2]`, and `r a_agg_count[3]` sources. For both domains, soil samples were the fourth most represented category. The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range for the bacterial OTU-based coverage only varied between `r quantile(table1_good$bact_schloss_coverage, prob=c(0.25))` to `r quantile(table1_good$bact_schloss_coverage, prob=c(0.75))` categories (median coverage=`r median(table1_good$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(table1_good$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to `r quantile(table1_good$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(table1_good$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Across all categories, the bacterial and archaeal sequencing data represented a limited number of phyla (Figure category_phylum_heatmap.pdf). Regardless, there were clear phylum-level signatures that differentiated the various categories . The bacterial sequences were assigned to `r XX` environmental categories where `r XX` were dominated by Proteobacteria, `r XX` by Firmicutes, `r XX` by Bacteroidetes, and `r XX` by Actinobacteria. The archaeal sequences were assigned to `r XX ` categories where `r XX` were dominated by Euryarchaeota and `r XX` by Thaumarchaeota. Within each of the bacterial and archaeal phyla, there was considerable variation in the relative abundance of each across the categories confirming that taxonomic signatures exist to differentiate different environments even at a broad taxonomic level.
+
+
+
 
 
 ```{r culture}
@@ -208,8 +234,8 @@ We were able to assign `r b_class_percent` and `r a_class_percent`% of the seque
 	a_fract_cult <- 100 * a_ncult_full / nrow(arch)
 
 
-	b_ncult_2005 <- sum((!is.na(bact$strain) | !is.na(bact$isolate)) & bact_year_deposited <= 2005, na.rm=T)
-	a_ncult_2005 <- sum((!is.na(arch$strain) | !is.na(arch$isolate)) & arch_year_deposited <= 2005, na.rm=T)
+	b_ncult_2005 <- sum(b_is_cult & bact_year_deposited <= 2005, na.rm=T)
+	a_ncult_2005 <- sum(a_is_cult & arch_year_deposited <= 2005, na.rm=T)
 
 
 	b_ncult_delta <- b_ncult_full - b_ncult_2005
@@ -235,7 +261,7 @@ We were able to assign `r b_class_percent` and `r a_class_percent`% of the seque
 #	aquifer1 - scrap
 #	bact[bact_phylum=="Candidate_division_OP3" & !is.na(bact$isolate) & !is.na(bact_phylum),] - AJ224540.MxeCultu
 
-#	bact[bact_phylum=="CKC4" & !is.na(bact$isolate),] -> 2 - 1 is a genome, 1 is an isolate from same research group
+#	bact[bact_phylum=="CKC4" & !is.na(bact$strain) & !is.na(bact_phylum),] -> 2 - 1 is a genome, 1 is an isolate from same research group
 #	bact[bact_phylum=="PAUC34f" & (!is.na(bact$isolate) | !is.na(bact$strain)),] - legit
 #	bact[bact_phylum=="TM6" & (!is.na(bact$isolate) | !is.na(bact$strain)) & !grepl("\\.Unc", rownames(bact)),] - legit
 
@@ -272,74 +298,39 @@ We were able to assign `r b_class_percent` and `r a_class_percent`% of the seque
 	a_otus_phylum[n_all_otus_phylum$Group.1,"total"] <- n_all_otus_phylum$x
 	a_otus_phylum[n_cult_otus_phylum$Group.1,"cultured"] <- n_cult_otus_phylum$x
 
-
-	b_n1_cult_otus <- sum(table(bact$otu[b_in_cult_otu])==1)/length(table(bact$otu[b_in_cult_otu]))
-	a_n1_cult_otus <- sum(table(arch$otu[a_in_cult_otu])==1)/length(table(arch$otu[a_in_cult_otu]))
+	#not sure what this is actually getting...
+	b_n1_cult_otus <- 100*sum(table(bact$otu[b_in_cult_otu])==1)/length(table(bact$otu[b_in_cult_otu]))
+	a_n1_cult_otus <- 100*sum(table(arch$otu[a_in_cult_otu])==1)/length(table(arch$otu[a_in_cult_otu]))
 ```
 
 ***The cultured census***
-In our previous analysis there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives.
-
-* fraction of sequences from cultured / uncultured bugs (2005 vs 2014) by domain
-	- 18.9% of bacterial sequences and 7.2% of archaeal sequences are from isolates (b_fract_cult & a_fract_cult)
-	- culture rates lagging total submissions by 2.7-fold (bacteria / archaea; b_slow_cult / a_slow_cult)
-
-* fraction of sequences from cultured / uncultured bugs (2014) by phylum
-	- b_phylum_cult_rate
-	- a_phylum_cult_rate
-
-* % of OTUs with a cultured representative by phylum and in aggregate
-	- b_otus_phylum
-	- a_otus_phylum
-
-* do these new cultures represent new OTUs by phylum and in aggregate
-	- b_n1_cult_otus
-	- a_n1_cult_otus
+In the 2004 bacterial census there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives. To update this assessment, we identified those sequences that came from cultured and uncultured organisms. Overall, `r b_fract_cult`% of bacterial sequences and `r a_fract_cult`% of archaeal sequences have come from isolated organisms. Comparing the fraction of sequences deposited during and before 2006 from isolates to those collected after 2006, we found that culturing rates lag by `r  b_slow_cult` and `r a_slow_cult`-fold for bacteria and archaea, respectively. Among the `r length(b_phylum_cult_rate)` bacterial phyla, `r sum(b_phylum_cult_rate == 0)` have no cultured representatives and `r sum(b_phylum_cult_rate == 0)` of the `r length(a_phylum_cult_rate)` archaeal phyla have cultured representatives. Of the phyla with at least one cultured representative, the median percentage of sequences coming from a culture was only `r median(b_phylum_cult_rate[b_phylum_cult_rate!=0])*100`% for the bacterial phyla and `r median(a_phylum_cult_rate[a_phylum_cult_rate!=0])*100`% for the archaeal phyla (Figure XXXXXX). When we asked what percentage of OTUs had at least one cultured respresentative we found that `r 100*sum(b_otus_phylum$cultured)/sum(b_otus_phylum$total)`% of the `r sum(b_otus_phylum$total)` bacterial OTUs and `r 100*sum(a_otus_phylum$cultured)/sum(a_otus_phylum$total)`% of the `r sum(a_otus_phylum$total)` archeael OTUs had at least one cultured representative. Of those OTUs that had a sequence from a culture, `r b_n1_cult_otus`
+and `r a_n1_cult_otus`% of them only contained sequences from cultures. These values suggest that bacterial cultivation efforts are biased towards
 
 * need a plot showing % cultured sequences and % cultured OTUs
+	* fraction of sequences from cultured / uncultured bugs (2014) by phylum
+		- b_phylum_cult_rate
+		- a_phylum_cult_rate
+	* % of OTUs with a cultured representative by phylum and in aggregate
+		- b_otus_phylum
+		- a_otus_phylum
 
 
 
-***The census is taxonomically skewed***
+```{r single_cell}
 
 
-```{r taxon_census}
-	b_phylum_year <- table(bact_year_deposited, bact_phylum)
-	b_n_phylum_2015 <- ncol(b_phylum_year)
-	b_phylum_2006 <- b_phylum_year[rownames(b_phylum_year) %in% as.character(1983:2006),]
-	b_n_phylum_2006 <- sum(apply(b_phylum_2006, 2, sum) > 0) #how many phyla were there?
-	b_n_old_seqs <- sum(b_phylum_2006)						#how many seqs in 2006?
-	b_n_old_seqs_phyla <- apply(b_phylum_2006, 2, sum)		#how many sequences in each phyla?
+grepl("^[^\\.]*$", rownames(bact))
 
-	b_new_phyla <- colnames(b_phylum_year)[apply(b_phylum_2006, 2, sum) == 0] #what are the new phyla?
-	b_new_phyla_names <- paste(paste(b_new_phyla[1:(length(b_new_phyla)-1)], collapse=", "),
-							 b_new_phyla[length(b_new_phyla)], sep=", and ")
+dim(bact[bact$publication_doi=="10.1038/nature12352" & !is.na(bact$publication_doi),])
+#[1] 95 31
 
 
-
-	a_phylum_year <- table(arch_year_deposited, arch_phylum)
-	a_n_phylum_2015 <- ncol(a_phylum_year)
-	a_phylum_2006 <- a_phylum_year[rownames(a_phylum_year) %in% as.character(1983:2006),]
-	a_n_phylum_2006 <- sum(apply(a_phylum_2006, 2, sum) > 0) #how many phyla were there?
-	a_n_old_seqs <- sum(a_phylum_2006)						#how many seqs in 2006?
-	a_n_old_seqs_phyla <- apply(a_phylum_2006, 2, sum)		#how many sequences in each phyla?
-
-	a_new_phyla <- colnames(a_phylum_year)[apply(a_phylum_2006, 2, sum) == 0] #what are the new phyla?
-	a_new_phyla_names <- paste(a_new_phyla, collapse=" and ")
-	a_new_phyla_names <- gsub("_", " ", a_new_phyla_names)
-	a_new_phyla_names <- gsub("\\(\\S*\\)", "", a_new_phyla_names)
 ```
-
-* For which phyla has there been substantial increases in sampled diversity since 2004?
-	- new phyla: b_new_phyla_names, a_new_phyla_names
-	- Figure phylum_effort.pdf
-
-* generate a heatmap of category by phylum relative abundance
-	- Figure phylum_category_heatmap
-
-
-
 ***New technologies to access novel biodiversity***
+Assembly of metagenomic and single cell shotgun sequence data offers the hope of identifying large fragments of genomic data from as yet uncultured organisms. To test the ability of single cell technologies to identify
+
+
   - Single cell genomics
   - Metagenomes
 
@@ -353,6 +344,7 @@ Future for PacBio in generating full-length sequences
 The first 16S sequence was published in 1978, not deposited until 1983. A bit of an allegory for our time.
 
 Impact of EMIRGE
+- http://www.genomebiology.com/2011/12/5/R44
 
 Renewed call for cultivation
 
@@ -361,6 +353,8 @@ What are the most significant improvements since 2004, and where are we still la
 Recent data suggests that a considerable diversity of microorganisms may be missing based on biases in existing 16S rRNA gene primers. This dataset does not include sequences from metagenomic assemblies but Brown et al. (2015) have used such assemblies to show evidence for introns in the 16S rRNA genes of organisms within the so-called "Candidate Phyla Radiation” (CPR- Saccharibacteria (TM7), Peregrinibacteria, Berkelbacteria (ACD58), WWE3 Microgenomates (OP11), Parcubacteria (OD1), et al.), that would preclude detection with standard cultivation-independent microbial surveys. Furthermore, many of these CPR organisms are very small and frequently pass through 0.2 µm filters (Luef, 2015). Thus, for many environments, the estimates within must be considered as lower bounds.
 
 Generating a comprehensive understanding of any system with a single gene may seem a fool’s errand, yet we have learned a considerable amount regarding the diversity, dynamics, and natural history of microorganisms using the venerable 16S rRNA gene. Indeed, continual community efforts to obtain 16S rRNA gene assessments of every environment possible have presented us with an ever-increasing estimate of total microbial diversity and the concomitant excitement of frontier science. While reliance on this gene subjects us to biases created by primer selection [REFS], differences in amplification strength [REFS] and fidelity [REFS], internal features which may disrupt traditional measurements [REFS], and potentially misleading classification due to infrequent horizontal gene transfer [REFS], the total data available from persistent collection of 16S rRNA gene sequences nevertheless dwarfs that of any other genetic marker. Thus, an attempt to quantify how much of the microbial world has been revealed inevitably starts there.
+
+Given the relatively low number of archaeal sequences that have been deposited for many of these categories, it is possible that the coverage for many categories may not be reliable (e.g. aerosol and plant surfaces). By decomposing the census by environmental categories, it is clear that even among the best sampled environments, our ability to claim anything but a basic characterization of microbial biodiversity is limited.
 
 
 \newpage
