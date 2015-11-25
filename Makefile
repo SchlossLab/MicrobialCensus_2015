@@ -62,7 +62,7 @@ $(FIG)/time_course_figure.pdf : code/time_course_plots.R\
 $(FIG)/phylum_effort.pdf : code/build_phylum_effort.R\
 							$(PROCESS)/bacteria.v123.metadata\
 						 	$(PROCESS)/archaea.v123.metadata\
-	R -e 'source("code/build_phylum_effort.R")'
+	R -e 'source("code/build_phylum_effort_plot.R")'
 
 
 $(FIG)/category_phylum_heatmap.pdf : code/build_phylum_category_heatmap.R\
