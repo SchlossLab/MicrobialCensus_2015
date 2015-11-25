@@ -14,7 +14,8 @@ NB = doc/notebook
 #  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433945 > archaea.final.metadata.gz
 #  curl -b COOKIE_JAR -XGET http://figshare.com/download/file/2433946 > bacteria.final.metadata.gz
 
-#needs help...
+
+
 $(NB)/%_data_acquisition.Rmd:
 	R -e 'render("doc/notebook/%_data_acquisition.Rmd")'
 
@@ -25,13 +26,23 @@ $(NB)/%_data_acquisition.Rmd:
 $(PROCESS)/coverage_by_category_and_time.tsv : code/coverage_by_category_and_time.R\
 												$(PROCESS)/bacteria.v123.metadata\
 												$(PROCESS)/archaea.v123.metadata
-	R -e 'source("code/coverage_by_category_and_time.R")'
+	R -e 'source("code/get_coverage_by_category_and_time.R")'
 
 #done
 $(PROCESS)/by_year_analysis.tsv : code/time_course_submission_data.R\
 									$(PROCESS)/archaea.v123.metadata\
 									$(PROCESS)/bacteria.v123.metadata
-	R -e 'source("code/time_course_submission_data.R")'
+	R -e 'source("code/get_time_course_submission_data.R")'
+
+#done
+$(PROCESS)/bacteria.phyla.counts.tsv : code/get_phylum_counts.R\
+									$(PROCESS)/bacteria.v123.metadata
+	R -e 'source("code/get_phylum_counts.R"); generate_table("bacteria")'
+
+#done
+$(PROCESS)/archaea.phyla.counts.tsv : code/get_phylum_counts.R\
+									$(PROCESS)/archaea.v123.metadata
+	R -e 'source("code/get_phylum_counts.R"); generate_table("archaea")'
 
 
 
@@ -39,13 +50,13 @@ $(PROCESS)/by_year_analysis.tsv : code/time_course_submission_data.R\
 #done
 $(FIG)/domain_rarefaction.pdf : data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
 								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
-								code/domain_rarefaction.R
-	R -e 'source("code/domain_rarefaction.R")'
+								code/build_domain_rarefaction_plot.R.R
+	R -e 'source("code/build_domain_rarefaction_plot.R")'
 
 #done
 $(FIG)/time_course_figure.pdf : code/time_course_plots.R\
 								data/process/by_year_analysis.tsv
-	R -e 'source("code/time_course_plots.R")'
+	R -e 'source("code/build_time_course_plots.R")'
 
 
 $(FIG)/phylum_effort.pdf : code/build_phylum_effort.R\
@@ -58,6 +69,8 @@ $(FIG)/category_phylum_heatmap.pdf : code/build_phylum_category_heatmap.R\
 									$(PROCESS)/bacteria.v123.metadata\
 									$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/build_phylum_category_heatmap.R")'
+
+
 
 
 #done
