@@ -192,40 +192,50 @@ Among the archaeal phyla with at least 1,000 sequences, the Thaumarchaeota were 
 
 
 
-
 ```{r environment}
-	strip <- function(x){	as.numeric(gsub(',', '', x))	}
+strip <- function(x){	as.numeric(gsub(',', '', x))	}
 
-	table1_raw <- read.table(file="data/process/table1_data.tsv", row.names=NULL, stringsAsFactors=FALSE)
-	table1_raw <- table1_raw[-nrow(table1_raw),]
-	rownames(table1_raw) <- table1_raw$row.names
-	rownames(table1_raw)[nrow(table1_raw)] <- 'no_source_data'
-	table1_raw <- table1_raw[,-c(1,2)]
-	table1_raw[c("AE", "OT", "no_source_data"),"fine"] <- c("Aerosol", "Other", "no_source_data")
+coverage_by_category_and_time <- read.table(file="data/process/coverage_by_category_and_time.tsv", header=T, stringsAsFactors=FALSE)
 
-	for(col in 2:ncol(table1_raw)){
-		table1_raw[,col] <- strip(table1_raw[,col])
-	}
+time <- grepl('_pre', colnames(coverage_by_category_and_time)) | grepl('_post', colnames(coverage_by_category_and_time))
+coverage_by_category <- coverage_by_category_and_time[,!time]
 
-	table1_good <- table1_raw[-nrow(table1_raw),]
+totals <- unlist(coverage_by_category[nrow(coverage_by_category),])
+coverage_by_category <- coverage_by_category[-nrow(coverage_by_category),]
 
-	b_class_percent <- 100*sum(table1_good$bact_count)/sum(table1_raw$bact_count)
-	a_class_percent <- 100*sum(table1_good$arch_count)/sum(table1_raw$arch_count)
+b_class_percent <- 100*sum(coverage_by_category[-nrow(coverage_by_category), "bact_count"])/sum(totals["bact_count"])
 
-	coarse_map <- c("A"=="aerosol", "AQ" = "aquatic", "B" = "built environment", "O" = "other", "P" = "plant", "S" = "soil", "Z" = "zoonotic")
+a_class_percent <- 100*sum(coverage_by_category[-nrow(coverage_by_category), "arch_count"])/sum(totals["arch_count"])
 
-	coarse <- gsub("^(.)[A-Z]$", "\\1", rownames(table1_good))
-	coarse <- gsub("^(..)[A-Z]+$", "\\1", coarse)
 
-	b_agg_count <- aggregate(table1_good$bact_count, by=list(coarse_map[coarse]), sum)
-	a_agg_count <- aggregate(table1_good$arch_count, by=list(coarse_map[coarse]), sum)
+coarse_map <- c("A"=="aerosol", "AQ" = "aquatic", "B" = "built environment", "O" = "other", "P" = "plant", "S" = "soil", "Z" = "zoonotic")
 
+coarse <- gsub("^(.)[A-Z]$", "\\1", rownames(coverage_by_category))
+coarse <- gsub("^(..)[A-Z]+$", "\\1", coarse)
+
+b_agg_count <- aggregate(coverage_by_category$bact_count, by=list(coarse_map[coarse]), sum)
+b_text <- paste0(b_agg_count$Group.1, ' (N=', format(b_agg_count$x, big.mark=',', trim=TRUE), ')')[order(b_agg_count$x, decreasing=T)]
+
+a_agg_count <- aggregate(coverage_by_category$arch_count, by=list(coarse_map[coarse]), sum)
+a_text <- paste0(a_agg_count$Group.1, ' (N=', format(a_agg_count$x, big.mark=',', trim=TRUE), ')')[order(a_agg_count$x, decreasing=T)]
+
+
+phylum_category <- read.table(file="data/process/phylum_category_counts.tsv")
+bacteria <- phylum_category[phylum_category$domain == "bacteria", -1]
+
+dominant_bacteria <- sort(table(apply(bacteria, 2, which.max)), decreasing=T)
+names(dominant_bacteria) <- rownames(bacteria)[as.numeric(names(dominant_bacteria))]
+dominant_bacteria_list <- oxford_comma(paste0(names(dominant_bacteria), ' (N=', dominant_bacteria, ')'))
+
+archaea <- phylum_category[phylum_category$domain == "archaea", -1]
+dominant_archaea <- sort(table(apply(archaea, 2, function(x){z<-which.max(x);if(length(z)==0){z<-NA};z})), decreasing=T)
+names(dominant_archaea) <- rownames(archaea)[as.numeric(names(dominant_archaea))]
+dominant_archaea_list <- oxford_comma(paste0(names(dominant_archaea), ' (N=', dominant_archaea, ')'))
 
 ```
 
 ***Focusing the census by environment***
-We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r b_agg_count[1]`, `r b_agg_count[2]`, and `r b_agg_count[3]` sources and among the bacterial sequences the three best represented groups were from `r a_agg_count[1]`, `r a_agg_count[2]`, and `r a_agg_count[3]` sources. For both domains, soil samples were the fourth most represented category. The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range for the bacterial OTU-based coverage only varied between `r quantile(table1_good$bact_schloss_coverage, prob=c(0.25))` to `r quantile(table1_good$bact_schloss_coverage, prob=c(0.75))` categories (median coverage=`r median(table1_good$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(table1_good$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to `r quantile(table1_good$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(table1_good$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Across all categories, the bacterial and archaeal sequencing data represented a limited number of phyla (Figure category_phylum_heatmap.pdf). Regardless, there were clear phylum-level signatures that differentiated the various categories . The bacterial sequences were assigned to `r XX` environmental categories where `r XX` were dominated by Proteobacteria, `r XX` by Firmicutes, `r XX` by Bacteroidetes, and `r XX` by Actinobacteria. The archaeal sequences were assigned to `r XX ` categories where `r XX` were dominated by Euryarchaeota and `r XX` by Thaumarchaeota. Within each of the bacterial and archaeal phyla, there was considerable variation in the relative abundance of each across the categories confirming that taxonomic signatures exist to differentiate different environments even at a broad taxonomic level.
-
+We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r oxford_comma(b_text[1:3])` sources and among the archaeal sequences the three best represented groups were from `r oxford_comma(a_text[1:3])` sources. For both domains, soil samples were the fourth most represented category (bacteria: `r b_agg_count[b_agg_count$Group.1=="soil", "x"]`; archaea: `r a_agg_count[a_agg_count$Group.1=="soil", "x"]`). The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range across the fine-level categories for the bacterial OTU-based coverage only varied between `r quantile(coverage_by_category$bact_schloss_coverage, prob=c(0.25))` to `r quantile(coverage_by_category$bact_schloss_coverage, prob=c(0.75))` (median coverage=`r median(coverage_by_category$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(coverage_by_category$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to`r quantile(coverage_by_category$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(coverage_by_category$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Across all categories, the bacterial and archaeal sequencing data represented a limited number of phyla (Figure category_phylum_heatmap.pdf). Among the bacterial data, the fine-scale categories were dominated by `r dominant_bacteria_list` and among the archaeal data, they were dominated by `r dominant_archaea_list`. Regardless, there were clear phylum-level signatures that differentiated the various categories. Within each of the bacterial and archaeal phyla, there was considerable variation in the relative abundance of each across the categories confirming that taxonomic signatures exist to differentiate different environments even at a broad taxonomic level.
 
 
 
