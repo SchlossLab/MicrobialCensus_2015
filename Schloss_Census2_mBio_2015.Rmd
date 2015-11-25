@@ -156,37 +156,40 @@ One explanation for the large number of OTUs that have only been observed once i
 ***The status of the archaeal census.***
 The depth of sequencing being done to advance the archaeal census has been `r floor(sum(time_data$b_nseqs)/sum(time_data$a_nseqs))`-times less than that of the bacterial census (Table 1). The annual number of sequences submitted has largely paralleled that of the bacterial census with a plateau starting in 2009 and an average of `r mean(time_data[as.character(2009:2014),'a_nseqs'])` sequences each year since then. The number of new archaeal OTUs represented by these sequences began to slow in 2005 with an average of `r mean(time_data[as.character(2005:2014),'a_sobs'])` new OTUs per year. With the exception of 2012 and 2014, the number of submissions responsible for more than 50% of the archaeal sequences submitted per year has varied between `r min(time_data[as.character(c(1996:2011,2013)),'a_n50'])` and `r max(time_data[as.character(c(1996:2011,2013)),'a_n50'])` submissions per year. The clear bias towards sequencing bacterial 16S rRNA genes has limited the ability to more fully characterize the biodiversity of the archaea.
 
-##### here #######
 ```{r taxon_census}
-	b_phylum_year <- table(bact_year_deposited, bact_phylum)
-	b_phylum_n <- apply(b_phylum_year, 2, sum)
-	b_n_phylum_2015 <- ncol(b_phylum_year)
-	b_phylum_2006 <- b_phylum_year[rownames(b_phylum_year) %in% as.character(1983:2006),]
-	b_n_phylum_2006 <- sum(apply(b_phylum_2006, 2, sum) > 0) #how many phyla were there?
-	b_n_old_seqs <- sum(b_phylum_2006)						#how many seqs in 2006?
-	b_n_old_seqs_phyla <- apply(b_phylum_2006, 2, sum)		#how many sequences in each phyla?
+oxford_comma <- function(ids){
+	if(length(ids)==0){
+		"ERROR"
+	} else if(length(ids) == 1){
+		ids
+	} else if(length(ids) == 2){
+		paste(ids, collapse=" and ")
+	} else {
+		paste(paste(ids[1:(length(ids)-1)], collapse=", "), ids[length(ids)], sep=", and ")
+	}
+}
 
-	b_new_phyla <- colnames(b_phylum_year)[apply(b_phylum_2006, 2, sum) == 0] #what are the new phyla?
-	b_new_phyla_names <- paste(paste(b_new_phyla[1:(length(b_new_phyla)-1)], collapse=", "),
-							 b_new_phyla[length(b_new_phyla)], sep=", and ")
+b_phylum <- read.table(file="data/process/bacteria.phyla.counts.tsv", header=T)
+b_phylum <- b_phylum[!rownames(b_phylum) %in% 'aquifer1',]
+rownames(b_phylum) <- gsub("Candidate_division_", "", rownames(b_phylum))
+rownames(b_phylum) <- gsub("_", " ", rownames(b_phylum))
+
+b_new_phyla <- rownames(b_phylum)[b_phylum$pre == 0]
+b_new_phyla_names <- oxford_comma(b_new_phyla_names)
 
 
-	a_phylum_year <- table(arch_year_deposited, arch_phylum)
-	a_phylum_n <- apply(a_phylum_year, 2, sum)
-	a_n_phylum_2015 <- ncol(a_phylum_year)
-	a_phylum_2006 <- a_phylum_year[rownames(a_phylum_year) %in% as.character(1983:2006),]
-	a_n_phylum_2006 <- sum(apply(a_phylum_2006, 2, sum) > 0) #how many phyla were there?
-	a_n_old_seqs <- sum(a_phylum_2006)						#how many seqs in 2006?
-	a_n_old_seqs_phyla <- apply(a_phylum_2006, 2, sum)		#how many sequences in each phyla?
+a_phylum <- read.table(file="data/process/archaea.phyla.counts.tsv", header=T)
+a_new_phyla <- rownames(a_phylum)[a_phylum$pre == 0]
 
-	a_new_phyla <- colnames(a_phylum_year)[apply(a_phylum_2006, 2, sum) == 0] #what are the new phyla?
-	a_new_phyla_names <- paste(a_new_phyla, collapse=" and ")
-	a_new_phyla_names <- gsub("_", " ", a_new_phyla_names)
-	a_new_phyla_names <- gsub("\\(\\S*\\)", "", a_new_phyla_names)
+a_new_phyla_names <- oxford_comma(a_new_phyla_names)
+a_new_phyla_names <- gsub("\\(\\S*\\)", "", a_new_phyla_names)
+a_new_phyla_names <- gsub("_", " ", a_new_phyla_names)
 ```
 
-***The ability to sample microbial life is taxonomically skewed*** <-- Sucky title
-The Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes represent `r 100*sum(b_phylum_n[c("Firmicutes", "Proteobacteria", "Actinobacteria", "Bacteroidetes")])/sum(b_phylum_n)`% of the bacterial sequences and the Euryarchaeota and Thaumarchaeota `r 100*sum(a_phylum_n[c("Euryarchaeota",  "Thaumarchaeota")])/sum(a_phylum_n)`% of the archaeal sequences, yet we sought to understand how the representation individual phyla has changed relative to the state of the census in 2006. We used 2006 as a reference point for calibrating the dynamics of the bacterial and archaeal censuses since that was the year that the first highly parallelized 16S rRNA gene sequence dataset was published and ushered in a radical change in how microbial communities are studied [@Sogin2006]. Since then, the number of phyla within each domain has continued to increase. In 2006 there were `r b_n_phylum_2006` bacterial and `r a_n_phylum_2006` phyla. Since then there have been `r b_new_phyla` new  bacterial (`r b_new_phyla_names`) and `r a_new_phyla` new archaeal candidate phyla (`r a_new_phyla_names`). Relative to the overall sequencing trends before and after 2006, several phyla stand out for being over and underrepresented in sequence submissions (Figure phylum_effort.pdf). Among the bacterial phyla with at least 1,000 sequences, Kazan−3B−09 (`r something`) and Atribacteria (`r something`) were sequenced 4-fold more often while Deinococcus−Thermus (`r something`) and Tenericutes (`r something`) were sequenced 4-fold less often than would have been expected since 2006. Among the archaeal phyla with at least 1,000 sequences, the Thaumarchaeota were sequenced `r something`-fold more often and the Crenarchaeota were sequenced `r something`-fold less often than expected. Overall, these results suggest <something...>
+***The ability to sample microbial life is taxonomically skewed (meh.)***
+The Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes represent `r 100*sum(b_phylum[c("Firmicutes", "Proteobacteria", "Actinobacteria", "Bacteroidetes"), "all"])/sum(b_phylum$all)`% of the bacterial sequences and the Euryarchaeota and Thaumarchaeota `r 100*sum(a_phylum[c("Euryarchaeota",  "Thaumarchaeota"), "all"])/sum(a_phylum$all)`% of the archaeal sequences. We sought to understand how the representation of individual phyla has changed relative to the state of the census in 2006. We used 2006 as a reference point for calibrating the dynamics of the bacterial and archaeal censuses since that was the year that the first highly parallelized 16S rRNA gene sequence dataset was published and ushered in a radical change in how microbial communities are studied [@Sogin2006]. In 2006 there were `r sum(b_phylum$pre!=0)` bacterial and `r sum(a_phylum$pre!=0)` phyla. Since then there have been `r b_new_phyla` new  bacterial (`r b_new_phyla_names`) and `r a_new_phyla` new archaeal candidate phyla (`r a_new_phyla_names`). Relative to the overall sequencing trends before and after 2006, several phyla stand out for being over and underrepresented in sequence submissions (Figure phylum_effort.pdf). Among the bacterial phyla with at least 1,000 sequences, `r oxford_comma(sort(rownames(b_phylum[b_phylum$ratio_of_ratios >= 4.0 & b_phylum$all >=1000,])))` were sequenced 4-fold more often while `r oxford_comma(sort(rownames(b_phylum[b_phylum$ratio_of_ratios < 0.5 & b_phylum$all >=1000,])))` were sequenced 2-fold less often than would have been expected since 2006.
+Among the archaeal phyla with at least 1,000 sequences, the Thaumarchaeota were sequenced `r a_phylum["Thaumarchaeota", "ratio_of_ratios"]`-fold more often and the Crenarchaeota were sequenced `r 1/a_phylum["Crenarchaeota", "ratio_of_ratios"]`-fold less often than expected. Together, these results demonstrate a change in the phylum-level lineages represented in the census from before and after 2006.
+
 
 
 
