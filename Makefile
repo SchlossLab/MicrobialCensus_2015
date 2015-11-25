@@ -44,12 +44,12 @@ $(PROCESS)/archaea.phyla.counts.tsv : code/get_phylum_counts.R\
 									$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_phylum_counts.R"); generate_table("archaea")'
 
-
 #done
 $(PROCESS)/phylum_category_counts.tsv : code/get_phylum_category_counts.R\
 									$(PROCESS)/archaea.v123.metadata\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_phylum_category_counts.R")'
+
 
 
 
@@ -78,12 +78,14 @@ $(FIG)/category_phylum_heatmap.pdf : code/build_phylum_category_heatmap.R\
 
 
 
+
+
 #done
-results/tables/table1.pdf : results/tables/build_table_1.Rmd\
+results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_table_1.Rmd\
 							$(PROCESS)/coverage_by_category_and_time.tsv\
 							results/tables/build_table_1.Rmd\
 							results/tables/table_1_header.tex
-	R -e 'render("results/tables/build_table_1.Rmd", output_file="table1.pdf")'
+	R -e 'render("results/tables/build_table_1.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
 
 
 
