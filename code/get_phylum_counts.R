@@ -32,7 +32,7 @@ summarize_phylum_data <- function(db, threshold){
 	cbind(pre, post, all, ratio_of_ratios)
 }
 
-generate_table <- function(domain, threhold=2006){
+generate_table <- function(domain, threshold=2006){
 	metadata_file <- paste0('data/process/', domain, '.v123.metadata')
 	count_file <- paste0('data/process/', domain, '.phyla.counts.tsv')
 
