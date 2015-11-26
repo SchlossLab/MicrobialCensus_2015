@@ -51,6 +51,16 @@ $(PROCESS)/phylum_category_counts.tsv : code/get_phylum_category_counts.R\
 	R -e 'source("code/get_phylum_category_counts.R")'
 
 
+$(PROCESS)/bacteria.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
+								$(PROCESS)/bacteria.v123.metadata
+	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("bacteria")'
+
+
+$(PROCESS)/archaea.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
+								$(PROCESS)/archaea.v123.metadata
+	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("archaea")'
+
+
 
 
 #done
@@ -87,7 +97,7 @@ results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_ta
 							results/tables/table_1_header.tex
 	R -e 'render("results/tables/build_table_1.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
 
-
+#generate supplmentary files
 
 
 
