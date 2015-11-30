@@ -29,7 +29,7 @@ $(PROCESS)/coverage_by_category_and_time.tsv : code/get_coverage_by_category_and
 	R -e 'source("code/get_coverage_by_category_and_time.R")'
 
 #done
-$(PROCESS)/by_year_analysis.tsv : code/time_course_submission_data.R\
+$(PROCESS)/by_year_analysis.tsv : code/get_time_course_submission_data.R\
 									$(PROCESS)/archaea.v123.metadata\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_time_course_submission_data.R")'
@@ -108,9 +108,7 @@ results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_ta
 Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 								data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
 								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
-
 								$(PROCESS)/coverage_by_category_and_time.tsv\
-
 								$(PROCESS)/by_year_analysis.tsv\
 								Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
