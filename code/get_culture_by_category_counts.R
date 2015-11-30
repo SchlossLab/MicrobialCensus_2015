@@ -5,10 +5,6 @@ get_phylum <- function(taxonomy){
 	phylum
 }
 
-get_year <- function(date){
-	gsub("^(\\d\\d\\d\\d)-.*", "\\1", date)
-}
-
 is_cultured <- function(db){
 	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
 }
@@ -35,7 +31,7 @@ get_domain_data <- function(db, threshold=2006){
 	pre <- get_cultured_data(cultured[pre], phyla[pre], db$otu[pre])
 	post <- get_cultured_data(cultured[!pre], phyla[!pre], db$otu[!pre])
 	pool <- cbind(pre, post, all)
-	colnames(pool) <- paste0(c(rep("pre_", 4), rep("post_", 4), rep("all_", 4)), colnames(pool))
+	colnames(pool) <- paste0(c(rep("pre_", 3), rep("post_", 3), rep("all_", 3)), colnames(pool))
 	pool
 }
 

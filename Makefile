@@ -50,15 +50,16 @@ $(PROCESS)/phylum_category_counts.tsv : code/get_phylum_category_counts.R\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_phylum_category_counts.R")'
 
-
+#done
 $(PROCESS)/bacteria.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
 								$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("bacteria")'
 
-
+#done
 $(PROCESS)/archaea.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
 								$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("archaea")'
+
 
 
 
@@ -85,8 +86,11 @@ $(FIG)/category_phylum_heatmap.pdf : code/build_phylum_category_heatmap.R\
 									$(PROCESS)/phylum_category_counts.tsv
 	R -e 'source("code/build_phylum_category_heatmap.R")'
 
-
-
+#done
+$(FIG)/phylum_cultured.pdf : code/build_culture_effort_plot.R\
+							$(PROCESS)/bacteria.cultured_by_time_counts.tsv\
+							$(PROCESS)/archaea.cultured_by_time_counts.tsv
+	R -e 'source("code/build_culture_effort_plot.R")'
 
 
 

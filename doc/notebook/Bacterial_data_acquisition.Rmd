@@ -410,6 +410,11 @@ metadata$category[metadata$category == 'AQFM'] <- 'AQFS'
 metadata$category[metadata$category == 'SV'] <- 'ZV'
 metadata$category[metadata$category == 'ZI'] <- 'ZA'
 
+#need to change the name of this sequence to make it clear that it was not cultured
+rownames(metadata)[rownames(metadata) == 'AJ224540.MxeCultu'] <- 'AJ224540.UncMxeCultu'
+
+
+
 #... and we output the metadata file...
 write.table(metadata, file="data/process/bacteria.v123.metadata", sep="\t")
 

@@ -21,7 +21,7 @@ n_arch_ratios <- length(arch_ratios)
 pdf(file="results/figures/phylum_effort.pdf", width=3.75, height=5)
 	par(mar=c(5,10, 1.0, 0.5), cex=0.7)
 
-	plot("", ylim=c(1,n_bact_ratios+n_arch_ratios+2), xlim=c(min(c(bact_ratios, arch_ratios)), ceiling(max(c(bact_ratios, arch_ratios)))), type="n", xlab="", ylab="", axes=F)
+	plot("", ylim=c(1,n_bact_ratios+n_arch_ratios+2), xlim=c(-3,4), type="n", xlab="", ylab="", axes=F)
 
 	abline(v=0, col="gray")
 	abline(h=(n_arch_ratios+3):(n_bact_ratios+n_arch_ratios+2), lty=3, col="gray")
@@ -31,11 +31,11 @@ pdf(file="results/figures/phylum_effort.pdf", width=3.75, height=5)
 	points(x=arch_ratios, y=1:n_arch_ratios)
 	box()
 
-	axis(1, at=-2:4, label=2^(-2:4))
+	axis(1, at=-3:4, label=-3:4)
 	axis(2, at=c((n_arch_ratios+3):(n_bact_ratios+n_arch_ratios+2), 1:n_arch_ratios), label=c(names(bact_ratios), names(arch_ratios)), las=1, tick=F)
 
 	mtext("Bacteria", side=2, line=5, at=n_bact_ratios+n_arch_ratios+3.2, las=1, font=2, cex=0.8)
 	mtext("Archaea", side=2, line=5, at=n_arch_ratios+1.2, las=1, font=2, cex=0.8)
 
-	title(xlab="Fold difference in sequencing\neffort before and after 2006", line=3.5)
+	title(xlab="Fold difference in sequencing effort\nbefore and after 2006 (log2 scale)", line=3.5)
 dev.off()

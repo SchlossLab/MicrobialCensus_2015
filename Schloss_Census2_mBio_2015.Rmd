@@ -238,99 +238,30 @@ dominant_archaea_list <- oxford_comma(paste0(names(dominant_archaea), ' (N=', do
 We were able to assign `r b_class_percent` and `r a_class_percent`% of the sequences to one of seven broad environmental categories based on the metadata that accompanied the SILVA database. Across these broad categories there was wide variation in the number of sequences that have been sampled. Among the bacterial sequences the three best represented groups were from `r oxford_comma(b_text[1:3])` sources and among the archaeal sequences the three best represented groups were from `r oxford_comma(a_text[1:3])` sources. For both domains, soil samples were the fourth most represented category (bacteria: `r b_agg_count[b_agg_count$Group.1=="soil", "x"]`; archaea: `r a_agg_count[a_agg_count$Group.1=="soil", "x"]`). The orders of these categories was surprising considering soil and aquatic environments harbor the most microbial biomass and biodiversity [@Whitman1998]. In spite of wide variation in sequencing depth and coverage (Table 1), the interquartile range across the fine-level categories for the bacterial OTU-based coverage only varied between `r quantile(coverage_by_category$bact_schloss_coverage, prob=c(0.25))` to `r quantile(coverage_by_category$bact_schloss_coverage, prob=c(0.75))` (median coverage=`r median(coverage_by_category$bact_schloss_coverage, na.rm=T)`%). The interquartile range in the OTU-based coverage by environment for the archaeal data was `r quantile(coverage_by_category$arch_schloss_coverage, prob=c(0.25), na.rm=T)` to`r quantile(coverage_by_category$arch_schloss_coverage, prob=c(0.75), na.rm=T)` (median coverage=`r median(coverage_by_category$arch_schloss_coverage, na.rm=T)`%). The archaeal coverage was higher than that of the bacterial OTU coverage for all categories except the food-associated, plant surface, and other invertebrate categories. Across all categories, the bacterial and archaeal sequencing data represented a limited number of phyla (Figure category_phylum_heatmap.pdf). Among the bacterial data, the fine-scale categories were dominated by `r dominant_bacteria_list` and among the archaeal data, they were dominated by `r dominant_archaea_list`. Regardless, there were clear phylum-level signatures that differentiated the various categories. Within each of the bacterial and archaeal phyla, there was considerable variation in the relative abundance of each across the categories confirming that taxonomic signatures exist to differentiate different environments even at a broad taxonomic level.
 
 
-
-
 ```{r culture}
-	b_is_cult <- (!is.na(bact$strain) | !is.na(bact$isolate)) & !grepl("\\.Unc", rownames(bact))
-	a_is_cult <- (!is.na(arch$strain) | !is.na(arch$isolate)) & !grepl("\\.Unc", rownames(arch))
+b_cult_time <- read.table(file='data/process/bacteria.cultured_by_time_counts.tsv', header=T)
+a_cult_time <- read.table(file='data/process/archaea.cultured_by_time_counts.tsv', header=T)
 
-	b_ncult_full <- sum(b_is_cult)
-	a_ncult_full <- sum(a_is_cult)
+b_percent_cult_nseqs_all <- 100*sum(b_cult_time[,"all_cult_nseqs"])/sum(b_cult_time[,"all_total_nseqs"])
+a_percent_cult_nseqs_all <- 100*sum(a_cult_time[,"all_cult_nseqs"])/sum(a_cult_time[,"all_total_nseqs"])
 
-	b_fract_cult <- 100 * b_ncult_full / nrow(bact)
-	a_fract_cult <- 100 * a_ncult_full / nrow(arch)
+b_shift_cult_nseqs_all <- 1/((sum(b_cult_time[,"post_cult_nseqs"])/sum(b_cult_time[,"pre_cult_nseqs"])) / (sum(b_cult_time[,"post_total_nseqs"])/sum(b_cult_time[,"pre_total_nseqs"])))
 
+a_shift_cult_nseqs_all <- 1/((sum(a_cult_time[,"post_cult_nseqs"])/sum(a_cult_time[,"pre_cult_nseqs"])) / (sum(a_cult_time[,"post_total_nseqs"])/sum(a_cult_time[,"pre_total_nseqs"])))
 
-	b_ncult_2005 <- sum(b_is_cult & bact_year_deposited <= 2005, na.rm=T)
-	a_ncult_2005 <- sum(a_is_cult & arch_year_deposited <= 2005, na.rm=T)
+b_rate_cult_nseqs_phyulm <- b_cult_time[, 'all_cult_nseqs'] / b_cult_time[, 'all_total_nseqs']
+a_rate_cult_nseqs_phyulm <- a_cult_time[, 'all_cult_nseqs'] / a_cult_time[, 'all_total_nseqs']
 
-
-	b_ncult_delta <- b_ncult_full - b_ncult_2005
-
-	b_before_2005 <- sum(bact_year_deposited <= 2005, na.rm=T)
-	b_since_2005 <- sum(bact_year_deposited > 2005, na.rm=T)
-
-	b_slow_cult <- (b_since_2005/b_before_2005) / (b_ncult_delta/b_ncult_2005)
-
-	a_ncult_delta <- a_ncult_full - a_ncult_2005
-
-	a_before_2005 <- sum(arch_year_deposited <= 2005, na.rm=T)
-	a_since_2005 <- sum(arch_year_deposited > 2005, na.rm=T)
-
-	a_slow_cult <- (a_since_2005/a_before_2005) / (a_ncult_delta/a_ncult_2005)
-
-
-	bact_phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", bact$taxonomy)
-	bact_phylum[bact_phylum=="Euryarchaeota"] <- NA
-	bact_phylum[bact_phylum=="aquifer1"] <- NA
-
-	b_is_cult[rownames(bact) == 'AJ224540.MxeCultu'] <- FALSE
-#	aquifer1 - scrap
-#	bact[bact_phylum=="Candidate_division_OP3" & !is.na(bact$isolate) & !is.na(bact_phylum),] - AJ224540.MxeCultu
-
-#	bact[bact_phylum=="CKC4" & !is.na(bact$strain) & !is.na(bact_phylum),] -> 2 - 1 is a genome, 1 is an isolate from same research group
-#	bact[bact_phylum=="PAUC34f" & (!is.na(bact$isolate) | !is.na(bact$strain)),] - legit
-#	bact[bact_phylum=="TM6" & (!is.na(bact$isolate) | !is.na(bact$strain)) & !grepl("\\.Unc", rownames(bact)),] - legit
-
-	b_phylum_cult_table <- table(bact_phylum, b_is_cult)
-	b_phylum_cult_rate <- b_phylum_cult_table[,"TRUE"] / apply(b_phylum_cult_table, 1, sum)
-
-
-	arch_phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", arch$taxonomy)
-	arch_phylum[arch_phylum=="Archaea;"] <- "Unclassified"
-	a_phylum_cult_table <- table(arch_phylum, a_is_cult)
-	a_phylum_cult_rate <- a_phylum_cult_table[,"TRUE"] / apply(a_phylum_cult_table, 1, sum)
-
-
-	b_cult_otus <- unique(bact$otu[b_is_cult])
-	b_in_cult_otu <- bact$otu %in% b_cult_otus
-
-	n_all_otus_phylum <- aggregate(bact$otu, by=list(bact_phylum), function(x){length(unique(x))})
-	n_cult_otus_phylum <- aggregate(bact$otu[b_in_cult_otu], by=list(bact_phylum[b_in_cult_otu]), function(x){length(unique(x))})
-
-	b_otus_phylum <- data.frame(matrix(rep(0, nrow(n_all_otus_phylum)*2), ncol=2, dimnames=list(n_all_otus_phylum$Group.1, c('cultured', 'total'))))
-
-	b_otus_phylum[n_all_otus_phylum$Group.1,"total"] <- n_all_otus_phylum$x
-	b_otus_phylum[n_cult_otus_phylum$Group.1,"cultured"] <- n_cult_otus_phylum$x
-
-
-	a_cult_otus <- unique(arch$otu[a_is_cult])
-	a_in_cult_otu <- arch$otu %in% a_cult_otus
-
-	n_all_otus_phylum <- aggregate(arch$otu, by=list(arch_phylum), function(x){length(unique(x))})
-	n_cult_otus_phylum <- aggregate(arch$otu[a_in_cult_otu], by=list(arch_phylum[a_in_cult_otu]), function(x){length(unique(x))})
-
-	a_otus_phylum <- data.frame(matrix(rep(0, nrow(n_all_otus_phylum)*2), ncol=2, dimnames=list(n_all_otus_phylum$Group.1, c('cultured', 'total'))))
-
-	a_otus_phylum[n_all_otus_phylum$Group.1,"total"] <- n_all_otus_phylum$x
-	a_otus_phylum[n_cult_otus_phylum$Group.1,"cultured"] <- n_cult_otus_phylum$x
-
-	#not sure what this is actually getting...
-	b_n1_cult_otus <- 100*sum(table(bact$otu[b_in_cult_otu])==1)/length(table(bact$otu[b_in_cult_otu]))
-	a_n1_cult_otus <- 100*sum(table(arch$otu[a_in_cult_otu])==1)/length(table(arch$otu[a_in_cult_otu]))
+b_percent_cult_otu_all <- 100*sum(b_cult_time[,'all_cult_sobs'])/sum(b_cult_time[,'all_total_sobs'])
+a_percent_cult_otu_all <- 100*sum(a_cult_time[,'all_cult_sobs'])/sum(a_cult_time[,'all_total_sobs'])
 ```
 
 ***The cultured census***
-In the 2004 bacterial census there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives. To update this assessment, we identified those sequences that came from cultured and uncultured organisms. Overall, `r b_fract_cult`% of bacterial sequences and `r a_fract_cult`% of archaeal sequences have come from isolated organisms. Comparing the fraction of sequences deposited during and before 2006 from isolates to those collected after 2006, we found that culturing rates lag by `r  b_slow_cult` and `r a_slow_cult`-fold for bacteria and archaea, respectively. Among the `r length(b_phylum_cult_rate)` bacterial phyla, `r sum(b_phylum_cult_rate == 0)` have no cultured representatives and `r sum(b_phylum_cult_rate == 0)` of the `r length(a_phylum_cult_rate)` archaeal phyla have cultured representatives. Of the phyla with at least one cultured representative, the median percentage of sequences coming from a culture was only `r median(b_phylum_cult_rate[b_phylum_cult_rate!=0])*100`% for the bacterial phyla and `r median(a_phylum_cult_rate[a_phylum_cult_rate!=0])*100`% for the archaeal phyla (Figure XXXXXX). When we asked what percentage of OTUs had at least one cultured respresentative we found that `r 100*sum(b_otus_phylum$cultured)/sum(b_otus_phylum$total)`% of the `r sum(b_otus_phylum$total)` bacterial OTUs and `r 100*sum(a_otus_phylum$cultured)/sum(a_otus_phylum$total)`% of the `r sum(a_otus_phylum$total)` archeael OTUs had at least one cultured representative. Of those OTUs that had a sequence from a culture, `r b_n1_cult_otus`
-and `r a_n1_cult_otus`% of them only contained sequences from cultures. These values suggest that bacterial cultivation efforts are biased towards
+In the 2004 bacterial census there was great concern that although culture-independent methods were significantly enhancing our knowledge of microbial life, there were numerous bacterial phyla with no or only a few cultured representatives. To update this assessment, we identified those sequences that came from cultured and uncultured organisms. Overall, `r b_percent_cult_nseqs_all`% of bacterial sequences and `r a_percent_cult_nseqs_all`% of archaeal sequences have come from isolated organisms. Comparing the fraction of sequences deposited during and before 2006 from isolates to those collected after 2006, we found that culturing rates lag by `r  b_shift_cult_nseqs_all` and `r a_shift_cult_nseqs_all`-fold for bacteria and archaea, respectively. Among the `r nrow(b_cult_time)` bacterial phyla, `r sum(b_cult_time$all_cult_nseqs == 0)` have no cultured representatives and `r nrow(a_cult_time)` of the `r sum(a_cult_time$all_cult_nseqs == 0)` archaeal phyla have cultured representatives. This lag is likely due to the differences in throughput of culture-dependent and -independent approaches. Of the phyla with at least one cultured representative, the median percentage of sequences coming from a culture was only `r median(b_rate_cult_nseqs_phyulm[b_rate_cult_nseqs_phyulm!=0])*100`% for the bacterial phyla and `r median(a_rate_cult_nseqs_phyulm[a_rate_cult_nseqs_phyulm!=0])*100`% for the archaeal phyla (Figure phylum_effort.pdf). So, even though many phyla have cultured representatives, there is still a skew in the representation of most phyla found in cultivation efforts. Considering the possibility that large culture-independent sequencing efforts may only be re-sequencing organisms that already exist in culture, we asked what percentage of OTUs had at least one cultured representative. We found that `r b_percent_cult_otu_all`% of the `r sum(b_cult_time[,'all_total_sobs'])` bacterial OTUs and `r a_percent_cult_otu_all`% of the `r sum(a_cult_time[,'all_total_sobs'])` archeael OTUs had at least one cultured representative. Considering that the percentage of sequences from bacterial cultures is greater than the percentage of OTUs from bacterial cultures, we suspect that bacterial cultivation efforts are largely resampling the same diversity relative to culture-independent approaches. In contrast, the relationship is reversed among the archaea indicating that archaeal cultivation efforts continue to sample greater biodiversity than culture-independent approaches.
 
-* need a plot showing % cultured sequences and % cultured OTUs
-	* fraction of sequences from cultured / uncultured bugs (2014) by phylum
-		- b_phylum_cult_rate
-		- a_phylum_cult_rate
-	* % of OTUs with a cultured representative by phylum and in aggregate
-		- b_otus_phylum
-		- a_otus_phylum
+
+
+###### here #######
 
 
 
