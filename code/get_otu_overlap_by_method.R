@@ -12,9 +12,14 @@ is_single_cell <- function(db){
 
 
 get_data <- function(db){
-	cultured_otus <- unique(db[is_cultured(db), "otu"])
-	pcr_otus <- unique(db[is_pcr(db), "otu"])
-	sc_otus <- unique(db[is_single_cell(db), "otu"])
+	cultured <- is_cultured(db)
+	cultured_otus <- unique(db[cultured, "otu"])
+
+	pcrd <- is_pcr(db)
+	pcr_otus <- unique(db[pcrd, "otu"])
+
+	sc <- is_single_cell(db)
+	sc_otus <- unique(db[sc, "otu"])
 
 
 	total_otus <- max(db$otu)	#Total OTUs
@@ -32,7 +37,10 @@ get_data <- function(db){
 	n_pcr_sc_otus <- sum(pcr_otus %in% sc_otus)			#pcr-single		23
 	n_three_otus <- length(intersect(intersect(cultured_otus, sc_otus), pcr_otus)) #cult-pcr-single
 
-	c("cult_all"=n_cult_otus,
+	c("n_cult"=sum(cultured),
+	"n_pcr"=sum(pcrd),
+	"n_sc"=sum(sc),
+	"cult_all"=n_cult_otus,
 	"pcr_all"=n_pcr_otus,
 	"sc_all"=n_sc_otus,
 	"cult_only"=n_cult_only,
