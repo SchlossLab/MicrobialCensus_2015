@@ -60,6 +60,11 @@ $(PROCESS)/archaea.cultured_by_time_counts.tsv : code/get_culture_by_time_counts
 								$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("archaea")'
 
+#done
+$(PROCESS)/otu_overlap_by_method.tsv : code/get_otu_overlap_by_method.R\
+								$(PROCESS)/archaea.v123.metadata\
+								$(PROCESS)/bacteria.v123.metadata
+	R -e 'source("code/get_otu_overlap_by_method.R")'
 
 
 
@@ -93,6 +98,14 @@ $(FIG)/phylum_cultured.pdf : code/build_culture_effort_plot.R\
 	R -e 'source("code/build_culture_effort_plot.R")'
 
 
+$(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
+							$(PROCESS)/otu_overlap_by_method.tsv
+	R -e 'source("code/build_otu_overlap_by_method_venn.R")'
+
+
+
+
+
 
 #done
 results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_table_1.Rmd\
@@ -101,10 +114,12 @@ results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_ta
 							results/tables/table_1_header.tex
 	R -e 'render("results/tables/build_table_1.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
 
+
 #generate supplmentary files
 
 
 
+#need to fix dependencies
 Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 								data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction\
 								data/mothur/all_archaea.filter.unique.precluster.an.rarefaction\
