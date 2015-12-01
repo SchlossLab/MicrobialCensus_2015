@@ -37,9 +37,9 @@ get_data <- function(db){
 	n_pcr_sc_otus <- sum(pcr_otus %in% sc_otus)			#pcr-single		23
 	n_three_otus <- length(intersect(intersect(cultured_otus, sc_otus), pcr_otus)) #cult-pcr-single
 
-	c("n_cult"=sum(cultured),
-	"n_pcr"=sum(pcrd),
-	"n_sc"=sum(sc),
+	c("n_cult"=sum(cultured, na.rm=T),
+	"n_pcr"=sum(pcrd, na.rm=T),
+	"n_sc"=sum(sc, na.rm=T),
 	"cult_all"=n_cult_otus,
 	"pcr_all"=n_pcr_otus,
 	"sc_all"=n_sc_otus,
