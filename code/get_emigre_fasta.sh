@@ -36,7 +36,7 @@ rm -rf FASTA_files 1224041_SupplmentalDownload.zip
 # PMID: 23472107
 
 wget "http://journals.plos.org/plosone/article/asset?unique&id=info:doi/10.1371/journal.pone.0057819.s003" -O data/raw/wilkins_2013.docx
-pandoc -s data/raw/wilkins_2013.docx -t markdown -o data/raw/wilkins_2013.md
+pandoc -s data/raw/wilkins_2013.docx -t asciidoc -o data/raw/wilkins_2013.md
 R -e "write(gsub('[\\\\]', '', scan(file='data/raw/wilkins_2013.md', what='', sep='\\n', quiet=T))[-1], 'data/raw/wilkins_2013_emigre.fasta')"
 rm data/raw/wilkins_2013.docx data/raw/wilkins_2013.md
 
