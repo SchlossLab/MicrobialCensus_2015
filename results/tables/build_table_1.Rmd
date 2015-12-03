@@ -13,91 +13,25 @@ geometry: margin=1.0in
 require(xtable, quietly=TRUE)
 options(xtable.sanitize.text.function=identity)
 
+data <- read.table(file="data/process/coverage_by_category_and_time.tsv", header=T)
+int_cols <- grepl("count", colnames(data)) | grepl("sobs", colnames(data))
+float_cols <- !int_cols
 
-bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+data[,int_cols] <- format(data[,int_cols], big.mark=',')
+data[,float_cols] <- format(data[,float_cols], big.mark=',', nsmall=1, digits=1)
 
-arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+data_current <- data[,!(grepl("pre", colnames(data)) | grepl("post", colnames(data)))]
 
 coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
 
 fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Marine", "Marine sediment", "Hydrothermal vent", "Ice", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Vertebrate", "Arthropod", "Other invertebrate", "Other", "", "", "")
 
-abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQM", "AQMS", "AQH", "AQI", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZV", "ZA", "ZN",  "ZO", "OT")
+composite <- cbind(coarse, fine, data_current)
 
-get_sobs <- function(x, db){
-	if(x == "NA"){
-		length(table(db[is.na(db$category), "otu"]))
-	} else if(x == "total"){
-		length(table(db[, "otu"]))
-	} else {
-		length(table(db[db$category==x, "otu"]))
-	}
-}
-
-get_goods_coverage <- function(x, db){
-	if(x=="NA"){
-		x_table <- table(db[is.na(db$category), "otu"])
-	} else if(x == "total") {
-		x_table <- table(db[, "otu"])
-	} else {
-		x_table <- table(db[db$category==x, "otu"])
-	}
-
-	singletons <- sum(x_table == 1)
-	total_seqs <- sum(x_table)
-
-	if(total_seqs != 0){
-		100*(1-singletons/total_seqs)
-	} else {
-		NA
-	}
-
-}
-
-get_schloss_coverage <- function(x, db){
-	if(x=="NA"){
-		x_table <- table(db[is.na(db$category), "otu"])
-	} else if(x == "total") {
-		x_table <- table(db[, "otu"])
-	} else {
-		x_table <- table(db[db$category==x, "otu"])
-	}
-
-	singletons <- sum(x_table == 1)
-	total_otus <- length(x_table)
-
-	if(total_otus != 0){
-		100*(1-singletons/total_otus)
-	} else {
-		NA
-	}
-
-}
+header <- c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}")
 
 
-
-bact_count <- table(bact$category)[abbreviation]
-bact_count[is.na(bact_count)] <- 0
-bact_count <- c(bact_count, nrow(bact) - sum(bact_count))
-bact_count <- format(c(bact_count, nrow(bact)), big.mark=',')
-bact_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, bact), big.mark=',')
-bact_good_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_goods_coverage, bact), nsmall=1, digits=3)
-bact_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schloss_coverage, bact), nsmall=1, digits=3)
-
-arch_count <- table(arch$category)[abbreviation]
-arch_count[is.na(arch_count)] <- 0
-arch_count <- c(arch_count, nrow(arch) - sum(arch_count))
-arch_count <- format(c(arch_count, nrow(arch)), big.mark=',')
-arch_sobs <- format(sapply(c(abbreviation, "NA", "total"), get_sobs, arch), big.mark=',')
-arch_good_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_goods_coverage, arch), nsmall=1, digits=3)
-arch_schloss_coverage <- format(sapply(c(abbreviation, "NA", "total"), get_schloss_coverage, arch), nsmall=1, digits=3)
-
-#abbreviation <- c(abbreviation, "", "")
-
-composite <- cbind(coarse, fine, bact_count, bact_sobs, bact_good_coverage, bact_schloss_coverage, arch_count, arch_sobs, arch_good_coverage, arch_schloss_coverage)
-write.table(composite, file=paste0(PROJHOME, "/data/process/table1_data.tsv"))
-
-composite <- rbind(c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}"), composite)
+composite <- rbind(header, composite)
 
 composite <- xtable(composite)
 

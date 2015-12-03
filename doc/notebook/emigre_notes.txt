@@ -1,0 +1,105 @@
+Disturbed subsurface microbial communities follow equivalent trajectories despite different structural starting points.
+Handley KM, Wrighton KC, Miller CS, Wilkins MJ, Kantor RS, Thomas BC, Williams KH, Gilbert JA, Long PE, Banfield JF.
+Environ Microbiol. 2015 Mar;17(3):622-36. doi: 10.1111/1462-2920.12467. Epub 2014 Apr 18.
+PMID: 24674078
+
+KC716084:KC731398 => 15315 sequences
+
+
+
+Biostimulation induces syntrophic interactions that impact C, S and N cycling in a sediment microbial community.
+Handley KM, VerBerkmoes NC, Steefel CI, Williams KH, Sharon I, Miller CS, Frischkorn KR, Chourey K, Thomas BC, Shah MB, Long PE, Hettich RL, Banfield JF.
+ISME J. 2013 Apr;7(4):800-16. doi: 10.1038/ismej.2012.148. Epub 2012 Nov 29.
+PMID: 23190730 Free PMC Article
+
+JX125436:JX125454 => 19 sequences
+
+
+
+10.1128/AEM.00032-11
+JN091905:JN091925 => 21 sequences
+
+
+
+Metagenomic insights into S(0) precipitation in a terrestrial subsurface lithoautotrophic ecosystem.
+Hamilton TL, Jones DS, Schaperdoth I, Macalady JL.
+Front Microbiol. 2015 Jan 8;5:756. doi: 10.3389/fmicb.2014.00756. eCollection 2014.
+PMID: 25620962 Free PMC Article
+KM410305:KM410928 => 624 sequences
+
+
+
+Speciation and reactivity of uranium products formed during in situ bioremediation in a shallow alluvial aquifer.
+Alessi DS, Lezama-Pacheco JS, Janot N, Suvorova EI, Cerrato JM, Giammar DE, Davis JA, Fox PM, Williams KH, Long PE, Handley KM, Bernier-Latmani R, Bargar JR.
+Environ Sci Technol. 2014 Nov 4;48(21):12842-50. doi: 10.1021/es502701u. Epub 2014 Oct 27.
+PMID: 25265543
+
+JX221725:JX226064 => 4340 sequences
+
+
+
+
+
+
+
+EMIRGE: reconstruction of full-length ribosomal genes from microbial community short read sequencing data.
+Miller CS, Baker BJ, Thomas BC, Singer SW, Banfield JF.
+Genome Biol. 2011;12(5):R44. doi: 10.1186/gb-2011-12-5-r44. Epub 2011 May 19.
+PMID: 21595876 Free PMC Article
+
+10 sequences published with paper...
+http://www.genomebiology.com/content/supplementary/gb-2011-12-5-r44-s3.fasta
+data/raw/miller_2011.fasta
+
+
+Short-read assembly of full-length 16S amplicons reveals bacterial diversity in subsurface sediments.
+Miller CS, Handley KM, Wrighton KC, Frischkorn KR, Thomas BC, Banfield JF.
+PLoS One. 2013;8(2):e56018. doi: 10.1371/journal.pone.0056018. Epub 2013 Feb 6.
+PMID: 23405248 Free PMC Article
+
+57061 sequences...
+http://banfieldlab.berkeley.edu/EMIRGE/data/paper2/EMIRGE_reconstructed_16S.fasta.gz
+
+
+
+Fermentation, hydrogen, and sulfur metabolism in multiple uncultivated bacterial phyla.
+Wrighton KC, Thomas BC, Sharon I, Miller CS, Castelle CJ, VerBerkmoes NC, Wilkins MJ, Hettich RL, Lipton MS, Williams KH, Long PE, Banfield JF.
+Science. 2012 Sep 28;337(6102):1661-5. Erratum in: Science. 2012 Nov 9;338(6108):742.
+PMID: 23019650
+
+110 sequences published with paper...
+http://www.sciencemag.org/content/suppl/2012/09/26/337.6102.1661.DC1/1224041_SupplmentalDownload.zip
+
+
+
+Fluctuations in species-level protein expression occur during element and nutrient cycling in the subsurface.
+Wilkins MJ, Wrighton KC, Nicora CD, Williams KH, McCue LA, Handley KM, Miller CS, Giloteaux L, Montgomery AP, Lovley DR, Banfield JF, Long PE, Lipton MS.
+PLoS One. 2013;8(3):e57819. doi: 10.1371/journal.pone.0057819. Epub 2013 Mar 5.
+PMID: 23472107 Free PMC Article
+
+24 sequences published with paper...
+http://journals.plos.org/plosone/article/asset?unique&id=info:doi/10.1371/journal.pone.0057819.s003
+this is a word document (wtf)
+
+
+
+Microbes in the neonatal intensive care unit resemble those found in the gut of premature infants.
+Brooks B, Firek BA, Miller CS, Sharon I, Thomas BC, Baker R, Morowitz MJ, Banfield JF.
+Microbiome. 2014 Jan 28;2(1):1. doi: 10.1186/2049-2618-2-1.
+PMID: 24468033 Free PMC Article
+
+24000 sequences published with paper
+http://ggkbase.berkeley.edu/NICU-Micro/
+wget http://ggkbase.berkeley.edu/project_files/2
+wget http://ggkbase.berkeley.edu/project_files/3
+wget http://ggkbase.berkeley.edu/project_files/4
+wget http://ggkbase.berkeley.edu/project_files/5
+
+
+Isolation of a significant fraction of non-phototroph diversity from a desert Biological Soil Crust.
+Nunes da Rocha U, Cadillo-Quiroz H, Karaoz U, Rajeev L, Klitgord N, Dunn S, Truong V, Buenrostro M, Bowen BP, Garcia-Pichel F, Mukhopadhyay A, Northen TR, Brodie EL.
+Front Microbiol. 2015 Apr 14;6:277. doi: 10.3389/fmicb.2015.00277. eCollection 2015.
+PMID: 25926821 Free PMC Article
+
+5500 sequences published with paper
+http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4396413/bin/DataSheet1.ZIP
