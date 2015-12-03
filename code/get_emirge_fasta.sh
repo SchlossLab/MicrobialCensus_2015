@@ -67,5 +67,23 @@ mv "Supplementary Material BSC_EMIRGE_outputs/BSC_Metagenome_SSUrRNA_EMIRGEoutpu
 rm -rf "Supplementary Material BSC_EMIRGE_outputs" DataSheet1.ZIP
 
 
-
+# Pool the fasta data
 cat data/raw/*_*_emirge.fasta > data/raw/emirge.fasta
+
+
+# Now we want to classify the sequences to split the sequences by domain...
+mothur "#classify.seqs(fasta=data/raw/emirge.fasta, reference=data/references/trainset10_082014.pds.fasta, taxonomy=data/references/trainset10_082014.pds.tax, cutoff=80, processors=8)"
+
+
+# Pull out the bacteria...
+mothur "#get.lineage(fasta=data/raw/emirge.fasta, taxonomy=data/raw/emirge.pds.wang.taxonomy, taxon=Bacteria)"
+
+mv data/raw/emirge.pds.wang.pick.taxonomy data/mothur/emirge.bacteria.taxonomy
+mv data/raw/emirge.pick.fasta data/mothur/emirge.bacteria.fasta
+
+
+# Pull out the archaea...
+mothur "#get.lineage(fasta=data/raw/emirge.fasta, taxonomy=data/raw/emirge.pds.wang.taxonomy, taxon=Archaea)"
+
+mv data/raw/emirge.pds.wang.pick.taxonomy data/mothur/emirge.archaea.taxonomy
+mv data/raw/emirge.pick.fasta data/mothur/emirge.archaea.fasta
