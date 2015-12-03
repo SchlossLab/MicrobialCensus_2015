@@ -78,12 +78,12 @@ mothur "#classify.seqs(fasta=data/raw/emirge.fasta, reference=data/references/tr
 # Pull out the bacteria...
 mothur "#get.lineage(fasta=data/raw/emirge.fasta, taxonomy=data/raw/emirge.pds.wang.taxonomy, taxon=Bacteria)"
 
-mv data/raw/emirge.pds.wang.pick.taxonomy data/mothur/emirge.bacteria.taxonomy
+rm data/raw/emirge.pds.wang.pick.taxonomy
 mv data/raw/emirge.pick.fasta data/mothur/emirge.bacteria.fasta
 
 
 # Pull out the archaea...
 mothur "#get.lineage(fasta=data/raw/emirge.fasta, taxonomy=data/raw/emirge.pds.wang.taxonomy, taxon=Archaea)"
 
-mv data/raw/emirge.pds.wang.pick.taxonomy data/mothur/emirge.archaea.taxonomy
+rm data/raw/emirge.pds.wang.pick.taxonomy
 mv data/raw/emirge.pick.fasta data/mothur/emirge.archaea.fasta
