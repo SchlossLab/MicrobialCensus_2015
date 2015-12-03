@@ -188,6 +188,33 @@ mothur "#set.dir(output=data/mothur);
 ```
 
 
+## EMIRGE sequence data
+
+EMIRGE is a method of either assembling 16S rRNA gene sequences from metagenomic
+data or from sheared amplicons. This is a method of generating full-length
+sequences using short read technologies. We've identified a handful of studies
+that have used EMIRGE to generate these data and that actually made their data
+publicly available. Some of these are already in the SILVA database, but many
+are only available in supplementary materials or on lab websites. To generate
+the pooled fasta and metadata files we run the following. Note that because
+we're scraping data out of some supplements these scripts assume that you have
+access to the journals...
+
+```{r get_emirge, engine="bash"}
+bash code/get_emirge_fasta.sh
+bash code/get_emirge_metadata.sh
+```
+
+This will bring in 81,616 sequences: 81608 from bacteria, 7 from archaea, and 1 from a eukaryote. We'll ignore the eukaryote. The `code/get_emirge_fasta.sh` script split the sequences by domain and put the fasta sequences into `data/mothur/` for further processing. We need to process these sequences similar to what we did with the single cell data.
+
+```{r process_emirge, engine="bash"}
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        align.seqs(fasta=data/mothur/emirge.bacteria.fasta, reference=data/mothur/bacteria.good.fasta);
+        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2, minlength=1200);
+        classify.seqs(fasta=data/raw/EMIRGE.fasta, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80, processors=8)"
+```
+
+
 ## Pooling the data
 
 Now we want to merge the SILVA and single cell genomics 16S rRNA gene sequence
