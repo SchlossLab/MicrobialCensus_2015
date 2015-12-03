@@ -4,7 +4,7 @@
 # PMID: 21595876
 # http://www.genomebiology.com/2011/12/5/R44
 
-wget http://www.genomebiology.com/content/supplementary/gb-2011-12-5-r44-s3.fasta -O data/raw/miller_2011_emigre.fasta
+wget http://www.genomebiology.com/content/supplementary/gb-2011-12-5-r44-s3.fasta -O data/raw/miller_2011_emirge.fasta
 
 
 
@@ -13,8 +13,8 @@ wget http://www.genomebiology.com/content/supplementary/gb-2011-12-5-r44-s3.fast
 # PLoS One. 2013;8(2):e56018. doi: 10.1371/journal.pone.0056018. Epub 2013 Feb 6.
 # PMID: 23405248
 
-wget http://banfieldlab.berkeley.edu/EMIRGE/data/paper2/EMIRGE_reconstructed_16S.fasta.gz -O data/raw/miller_2013_emigre.fasta.gz
-gunzip data/raw/miller_2013_emigre.fasta.gz
+wget http://banfieldlab.berkeley.edu/EMIRGE/data/paper2/EMIRGE_reconstructed_16S.fasta.gz -O data/raw/miller_2013_emirge.fasta.gz
+gunzip data/raw/miller_2013_emirge.fasta.gz
 
 
 
@@ -25,7 +25,7 @@ gunzip data/raw/miller_2013_emigre.fasta.gz
 
 wget http://www.sciencemag.org/content/suppl/2012/09/26/337.6102.1661.DC1/1224041_SupplmentalDownload.zip
 unzip 1224041_SupplmentalDownload.zip FASTA_files/16S_EMIRGE_CloneSilva108db_p0.005.fasta
-mv FASTA_files/16S_EMIRGE_CloneSilva108db_p0.005.fasta data/raw/wrighton_2012_emigre.fasta
+mv FASTA_files/16S_EMIRGE_CloneSilva108db_p0.005.fasta data/raw/wrighton_2012_emirge.fasta
 rm -rf FASTA_files 1224041_SupplmentalDownload.zip
 
 
@@ -37,7 +37,7 @@ rm -rf FASTA_files 1224041_SupplmentalDownload.zip
 
 wget "http://journals.plos.org/plosone/article/asset?unique&id=info:doi/10.1371/journal.pone.0057819.s003" -O data/raw/wilkins_2013.docx
 pandoc -s data/raw/wilkins_2013.docx -t asciidoc -o data/raw/wilkins_2013.md
-R -e "write(gsub('[\\\\]', '', scan(file='data/raw/wilkins_2013.md', what='', sep='\\n', quiet=T))[-1], 'data/raw/wilkins_2013_emigre.fasta')"
+R -e "write(gsub('[\\\\]', '', scan(file='data/raw/wilkins_2013.md', what='', sep='\\n', quiet=T))[-1], 'data/raw/wilkins_2013_emirge.fasta')"
 rm data/raw/wilkins_2013.docx data/raw/wilkins_2013.md
 
 
@@ -51,7 +51,7 @@ wget http://ggkbase.berkeley.edu/project_files/2
 wget http://ggkbase.berkeley.edu/project_files/3
 wget http://ggkbase.berkeley.edu/project_files/4
 wget http://ggkbase.berkeley.edu/project_files/5
-cat 2 3 4 5 > data/raw/brooks_2014_emigre.fasta
+cat 2 3 4 5 > data/raw/brooks_2014_emirge.fasta
 rm 2 3 4 5
 
 
@@ -63,9 +63,9 @@ rm 2 3 4 5
 
 wget http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4396413/bin/DataSheet1.ZIP
 unzip DataSheet1.ZIP 'Supplementary Material BSC_EMIRGE_outputs/BSC_Metagenome_SSUrRNA_EMIRGEoutput.fasta'
-mv "Supplementary Material BSC_EMIRGE_outputs/BSC_Metagenome_SSUrRNA_EMIRGEoutput.fasta" data/raw/darocha_2015_emigre.fasta
+mv "Supplementary Material BSC_EMIRGE_outputs/BSC_Metagenome_SSUrRNA_EMIRGEoutput.fasta" data/raw/darocha_2015_emirge.fasta
 rm -rf "Supplementary Material BSC_EMIRGE_outputs" DataSheet1.ZIP
 
 
 
-cat data/raw/*_*_emigre.fasta > data/raw/emigre.fasta
+cat data/raw/*_*_emirge.fasta > data/raw/emirge.fasta

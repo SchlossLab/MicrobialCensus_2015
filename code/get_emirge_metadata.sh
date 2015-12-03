@@ -4,7 +4,7 @@
 # PMID: 21595876
 # http://www.genomebiology.com/2011/12/5/R44
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2011_emigre.fasta', pub_date='2011-05-19', publication_doi='10.1186/gb-2011-12-5-r44', category='BI')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2011_emirge.fasta', pub_date='2011-05-19', publication_doi='10.1186/gb-2011-12-5-r44', category='BI')"
 
 
 
@@ -14,7 +14,7 @@ R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2011_emig
 # PLoS One. 2013;8(2):e56018. doi: 10.1371/journal.pone.0056018. Epub 2013 Feb 6.
 # PMID: 23405248
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2013_emigre.fasta', pub_date='2013-02-06', publication_doi='10.1371/journal.pone.0056018', category='AQF')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2013_emirge.fasta', pub_date='2013-02-06', publication_doi='10.1371/journal.pone.0056018', category='AQF')"
 
 
 
@@ -23,7 +23,7 @@ R -e "source('code/build_metadata.R'); build_metadata('data/raw/miller_2013_emig
 # Science. 2012 Sep 28;337(6102):1661-5. Erratum in: Science. 2012 Nov 9;338(6108):742.
 # PMID: 23019650
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/wrighton_2012_emigre.fasta', pub_date='2012-11-09', publication_doi='10.1126/science.1224041', category='AQF')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/wrighton_2012_emirge.fasta', pub_date='2012-11-09', publication_doi='10.1126/science.1224041', category='AQF')"
 
 
 
@@ -32,7 +32,7 @@ R -e "source('code/build_metadata.R'); build_metadata('data/raw/wrighton_2012_em
 # PLoS One. 2013;8(3):e57819. doi: 10.1371/journal.pone.0057819. Epub 2013 Mar 5.
 # PMID: 23472107
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/wilkins_2013_emigre.fasta', pub_date='2013-03-05', publication_doi='10.1371/journal.pone.0057819', category='AQF')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/wilkins_2013_emirge.fasta', pub_date='2013-03-05', publication_doi='10.1371/journal.pone.0057819', category='AQF')"
 
 
 
@@ -41,7 +41,7 @@ R -e "source('code/build_metadata.R'); build_metadata('data/raw/wilkins_2013_emi
 # Microbiome. 2014 Jan 28;2(1):1. doi: 10.1186/2049-2618-2-1.
 # PMID: 24468033
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/brooks_2014_emigre.fasta', pub_date='2014-01-28', publication_doi='10.1186/2049-2618-2-1', category='ZV')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/brooks_2014_emirge.fasta', pub_date='2014-01-28', publication_doi='10.1186/2049-2618-2-1', category='ZV')"
 
 
 
@@ -50,8 +50,8 @@ R -e "source('code/build_metadata.R'); build_metadata('data/raw/brooks_2014_emig
 # Front Microbiol. 2015 Apr 14;6:277. doi: 10.3389/fmicb.2015.00277. eCollection 2015.
 # PMID: 25926821
 
-R -e "source('code/build_metadata.R'); build_metadata('data/raw/darocha_2015_emigre.fasta', pub_date='2015-04-14', publication_doi='10.3389/fmicb.2015.00277', category='SD')"
+R -e "source('code/build_metadata.R'); build_metadata('data/raw/darocha_2015_emirge.fasta', pub_date='2015-04-14', publication_doi='10.3389/fmicb.2015.00277', category='SD')"
 
 
 
-cat data/raw/*_*_emigre.metadata > data/raw/emigre.metadata
+cat data/raw/*_*_emirge.metadata > data/raw/emirge.metadata
