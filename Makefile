@@ -84,8 +84,8 @@ $(FIG)/time_course_figure.pdf : code/build_time_course_plots.R\
 
 #done
 $(FIG)/phylum_effort.pdf : code/build_phylum_effort_plot.R\
-							$(PROCESS)/bacteria.v123.metadata\
-						 	$(PROCESS)/archaea.v123.metadata
+							$(PROCESS)/bacteria.phyla.counts.tsv\
+						 	$(PROCESS)/archaea.phyla.counts.tsv
 	R -e 'source("code/build_phylum_effort_plot.R")'
 
 #done
@@ -110,15 +110,27 @@ $(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
 
 
 #done
-results/tables/coverage_by_category_and_time_table.pdf : \
-							results/tables/build_coverage_by_category_and_time_table.Rmd\
+results/tables/coverage_by_category.pdf : \
+							results/tables/build_coverage_by_category.Rmd\
 							$(PROCESS)/coverage_by_category_and_time.tsv\
 							results/tables/table_header.tex
-	R -e 'render("results/tables/build_coverage_by_category_and_time_table.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
+	R -e 'render("results/tables/build_coverage_by_category.Rmd", output_file="coverage_by_category.pdf")'
 
 
 #generate supplmentary files
+#table s2
+results/tables/bacterial_category_phylum_table.pdf : \
+							results/tables/build_bacterial_category_phylum_table.Rmd\
+							$(PROCESS)/phylum_category_counts.tsv\
+							results/tables/table_header.tex
+	R -e 'render("results/tables/build_bacterial_category_phylum_table.Rmd", output_file="bacterial_category_phylum_table.pdf")'
 
+#table s2
+results/tables/archaeal_category_phylum_table.pdf : \
+							results/tables/build_archaeal_category_phylum_table.Rmd\
+							$(PROCESS)/phylum_category_counts.tsv\
+							results/tables/table_header.tex
+	R -e 'render("results/tables/build_archaeal_category_phylum_table.Rmd", output_file="archaeal_category_phylum_table.pdf")'
 
 
 #need to fix dependencies

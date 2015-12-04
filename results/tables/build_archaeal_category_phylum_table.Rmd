@@ -1,0 +1,41 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_header.tex
+tables: true
+geometry: margin=1.0in
+classoption: landscape
+---
+
+
+**Supplementary Table 3. Frequency that each archaeal phylum was found across each of the environmental categories.**
+
+
+```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
+categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Freshwater", AQFS="Freshwater sediment", AQM="Marine", AQMS="Marine sediment", AQH="Hydrothermal vent", AQI="Ice", AQO="Aquatic other", BD="Digesters", BF="Food-associated", BI="Industrial/mining", BP="Pollution associated", BO="Built other", PR="Plant root", PS="Plant surface", PO="Plant other", SA="Agricultural soil", SD="Desert soil", SP="Permafrost", SO="Other soils", ZV="Vertebrate", ZA="Arthropod", ZN="Other invertebrate", ZO="Other zoological", OT="Other", total="Total")
+
+
+data <- read.table(file="data/process/phylum_category_counts.tsv", header=T)
+
+archaea <- data[data$domain=="archaea",-1]
+archaea <- archaea[order(archaea$total, decreasing=T), names(categories)]
+colnames(archaea) <- gsub("total", "Total", colnames(archaea))
+rownames(archaea) <- gsub("Candidate_division_", "", rownames(archaea))
+rownames(archaea) <- gsub("_", " ", rownames(archaea))
+
+total <- apply(archaea, 2, sum)
+archaea <- rbind(archaea, Total=total)
+archaea <- cbind(rownames(archaea), archaea)
+
+colnames(archaea) <- c("", categories)
+composite <- xtable(archaea)
+
+align(composite) <- paste0('ll', paste(rep('c', ncol(archaea)-1), collapse=""))
+
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0,nrow(composite)-1, nrow(composite)), comment=FALSE, size="tiny", rotate.colnames=TRUE)
+
+```

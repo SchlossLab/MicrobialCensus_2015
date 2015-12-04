@@ -1,0 +1,41 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_header.tex
+tables: true
+geometry: margin=0.1in
+classoption: landscape
+---
+
+
+**Supplementary Table 2. Frequency that each bacterial phylum was found across each of the environmental categories.**
+
+
+```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
+categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Freshwater", AQFS="Freshwater sediment", AQM="Marine", AQMS="Marine sediment", AQH="Hydrothermal vent", AQI="Ice", AQO="Aquatic other", BD="Digesters", BF="Food-associated", BI="Industrial/mining", BP="Pollution associated", BO="Built other", PR="Plant root", PS="Plant surface", PO="Plant other", SA="Agricultural soil", SD="Desert soil", SP="Permafrost", SO="Other soils", ZV="Vertebrate", ZA="Arthropod", ZN="Other invertebrate", ZO="Other zoological", OT="Other", total="Total")
+
+
+data <- read.table(file="data/process/phylum_category_counts.tsv", header=T)
+
+bacteria <- data[data$domain=="bacteria",-1]
+bacteria <- bacteria[order(bacteria$total, decreasing=T), names(categories)]
+colnames(bacteria) <- gsub("total", "Total", colnames(bacteria))
+rownames(bacteria) <- gsub("Candidate_division_", "", rownames(bacteria))
+rownames(bacteria) <- gsub("_", " ", rownames(bacteria))
+
+total <- apply(bacteria, 2, sum)
+bacteria <- rbind(bacteria, Total=total)
+bacteria <- cbind(rownames(bacteria), bacteria)
+
+colnames(bacteria) <- c("", categories)
+composite <- xtable(bacteria)
+
+align(composite) <- paste0('ll', paste(rep('c', ncol(bacteria)-1), collapse=""))
+
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0,nrow(composite)-1, nrow(composite)), comment=FALSE, size="tiny", rotate.colnames=TRUE)
+
+```

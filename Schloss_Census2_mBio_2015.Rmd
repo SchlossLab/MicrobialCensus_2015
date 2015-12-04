@@ -299,10 +299,11 @@ Given the relatively low number of archaeal sequences that have been deposited f
 
 **Figure results/figures/domain_rarefaction.pdf. Number of OTUs sampled among bacterial and archaeal 16S rRNA gene sequences for different OTU definitions and level of sequencing effort.** The number of bacterial and archaeal OTUs observed among the longest sequences in the SILVA database continues to grow at a rate too slow to ever reach estimates of 10^6^ to 10^11^ bacterial species.
 
-**Figure results/figures/time_course_figure.pdf. Progression of the microbial census since the first full-length 16S rRNA gene sequence was deposited into GenBank in 1983.*** The number of bacterial and archaeal 16S rRNA gene sequences deposited (A) and the new OTUs they represent (B) has increased exponentially until the last several years when the rate of change has plateaued. For both bacterial and archaeal sequences, the number of studies that are responsible for depositing more than 50% of the seuqences each year has been relatively small (C).
+
+**Figure results/figures/time_course_figure.pdf. Progression of the microbial census since the first full-length 16S rRNA gene sequence was deposited into GenBank in 1983.*** The number of bacterial and archaeal 16S rRNA gene sequences deposited (A) and the new OTUs they represent (B) has increased exponentially until the last several years when the rate of change has plateaued. For both bacterial and archaeal sequences, the number of studies that are responsible for depositing more than 50% of the sequences each year has been relatively small (C).
 
 
-**Figure results/figures/category_phylum_heatmap.pdf. Heatmap depicting the relative abundance of the most common bacterial and archaeal phyla across different environments.** Each environmental category exhibited a phylum-level signature although the bacterial census was dominated by sequences from the Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes and the archaeal census was dominated by sequences from the Euryarchaeota and Thaumarchaeota.
+**Figure results/figures/category_phylum_heatmap.pdf. Heatmap depicting the relative abundance of the most common bacterial and archaeal phyla across different environments.** Each environmental category exhibited a phylum-level signature although the bacterial census was dominated by sequences from the Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes and the archaeal census was dominated by sequences from the Euryarchaeota and Thaumarchaeota. The ten most abundant phyla across all environmental categories are shown. The data for all bacterial and archaeal phyla are available in Supplemental Tables 2 and 3, respectively.
 
 
 **Figure results/figures/phylum_effort.pdf. Relative rate of sequence deposition for each bacterial and archaeal phylum before and after 2006 relative to the sequencing of all bacteria.** The figure shows the relative rates for those phyla with at least 1,000 sequences and the x-axis is on a log2 scale.
@@ -313,106 +314,6 @@ Given the relatively low number of archaeal sequences that have been deposited f
 
 **Figure results/figures/venn_otu_by_method.pdf. The number of OTUs that were found by either cultivation, PCR, single-cell genomics or multiple methods for bacterial and archaeal sequences.**
 
-
-```{r figure4a, eval=FALSE}
-data <- read.table(file="data/mothur/all_bacteria.env_category.groups.rarefaction", header=T)
-category <- "\\.plant$" #change the SO to whatever category you want (leave the \\. and $)
-plant_columns <- grep(category, colnames(data))
-category <- "\\.aerosol$" #change the SO to whatever category you want (leave the \\. and $)
-aerosol_columns <- grep(category, colnames(data))
-category <- "\\.aquatic$" #change the SO to whatever category you want (leave the \\. and $)
-aquatic_columns <- grep(category, colnames(data))
-category <- "\\.built$" #change the SO to whatever category you want (leave the \\. and $)
-built_columns <- grep(category, colnames(data))
-category <- "\\.other$" #change the SO to whatever category you want (leave the \\. and $)
-other_columns <- grep(category, colnames(data))
-category <- "\\.soil$" #change the SO to whatever category you want (leave the \\. and $)
-soil_columns <- grep(category, colnames(data))
-category <- "\\.zoonotic$" #change the SO to whatever category you want (leave the \\. and $)
-zoonotic_columns <- grep(category, colnames(data))
-plant_aerosol_aquatic_built_other_soil_zoonotic_data <- data[,c(1, plant_columns, aerosol_columns, aquatic_columns, built_columns, other_columns, soil_columns, zoonotic_columns)]  #the 1 gets the first column which is numsampled
-nrows_to_keep <- which.max(plant_aerosol_aquatic_built_other_soil_zoonotic_data$numsampled[!is.na(plant_aerosol_aquatic_built_other_soil_zoonotic_data[,2])])
-plant_aerosol_aquatic_built_other_soil_zoonotic_data <- plant_aerosol_aquatic_built_other_soil_zoonotic_data[1:nrows_to_keep,]
-pdf(file="/Users/renegirard7gfy/Desktop/Bac_Uniq_3per.pdf")
-
-par(mar=c(5,5,0.5,0.5))
-plot(NA, type="n", ylim=c(0,max(40000)),
-     xlim=c(0,max(data$numsampled)),
-     xlab="Number of sequences sampled",
-     ylab="",
-     axes=FALSE)
-
-points(data$X0.03.plant~data$numsampled, type="l", col="red", lwd=2)
-points(data$X0.03.aerosol~data$numsampled, type="l", col="green", lwd=2)
-points(data$X0.03.aquatic~data$numsampled, type="l", col="blue", lwd=2)
-points(data$X0.03.built~data$numsampled, type="l", col="orange", lwd=2)
-points(data$X0.03.other~data$numsampled, type="l", col="black", lwd=2)
-points(data$X0.03.soil~data$numsampled, type="l", col="purple", lwd=2)
-points(data$X0.03.zoonotic~data$numsampled, type="l", col="deeppink", lwd=2)
-
-legend(x=5e5, y=20000, lwd=2, lty=1,
-       legend=c("Other", "Plant", "Aerosol", "Aquatic", "Built", "Soil", "Zoonotic"),
-       col=c("black", "red", "green", "blue", "orange", "purple", "deeppink"))
-
-axis(1, at=seq(0,700000,1e5), label=c("0", "100,000", "200,000", "300,000", "400,000", "500,000", "600,000", "700,000"), cex.axis=0.8)
-axis(2, at=seq(0,40000,5000), label=c("0", "5,000", "10,000", "15,000", "20,000", "25,000", "30,000", "35,000", "40,000"), las=2, cex.axis=0.8)
-box()
-mtext(side=2, "Number of OTUs", line=4)
-
-dev.off()
-
-```
-
-**Figure 4B. Archaeal sampling by environment**
-
-```{r figure4b, eval=FALSE}
-
-data <- read.table(file="data/mothur/all_archaea.env_category.groups.rarefaction", header=T)
-category <- "\\.plant$" #change the SO to whatever category you want (leave the \\. and $)
-plant_columns <- grep(category, colnames(data))
-category <- "\\.aerosol$" #change the SO to whatever category you want (leave the \\. and $)
-aerosol_columns <- grep(category, colnames(data))
-category <- "\\.aquatic$" #change the SO to whatever category you want (leave the \\. and $)
-aquatic_columns <- grep(category, colnames(data))
-category <- "\\.built$" #change the SO to whatever category you want (leave the \\. and $)
-built_columns <- grep(category, colnames(data))
-category <- "\\.other$" #change the SO to whatever category you want (leave the \\. and $)
-other_columns <- grep(category, colnames(data))
-category <- "\\.soil$" #change the SO to whatever category you want (leave the \\. and $)
-soil_columns <- grep(category, colnames(data))
-category <- "\\.zoonotic$" #change the SO to whatever category you want (leave the \\. and $)
-zoonotic_columns <- grep(category, colnames(data))
-plant_aerosol_aquatic_built_other_soil_zoonotic_data <- data[,c(1, plant_columns, aerosol_columns, aquatic_columns, built_columns, other_columns, soil_columns, zoonotic_columns)]  #the 1 gets the first column which is numsampled
-nrows_to_keep <- which.max(plant_aerosol_aquatic_built_other_soil_zoonotic_data$numsampled[!is.na(plant_aerosol_aquatic_built_other_soil_zoonotic_data[,2])])
-plant_aerosol_aquatic_built_other_soil_zoonotic_data <- plant_aerosol_aquatic_built_other_soil_zoonotic_data[1:nrows_to_keep,]
-pdf(file="/Users/renegirard7gfy/Desktop/Arc_Uniq_3per.pdf")
-
-par(mar=c(5,5,0.5,0.5))
-plot(NA, type="n", ylim=c(0,max(data[,-1], na.rm=T)),
-     xlim=c(0,max(data$numsampled)),
-     xlab="Number of sequences sampled",
-     ylab="",
-     axes=FALSE)
-
-points(data$X0.03.plant~data$numsampled, type="l", col="red", lwd=2)
-points(data$X0.03.aerosol~data$numsampled, type="l", col="green", lwd=2)
-points(data$X0.03.aquatic~data$numsampled, type="l", col="blue", lwd=2)
-points(data$X0.03.built~data$numsampled, type="l", col="orange", lwd=2)
-points(data$X0.03.other~data$numsampled, type="l", col="black", lwd=2)
-points(data$X0.03.soil~data$numsampled, type="l", col="purple", lwd=2)
-points(data$X0.03.zoonotic~data$numsampled, type="l", col="deeppink", lwd=2)
-
-legend(x=15000, y=1550, lwd=2, lty=1,
-       legend=c("Other", "Plant", "Aerosol", "Aquatic", "Built", "Soil", "Zoonotic"),
-       col=c("black", "red", "green", "blue", "orange", "purple", "deeppink"))
-
-axis(1, at=seq(0,35000,5000), label=c("0", "5,000", "10,000", "15,000", "20,000", "25,000", "30,000", "35,000"), cex.axis=0.8)
-axis(2, at=seq(0,5250,750), label=c("0", "750", "1500", "2250", "3,000", "3750", "4500", "5250"), las=2, cex.axis=0.8)
-box()
-mtext(side=2, "Number of OTUs", line=4)
-
-dev.off()
-```
 
 \newpage
 \doublespacing
