@@ -388,7 +388,7 @@ We'd also like to get the metadata from the EMIRGE data. We have an metadata fil
 
 ```{r emirge_metadata}
 emirge_metadata <- read.table(file="data/raw/emirge.metadata", row.names=1)
-archaea_sequences <- read.table(file="data/mothur/emirge.archaea.taxonomy")[1]
+archaea_sequences <- read.table(file="data/mothur/emirge.archaea.taxonomy", stringsAsFactors=FALSE)[1]
 archaea_emirge_metadata <- emirge_metadata[archaea_sequences$V1,]
 
 write.table(archaea_emirge_metadata, file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
