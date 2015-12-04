@@ -116,10 +116,10 @@ $(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
 
 #Table 1
 $(TAB)/coverage_by_category.pdf : \
-							results/tables/build_coverage_by_category.Rmd\
+							$(TAB)/build_coverage_by_category.Rmd\
 							$(PROCESS)/coverage_by_category_and_time.tsv\
-							results/tables/table_header.tex
-	R -e 'render("results/tables/build_coverage_by_category.Rmd", output_file="coverage_by_category.pdf")'
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_coverage_by_category.Rmd", output_file="coverage_by_category.pdf")'
 
 
 
@@ -127,37 +127,41 @@ $(TAB)/coverage_by_category.pdf : \
 
 #generate supplmentary files
 #Table S1
-# Description of environmental categories
+$(TAB)/environmental_categories_table.pdf : \
+							doc/notebook/ClassificationCode.docx\
+							$(TAB)/build_environmental_categories_table.Rmd\
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_environmental_categories_table.Rmd", output_file="environmental_categories_table.pdf")'
 
 
 #Table S2
 $(TAB)/bacterial_category_phylum_table.pdf : \
-							results/tables/build_bacterial_category_phylum_table.Rmd\
+							$(TAB)/build_bacterial_category_phylum_table.Rmd\
 							$(PROCESS)/phylum_category_counts.tsv\
-							results/tables/table_header.tex
-	R -e 'render("results/tables/build_bacterial_category_phylum_table.Rmd", output_file="bacterial_category_phylum_table.pdf")'
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_bacterial_category_phylum_table.Rmd", output_file="bacterial_category_phylum_table.pdf")'
 
 #Table S3
 $(TAB)/archaeal_category_phylum_table.pdf : \
-							results/tables/build_archaeal_category_phylum_table.Rmd\
+							$(TAB)/build_archaeal_category_phylum_table.Rmd\
 							$(PROCESS)/phylum_category_counts.tsv\
-							results/tables/table_header.tex
-	R -e 'render("results/tables/build_archaeal_category_phylum_table.Rmd", output_file="archaeal_category_phylum_table.pdf")'
+							$(TAB)/table_header.tex
+							R -e 'render("$(TAB)/build_archaeal_category_phylum_table.Rmd", output_file="archaeal_category_phylum_table.pdf")'
 
 #Table S4
 $(TAB)/bacterial_phylum_effort_table.pdf : \
-							results/tables/build_bacterial_phylum_effort_table.Rmd\
+							$(TAB)/build_bacterial_phylum_effort_table.Rmd\
 							$(PROCESS)/bacteria.phyla.counts.tsv\
-							results/tables/table_header.tex
-	R -e 'render("results/tables/build_bacterial_phylum_effort_table.Rmd", output_file="bacterial_phylum_effort_table.pdf")'
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_bacterial_phylum_effort_table.Rmd", output_file="bacterial_phylum_effort_table.pdf")'
 
 
 #Table S5
 $(TAB)/archaeal_phylum_effort_table.pdf : \
-							results/tables/build_archaeal_phylum_effort_table.Rmd\
+							$(TAB)/build_archaeal_phylum_effort_table.Rmd\
 							$(PROCESS)/archaea.phyla.counts.tsv\
-							results/tables/table_header.tex
-	R -e 'render("results/tables/build_archaeal_phylum_effort_table.Rmd", output_file="archaeal_phylum_effort_table.pdf")'
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_archaeal_phylum_effort_table.Rmd", output_file="archaeal_phylum_effort_table.pdf")'
 
 
 #Table S6

@@ -1,0 +1,43 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_header.tex
+tables: true
+geometry: margin=1.0in
+---
+
+**Supplemental Table 1. Description of environmental categories and the criteria used to assign sequences to each category.**
+
+```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
+categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Freshwater", AQFS="Freshwater sediment", AQM="Marine", AQMS="Marine sediment", AQH="Hydrothermal vent", AQI="Ice", AQO="Aquatic other", BD="Digesters", BF="Food-associated", BI="Industrial/mining", BP="Pollution associated", BO="Built other", PR="Plant root", PS="Plant surface", PO="Plant other", SA="Agricultural soil", SD="Desert soil", SP="Permafrost", SO="Other soils", ZV="Vertebrate", ZA="Arthropod", ZN="Other invertebrate", ZO="Other zoological", OT="Other")
+
+
+text <- read.table("doc/notebook/ClassificationCode.md", sep=':', row.names=1, stringsAsFactors=FALSE)
+
+text <- text[names(categories),]
+
+
+text$V2 <- categories
+
+text$V3 <- gsub("^ +", "", text$V3)
+text$V3 <- gsub("^(.)", "\\U\\1", text$V3, perl=TRUE)
+
+text$V3 <- gsub("AQM", "Aquatic Marine", text$V3, perl=TRUE)
+text$V3 <- gsub("AQF", "Aquatic Freshwater", text$V3, perl=TRUE)
+text$V3 <- gsub("AQB", "Aquatic Brackish", text$V3, perl=TRUE)
+
+coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other")
+
+text <- cbind(coarse, text)
+
+colnames(text) <- paste0("\\textbf{", c("Coarse", "Category", "Description"), "}")
+composite <- xtable(text)
+align(composite) <- "lllp{11cm}"
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = seq(-1, nrow(composite)), comment=FALSE, size="footnotesize")
+
+
+```
