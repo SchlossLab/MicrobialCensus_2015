@@ -218,7 +218,6 @@ mothur "#set.dir(input=data/mothur, output=data/mothur);
 
 Once we run everything through, we see that there were 58,975 sequences that met our `screen.seqs` criteria.
 
-XXXXXXXXXXXXXXXX
 
 ## Pooling the data
 
@@ -268,6 +267,7 @@ mothur "#set.dir(input=data/mothur, output=data/mothur, seed=1);
         cluster.split(fasta=all_bacteria.filter.unique.precluster.fasta, name=all_bacteria.filter.unique.precluster.names, taxonomy=all_bacteria.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
 ```
 
+XXXXXXXXXX
 
 ## Get metadata
 
