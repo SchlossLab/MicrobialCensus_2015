@@ -15,8 +15,8 @@ bact_phylum[bact_phylum=="Euryarchaeota"] <- NA #to be removed
 bact_phylum[bact_phylum=="aquifer1"] <- NA
 
 b_phylum_cat_count <- table(bact_phylum, bact$category)
-#b_phylum_cat_ra <- prop.table(b_phylum_cat_count, margin=2)
-#b_phylum_cat_ra <- cbind(b_phylum_cat_ra, total=table(bact_phylum)/length(bact_phylum))
+b_phylum_cat_count <- cbind(b_phylum_cat_count, total=table(bact_phylum))
+
 rownames(b_phylum_cat_count) <- gsub("_?\\(.*\\)", "", rownames(b_phylum_cat_count) )
 bacterial_data <- cbind(domain=rep("bacteria", nrow(b_phylum_cat_count)), b_phylum_cat_count)
 
@@ -27,8 +27,8 @@ arch$category[arch$category=="BDBD" & !is.na(arch$category)] <- "BD" #to remove
 arch_phylum <- get_phylum(arch$taxonomy)
 
 a_phylum_cat_count <- table(arch_phylum, factor(arch$category, levels=names(categories)))
-#a_phylum_cat_ra <- prop.table(a_phylum_cat_count, margin=2)
-#a_phylum_cat_ra <- cbind(a_phylum_cat_ra, total=table(arch_phylum)/length(arch_phylum))
+a_phylum_cat_count <- cbind(a_phylum_cat_count, total=table(arch_phylum))
+
 rownames(a_phylum_cat_count) <- gsub("_?\\(.*\\)", "", rownames(a_phylum_cat_count) )
 archaeal_data <- cbind(domain=rep("archaea", nrow(a_phylum_cat_count)), a_phylum_cat_count)
 
