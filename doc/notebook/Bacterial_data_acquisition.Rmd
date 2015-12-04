@@ -183,9 +183,11 @@ sequences.
 mothur "#set.dir(output=data/mothur);
         align.seqs(fasta=data/mothur/single_cell.bacteria.fasta, reference=data/mothur/bacteria.good.fasta);
         set.dir(input=data/mothur);
-        screen.seqs(fasta=current, start=2000, end=13000, maxambig=2, minlength=1200);
+        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2, minlength=1200);
         classify.seqs(fasta=current, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80)"
 ```
+
+Once we run everything through, we see that there were 199 sequences that met our `screen.seqs` criteria.
 
 
 ## EMIRGE sequence data
@@ -205,25 +207,27 @@ bash code/get_emirge_fasta.sh
 bash code/get_emirge_metadata.sh
 ```
 
-This will bring in 81,616 sequences: 81608 from bacteria, 7 from archaea, and 1 from a eukaryote. We'll ignore the eukaryote. The `code/get_emirge_fasta.sh` script split the sequences by domain and put the fasta sequences into `data/mothur/` for further processing. We need to process these sequences similar to what we did with the single cell data.
+This will bring in 81,616 sequences: 81,608 from bacteria, 7 from archaea, and 1 from a eukaryote. We'll ignore the eukaryote. The `code/get_emirge_fasta.sh` script split the sequences by domain and put the fasta sequences into `data/mothur/` for further processing. We need to process these sequences similar to what we did with the single cell data.
 
 ```{r process_emirge, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
-        align.seqs(fasta=data/mothur/emirge.bacteria.fasta, reference=data/mothur/bacteria.good.fasta);
+        align.seqs(fasta=data/mothur/emirge.bacteria.fasta, reference=data/references/bacteria.seed.fasta);
         screen.seqs(fasta=current, start=2000, end=14459, maxambig=2, minlength=1200);
-        classify.seqs(fasta=data/raw/EMIRGE.fasta, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80, processors=8)"
+        classify.seqs(fasta=current, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80, processors=8)"
 ```
+
+Once we run everything through, we see that there were 58,975 sequences that met our `screen.seqs` criteria.
 
 
 ## Pooling the data
 
 Now we want to merge the SILVA and single cell genomics 16S rRNA gene sequence
 collections. We'll also filter the sequences to overlap in the same alignment
-space, unique them, and precluster them...
+space, `unique.seqs` them, and `pre.cluster` them...
 
 ```{r pool_data, engine="bash"}
-cat data/mothur/bacteria.good.fasta data/mothur/single_cell.bacteria.good.align > data/mothur/all_bacteria.align
-cat data/mothur/bacteria.good.tax data/mothur/single_cell.bacteria.good.good.wang.taxonomy > data/mothur/all_bacteria.taxonomy
+cat data/mothur/bacteria.good.fasta data/mothur/single_cell.bacteria.good.align data/mothur/emirge.bacteria.good.align > data/mothur/all_bacteria.align
+cat data/mothur/bacteria.good.tax data/mothur/single_cell.bacteria.good.good.wang.taxonomy data/mothur/emirge.bacteria.good.good.wang.taxonomy > data/mothur/all_bacteria.taxonomy
 
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         filter.seqs(fasta=all_bacteria.align, vertical=T, trump=., processors=8);
