@@ -159,8 +159,7 @@ summary(trimmed$nbases)
 Now let's run these parameters using mothur.
 
 ```{r screen_data, engine="bash"}
-mothur "#set.current(processors=8);
-        screen.seqs(fasta=archaea.fasta, taxonomy=archaea.tax, start=3000, end=7800, maxambig=2, maxhomop=8, minlength=900, inputdir=data/mothur/, outputdir=data/mothur/);"
+mothur "#screen.seqs(fasta=data/mothur/archaea.fasta, taxonomy=data/mothur/archaea.tax, start=3000, end=7800, maxambig=2, maxhomop=8, processors=8);"
 ```
 
 
@@ -178,8 +177,8 @@ sequences.
 ```{r single_cell, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         align.seqs(fasta=single_cell.archaea.fasta, reference=archaea.good.fasta);
-        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8, minlength=900);
-        classify.seqs(fasta=current, reference=archaea.good.fasta, taxonomy=archaea.good.tax, cutoff=80, processors=8)"
+        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8);
+        classify.seqs(fasta=current, reference=archaea.good.fasta, taxonomy=archaea.good.tax, cutoff=80)"
 ```
 
 Once we run everything through, we see that there were 44 sequences that met our `screen.seqs` criteria.
@@ -206,29 +205,46 @@ This will bring in 81,616 sequences: 81,608 from bacteria, 7 from archaea, and 1
 
 ```{r process_emirge, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
-        align.seqs(fasta=data/mothur/emirge.archaea.fasta, reference=data/mothur/archaea.good.fasta);
-        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8, minlength=900);
-        classify.seqs(fasta=current, reference=data/mothur/archaea.good.fasta, taxonomy=data/mothur/archaea.good.tax, cutoff=80, processors=8)"
+        align.seqs(fasta=emirge.archaea.fasta, reference=archaea.good.fasta);
+        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8);
+        classify.seqs(fasta=current, reference=archaea.good.fasta, taxonomy=archaea.good.tax, cutoff=80)"
 ```
 
 Once we run everything through, we see that there were 6 sequences that met our `screen.seqs` criteria.
 
 
 
+
 ## Pooling the data
+
+Before we can press on with clustering, we need to clean up the taxonomy files that we generated for the EMIRGE and single cell data a bit. We'll do this with R
+
+```{r tax_clean}
+tax_clean <- function(tax_file, out_file){
+	tax <- scan(file=tax_file, sep='\n', what="", quiet=T)
+	tax_clean <- gsub("\\(\\d*\\);", ";", tax)
+	tax_clean <- gsub("unclassified;", "", tax_clean)
+	write(tax_clean, file=out_file)
+}
+
+tax_clean('data/mothur/single_cell.archaea.good.good.wang.taxonomy', 'data/mothur/single_cell.archaea.taxonomy')
+
+tax_clean('data/mothur/emirge.archaea.good.good.wang.taxonomy', 'data/mothur/emirge.archaea.taxonomy')
+```
+
 
 Now we want to merge the SILVA and single cell genomics 16S rRNA gene sequence
 collections. We'll also filter the sequences to overlap in the same alignment
 space, unique them, and precluster them...
 
 ```{r pool_data, engine="bash"}
-cat data/mothur/archaea.good.fasta data/mothur/single_cell.archaea.good.align data/mothur/emirge.archaea.align > data/mothur/all_archaea.align
-cat data/mothur/archaea.good.tax data/mothur/single_cell.archaea.good.good.wang.taxonomy data/mothur/emirge.archaea.good.good.wang.taxonomy > data/mothur/all_archaea.taxonomy
+cat data/mothur/archaea.good.fasta data/mothur/single_cell.archaea.good.align data/mothur/emirge.archaea.good.align > data/mothur/all_archaea.align
+cat data/mothur/archaea.good.tax data/mothur/single_cell.archaea.taxonomy data/mothur/emirge.archaea.taxonomy > data/mothur/all_archaea.taxonomy
 
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         filter.seqs(fasta=all_archaea.align, vertical=T, trump=.);
         unique.seqs();
-        pre.cluster(fasta=current, name=current, diffs=9);"
+        pre.cluster(fasta=current, name=current, diffs=5);"
 
 #need to make the taxonomy file match the fasta and names files...
 cut -f 1 data/mothur/all_archaea.filter.unique.precluster.names > data/mothur/precluster.accnos
@@ -245,6 +261,7 @@ mothur "#set.dir(input=data/mothur/, output=data/mothur/);
         cluster.split(fasta=all_archaea.filter.unique.precluster.fasta, name=all_archaea.filter.unique.precluster.names, taxonomy=all_archaea.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
 ```
 
+XXXXXXXXXXXXXXXX
 
 ## Get metadata
 

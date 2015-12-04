@@ -164,7 +164,7 @@ summary(trimmed$nbases)
 Now let's run these parameters using mothur.
 
 ```{r screen_data, engine="bash"}
-mothur "#screen.seqs(fasta=data/mothur/bacteria.fasta, taxonomy=data/mothur/bacteria.tax, start=2000, end=14459, maxambig=2, minlength=1200, outputdir=data/mothur/, processors=8);"
+mothur "#screen.seqs(fasta=data/mothur/bacteria.fasta, taxonomy=data/mothur/bacteria.tax, start=2000, end=14459, maxambig=2, maxhomop=8, outputdir=data/mothur/, processors=8);"
 ```
 
 
@@ -183,7 +183,7 @@ sequences.
 mothur "#set.dir(output=data/mothur);
         align.seqs(fasta=data/mothur/single_cell.bacteria.fasta, reference=data/mothur/bacteria.good.fasta);
         set.dir(input=data/mothur);
-        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2, minlength=1200);
+        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2);
         classify.seqs(fasta=current, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80)"
 ```
 
@@ -212,14 +212,30 @@ This will bring in 81,616 sequences: 81,608 from bacteria, 7 from archaea, and 1
 ```{r process_emirge, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         align.seqs(fasta=data/mothur/emirge.bacteria.fasta, reference=data/references/bacteria.seed.fasta);
-        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2, minlength=1200);
+        screen.seqs(fasta=current, start=2000, end=14459, maxambig=2);
         classify.seqs(fasta=current, reference=data/mothur/bacteria.good.fasta, taxonomy=data/mothur/bacteria.good.tax, cutoff=80, processors=8)"
 ```
 
 Once we run everything through, we see that there were 58,975 sequences that met our `screen.seqs` criteria.
 
+XXXXXXXXXXXXXXXX
 
 ## Pooling the data
+
+Before we can press on with clustering, we need to clean up the taxonomy files that we generated for the EMIRGE and single cell data a bit. We'll do this with R
+
+```{r tax_clean}
+tax_clean <- function(tax_file, out_file){
+	tax <- scan(file=tax_file, sep='\n', what="", quiet=T)
+	tax_clean <- gsub("\\(\\d*\\);", ";", tax)
+	tax_clean <- gsub("unclassified;", "", tax_clean)
+	write(tax_clean, file=out_file)
+}
+
+tax_clean('data/mothur/single_cell.bacteria.good.good.wang.taxonomy', 'data/mothur/single_cell.bacteria.taxonomy')
+
+tax_clean('data/mothur/emirge.bacteria.good.good.wang.taxonomy', 'data/mothur/emirge.bacteria.taxonomy')
+```
 
 Now we want to merge the SILVA and single cell genomics 16S rRNA gene sequence
 collections. We'll also filter the sequences to overlap in the same alignment
@@ -227,7 +243,7 @@ space, `unique.seqs` them, and `pre.cluster` them...
 
 ```{r pool_data, engine="bash"}
 cat data/mothur/bacteria.good.fasta data/mothur/single_cell.bacteria.good.align data/mothur/emirge.bacteria.good.align > data/mothur/all_bacteria.align
-cat data/mothur/bacteria.good.tax data/mothur/single_cell.bacteria.good.good.wang.taxonomy data/mothur/emirge.bacteria.good.good.wang.taxonomy > data/mothur/all_bacteria.taxonomy
+cat data/mothur/bacteria.good.tax data/mothur/single_cell.bacteria.taxonomy data/mothur/emirge.bacteria.taxonomy > data/mothur/all_bacteria.taxonomy
 
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         filter.seqs(fasta=all_bacteria.align, vertical=T, trump=., processors=8);
@@ -239,6 +255,9 @@ cut -f 1 data/mothur/all_bacteria.filter.unique.precluster.names > data/mothur/p
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         get.seqs(taxonomy=all_bacteria.taxonomy, accnos=precluster.accnos)"
 ```
+
+
+
 
 Now we're ready to cluster the sequences. We'll do it by the classic approach
 without any cutoffs and see what we get. Let's start by splitting things at the
