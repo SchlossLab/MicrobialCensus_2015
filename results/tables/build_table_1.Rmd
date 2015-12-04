@@ -14,12 +14,6 @@ require(xtable, quietly=TRUE)
 options(xtable.sanitize.text.function=identity)
 
 data <- read.table(file="data/process/coverage_by_category_and_time.tsv", header=T)
-int_cols <- grepl("count", colnames(data)) | grepl("sobs", colnames(data))
-float_cols <- !int_cols
-
-data[,int_cols] <- format(data[,int_cols], big.mark=',')
-data[,float_cols] <- format(data[,float_cols], big.mark=',', nsmall=1, digits=1)
-
 data_current <- data[,!(grepl("pre", colnames(data)) | grepl("post", colnames(data)))]
 
 coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
@@ -27,6 +21,15 @@ coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "
 fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Marine", "Marine sediment", "Hydrothermal vent", "Ice", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Vertebrate", "Arthropod", "Other invertebrate", "Other", "", "", "")
 
 composite <- cbind(coarse, fine, data_current)
+
+int_cols <- grepl("count", colnames(composite)) | grepl("sobs", colnames(composite))
+float_cols <- !int_cols
+float_cols[1:2] <- FALSE
+
+composite[,int_cols] <- format(composite[,int_cols], big.mark=',')
+composite[,float_cols] <- format(composite[,float_cols], big.mark=',', nsmall=1, digits=1)
+
+
 
 header <- c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ (N)}", "\\bigcell{c}{\\% Seq. \\\\ Coverage}", "\\bigcell{c}{\\% OTU \\\\ Coverage}")
 
