@@ -178,9 +178,41 @@ sequences.
 ```{r single_cell, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         align.seqs(fasta=single_cell.archaea.fasta, reference=archaea.good.fasta);
-        screen.seqs(fasta=current, start=2000, end=4058, maxambig=2, maxhomop=8, minlength=900);
+        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8, minlength=900);
         classify.seqs(fasta=current, reference=archaea.good.fasta, taxonomy=archaea.good.tax, cutoff=80, processors=8)"
 ```
+
+Once we run everything through, we see that there were 44 sequences that met our `screen.seqs` criteria.
+
+
+## EMIRGE sequence data
+
+EMIRGE is a method of either assembling 16S rRNA gene sequences from metagenomic
+data or from sheared amplicons. This is a method of generating full-length
+sequences using short read technologies. We've identified a handful of studies
+that have used EMIRGE to generate these data and that actually made their data
+publicly available. Some of these are already in the SILVA database, but many
+are only available in supplementary materials or on lab websites. To generate
+the pooled fasta and metadata files we run the following. Note that because
+we're scraping data out of some supplements these scripts assume that you have
+access to the journals...
+
+```{r get_emirge, engine="bash"}
+bash code/get_emirge_fasta.sh
+bash code/get_emirge_metadata.sh
+```
+
+This will bring in 81,616 sequences: 81,608 from bacteria, 7 from archaea, and 1 from a eukaryote. We'll ignore the eukaryote. The `code/get_emirge_fasta.sh` script split the sequences by domain and put the fasta sequences into `data/mothur/` for further processing. We need to process these sequences similar to what we did with the single cell data. Because we're worried about the archaea for this notebook and there are so few, we'll process them slightly differently from the bacterial sequences by aligning them to `archaea.good.fasta`.
+
+```{r process_emirge, engine="bash"}
+mothur "#set.dir(input=data/mothur, output=data/mothur);
+        align.seqs(fasta=data/mothur/emirge.archaea.fasta, reference=data/mothur/archaea.good.fasta);
+        screen.seqs(fasta=current, start=3000, end=7800, maxambig=2, maxhomop=8, minlength=900);
+        classify.seqs(fasta=current, reference=data/mothur/archaea.good.fasta, taxonomy=data/mothur/archaea.good.tax, cutoff=80, processors=8)"
+```
+
+Once we run everything through, we see that there were 6 sequences that met our `screen.seqs` criteria.
+
 
 
 ## Pooling the data
@@ -190,8 +222,8 @@ collections. We'll also filter the sequences to overlap in the same alignment
 space, unique them, and precluster them...
 
 ```{r pool_data, engine="bash"}
-cat data/mothur/archaea.good.fasta data/mothur/single_cell.archaea.good.align > data/mothur/all_archaea.align
-cat data/mothur/archaea.good.tax data/mothur/single_cell.archaea.good.pds.wang.taxonomy > data/mothur/all_archaea.taxonomy
+cat data/mothur/archaea.good.fasta data/mothur/single_cell.archaea.good.align data/mothur/emirge.archaea.align > data/mothur/all_archaea.align
+cat data/mothur/archaea.good.tax data/mothur/single_cell.archaea.good.good.wang.taxonomy data/mothur/emirge.archaea.good.good.wang.taxonomy > data/mothur/all_archaea.taxonomy
 
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         filter.seqs(fasta=all_archaea.align, vertical=T, trump=.);
