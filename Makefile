@@ -110,11 +110,11 @@ $(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
 
 
 #done
-results/tables/coverage_by_category_and_time_table.pdf : results/tables/build_table_1.Rmd\
+results/tables/coverage_by_category_and_time_table.pdf : \
+							results/tables/build_coverage_by_category_and_time_table.Rmd\
 							$(PROCESS)/coverage_by_category_and_time.tsv\
-							results/tables/build_table_1.Rmd\
 							results/tables/table_header.tex
-	R -e 'render("results/tables/build_table_1.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
+	R -e 'render("results/tables/build_coverage_by_category_and_time_table.Rmd", output_file="coverage_by_category_and_time_table.pdf")'
 
 
 #generate supplmentary files
