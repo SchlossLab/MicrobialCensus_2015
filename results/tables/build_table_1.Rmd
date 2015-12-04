@@ -2,7 +2,7 @@
 output:
   pdf_document:
     includes:
-      in_header: table_1_header.tex
+      in_header: table_header.tex
 tables: true
 geometry: margin=1.0in
 ---
