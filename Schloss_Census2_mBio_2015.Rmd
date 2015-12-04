@@ -306,7 +306,7 @@ Given the relatively low number of archaeal sequences that have been deposited f
 **Figure results/figures/category_phylum_heatmap.pdf. Heatmap depicting the relative abundance of the most common bacterial and archaeal phyla across different environments.** Each environmental category exhibited a phylum-level signature although the bacterial census was dominated by sequences from the Firmicutes, Proteobacteria, Actinobacteria, and Bacteroidetes and the archaeal census was dominated by sequences from the Euryarchaeota and Thaumarchaeota. The ten most abundant phyla across all environmental categories are shown. The data for all bacterial and archaeal phyla are available in Supplemental Tables 2 and 3, respectively.
 
 
-**Figure results/figures/phylum_effort.pdf. Relative rate of sequence deposition for each bacterial and archaeal phylum before and after 2006 relative to the sequencing of all bacteria.** The figure shows the relative rates for those phyla with at least 1,000 sequences and the x-axis is on a log2 scale.
+**Figure results/figures/phylum_effort.pdf. Relative rate of sequence deposition for each bacterial and archaeal phylum before and after 2006 relative to the sequencing of all bacteria.** The figure shows the relative rates for those phyla with at least 1,000 sequences and the x-axis is on a log2 scale. The data for all bacterial and archaeal phyla are available in Supplemental Tables 4 and 5, respectively.
 
 
 **Figure results/figures/phylum_cultured.pdf. The rate that sequences and OTUs are generated from bacterial and archaeal cultures relative to all sequences and OTUs.** The phyla shown have at least 1,000 total sequences.

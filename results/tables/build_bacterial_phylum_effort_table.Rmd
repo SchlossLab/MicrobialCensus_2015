@@ -1,0 +1,39 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_header.tex
+tables: true
+geometry: margin=0.5in
+---
+
+
+**Supplementary Table 4. Frequency that each bacterial phylum was sequenced before and after 2006.**
+
+
+
+```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
+data <- read.table(file="data/process/bacteria.phyla.counts.tsv", header=T)
+data <- data[!rownames(data) %in% "aquifer1",]
+data <- data[order(data$all, decreasing=T),]
+data$ratio_of_ratios <- round(data$ratio_of_ratios, 2)
+data$ratio_of_ratios[data$ratio_of_ratios=="Inf"] <- "NA"
+
+rownames(data) <- gsub("Candidate_division_", "", rownames(data))
+rownames(data) <- gsub("_", " ", rownames(data))
+
+total <- apply(data[, 1:3], 2, sum)
+data <- rbind(data, Total=c(total, "1.00"))
+
+data <- cbind(rownames(data), data)
+colnames(data) <- c("Phylum",  "<2006 and Before", "After 2006", "Total", "Ratio of Ratios")
+
+composite <- xtable(data)
+
+align(composite) <- paste0('ll', paste(rep('c', ncol(data)-1), collapse=""))
+
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0, nrow(composite)-1, nrow(composite)), comment=FALSE, size="scriptsize")
+```
