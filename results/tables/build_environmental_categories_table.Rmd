@@ -3,7 +3,6 @@ output:
   pdf_document:
     includes:
       in_header: table_header.tex
-    template: notitle.tex
 tables: true
 geometry: margin=1in
 ---
@@ -31,13 +30,13 @@ text$V3 <- gsub("AQM", "Aquatic Marine", text$V3, perl=TRUE)
 text$V3 <- gsub("AQF", "Aquatic Freshwater", text$V3, perl=TRUE)
 text$V3 <- gsub("AQB", "Aquatic Brackish", text$V3, perl=TRUE)
 
-coarse <- c("\\midrule\\multirow{2}{*}{Aerosol}",
+coarse <- c("\\midrule\\multirow{1}{*}{Aerosol}",
 			"\\midrule\\multirow{16}{*}{Aquatic}", "", "", "", "", "", "", "", "",
-			"\\midrule\\multirow{11}{*}{Built}", "", "", "", "",
-			"\\midrule\\multirow{6}{*}{Plant associated}", "", "",
+			"\\midrule\\multirow{10}{*}{Built}", "", "", "", "",
+			"\\midrule\\multirow{5}{*}{Plant associated}", "", "",
 			"\\midrule\\multirow{6}{*}{Soil}", "", "", "",
 			"\\midrule\\multirow{6}{*}{Zoological}", "", "", "",
-			"\\midrule\\multirow{2}{*}{Other}")
+			"\\midrule\\multirow{1}{*}{Other}")
 
 text <- cbind(coarse, text)
 
@@ -78,5 +77,5 @@ caption <- "\\textbf{Supplemental Table 1. Description of environmental categori
 
 composite <- xtable(text, caption=caption, label="")
 align(composite) <- "lllp{10cm}"
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="footnotesize")
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="scriptsize")
 ```
