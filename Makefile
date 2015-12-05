@@ -165,11 +165,19 @@ $(TAB)/archaeal_phylum_effort_table.pdf : \
 
 
 #Table S6
-# bacterial phylum cultured
+$(TAB)/bacterial_culture_effort_table.pdf :\
+							$(TAB)/build_bacterial_culture_effort_table.Rmd\
+							$(PROCESS)/bacteria.cultured_by_time_counts.tsv\
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_bacterial_culture_effort_table.Rmd", output_file="bacterial_culture_effort_table.pdf")'
 
 
 #Table S7
-# archaeal phylum cultured
+$(TAB)/archaeal_culture_effort_table.pdf :\
+							$(TAB)/build_archaeal_culture_effort_table.Rmd\
+							$(PROCESS)/archaea.cultured_by_time_counts.tsv\
+							$(TAB)/table_header.tex
+	R -e 'render("$(TAB)/build_archaeal_culture_effort_table.Rmd", output_file="archaeal_culture_effort_table.pdf")'
 
 
 

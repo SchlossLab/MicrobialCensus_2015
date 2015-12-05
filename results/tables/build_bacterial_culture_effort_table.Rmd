@@ -1,0 +1,50 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: table_header.tex
+tables: true
+geometry: margin=0.2in
+---
+
+\captionsetup{labelformat=empty}
+
+
+```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
+require(xtable, quietly=TRUE)
+options(xtable.sanitize.text.function=identity)
+
+data <- read.table(file="data/process/bacteria.cultured_by_time_counts.tsv", header=T, stringsAsFactors=F)
+data <- data[!rownames(data) %in% "aquifer1",]
+all <- data[,grepl("all_", colnames(data))]
+all$all_uncult_nseqs <- all$all_total_nseqs - all$all_cult_nseqs
+all$all_uncult_sobs <- all$all_total_sobs - all$all_cult_sobs
+
+all <- all [,c("all_cult_nseqs", "all_uncult_nseqs", "all_total_nseqs",
+				"all_cult_sobs", "all_uncult_sobs", "all_total_sobs" )]
+
+all <- all[order(all$all_total_sobs, decreasing=T),]
+
+rownames(all) <- gsub("Candidate_division_", "", rownames(all))
+rownames(all) <- gsub("_", " ", rownames(all))
+
+total <- apply(all, 2, sum)
+all <- rbind(all, Total=total)
+
+all <- cbind(rownames(all), all)
+
+colnames(all) <- c("", "\\textbf{Cultured}", "\\textbf{Uncultured}", "\\textbf{Total}",  "\\textbf{Cultured}", "\\textbf{Uncultured}", "\\textbf{Total}")
+#all <- rbind(header, all)
+
+addtorow <- list(pos=list(-1),
+				command=c('\\hline\\multirow{3}{*}{\\textbf{Phylum}} & \\multicolumn{3}{c}{\\textbf{Sequences}} & \\multicolumn{3}{c}{\\textbf{OTUs}} \\\\ \\cmidrule(r){2-4}	\\cmidrule(r){5-7}'))
+
+caption <- "\\textbf{Supplementary Table 6. Frequency that each bacterial sequence or OTU was retrieved by cultivation or by culture-independent methods.}"
+
+composite <- xtable(all, caption=caption, label="")
+
+align(composite) <- paste0('llcccccc')
+
+
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(0, nrow(composite)-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="scriptsize")
+```
