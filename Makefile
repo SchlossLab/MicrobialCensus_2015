@@ -146,7 +146,7 @@ $(TAB)/archaeal_category_phylum_table.pdf : \
 							$(TAB)/build_archaeal_category_phylum_table.Rmd\
 							$(PROCESS)/phylum_category_counts.tsv\
 							$(TAB)/table_header.tex
-							R -e 'render("$(TAB)/build_archaeal_category_phylum_table.Rmd", output_file="archaeal_category_phylum_table.pdf")'
+	R -e 'render("$(TAB)/build_archaeal_category_phylum_table.Rmd", output_file="archaeal_category_phylum_table.pdf")'
 
 #Table S4
 $(TAB)/bacterial_phylum_effort_table.pdf : \

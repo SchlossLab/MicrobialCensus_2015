@@ -3,17 +3,18 @@ output:
   pdf_document:
     includes:
       in_header: table_header.tex
+    template: notitle.tex
 tables: true
-geometry: margin=1.0in
+geometry: margin=1in
 ---
 
-**Supplemental Table 1. Description of environmental categories and the criteria used to assign sequences to each category.**
+\captionsetup{labelformat=empty}
 
 ```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
 options(xtable.sanitize.text.function=identity)
 
-categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Freshwater", AQFS="Freshwater sediment", AQM="Marine", AQMS="Marine sediment", AQH="Hydrothermal vent", AQI="Ice", AQO="Aquatic other", BD="Digesters", BF="Food-associated", BI="Industrial/mining", BP="Pollution associated", BO="Built other", PR="Plant root", PS="Plant surface", PO="Plant other", SA="Agricultural soil", SD="Desert soil", SP="Permafrost", SO="Other soils", ZV="Vertebrate", ZA="Arthropod", ZN="Other invertebrate", ZO="Other zoological", OT="Other")
+categories <- c(AE="", AQB="Brackish", AQBS="Brackish sediment", AQF="Freshwater", AQFS="Freshwater sediment", AQM="Marine", AQMS="Marine sediment", AQH="Hydrothermal vent", AQI="Ice", AQO="Other", BD="Digesters", BF="Food-associated", BI="Industrial/mining", BP="Pollution associated", BO="Other", PR="Plant root", PS="Plant surface", PO="Other", SA="Agricultural soil", SD="Desert soil", SP="Permafrost", SO="Other", ZV="Vertebrate", ZA="Arthropod", ZN="Other invertebrate", ZO="Other", OT="")
 
 
 text <- read.table("doc/notebook/ClassificationCode.md", sep=':', row.names=1, stringsAsFactors=FALSE)
@@ -30,14 +31,52 @@ text$V3 <- gsub("AQM", "Aquatic Marine", text$V3, perl=TRUE)
 text$V3 <- gsub("AQF", "Aquatic Freshwater", text$V3, perl=TRUE)
 text$V3 <- gsub("AQB", "Aquatic Brackish", text$V3, perl=TRUE)
 
-coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other")
+coarse <- c("\\midrule\\multirow{2}{*}{Aerosol}",
+			"\\midrule\\multirow{16}{*}{Aquatic}", "", "", "", "", "", "", "", "",
+			"\\midrule\\multirow{11}{*}{Built}", "", "", "", "",
+			"\\midrule\\multirow{6}{*}{Plant associated}", "", "",
+			"\\midrule\\multirow{6}{*}{Soil}", "", "", "",
+			"\\midrule\\multirow{6}{*}{Zoological}", "", "", "",
+			"\\midrule\\multirow{2}{*}{Other}")
 
 text <- cbind(coarse, text)
 
-colnames(text) <- paste0("\\textbf{", c("Coarse", "Category", "Description"), "}")
-composite <- xtable(text)
-align(composite) <- "lllp{11cm}"
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = seq(-1, nrow(composite)), comment=FALSE, size="footnotesize")
+colnames(text) <- paste0("\\textbf{", c("Coarse", "Fine", "Description"), "}")
 
+addtorow <- list(pos=as.list(1:nrow(text)),
+				command=c('',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'\\cmidrule(r){2-3}',
+						'',
+						'')
 
+						)
+
+caption <- "\\textbf{Supplemental Table 1. Description of environmental categories and the criteria used to assign sequences to each category.}"
+
+composite <- xtable(text, caption=caption, label="")
+align(composite) <- "lllp{10cm}"
+print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="footnotesize")
 ```
