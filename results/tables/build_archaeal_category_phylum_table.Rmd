@@ -8,8 +8,7 @@ geometry: margin=1.0in
 classoption: landscape
 ---
 
-
-**Supplementary Table 3. Frequency that each archaeal phylum was found across each of the environmental categories.**
+\captionsetup{labelformat=empty}
 
 
 ```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
@@ -32,10 +31,24 @@ archaea <- rbind(archaea, Total=total)
 archaea <- cbind(rownames(archaea), archaea)
 
 colnames(archaea) <- c("", categories)
-composite <- xtable(archaea)
+
+colnames(archaea) <- paste0("\\textbf{", colnames(archaea), "}")
+
+caption <- "\\textbf{Supplementary Table 3. Frequency that each archaeal phylum was found across each of the environmental categories.}"
+
+composite <- xtable(archaea, caption=caption, label="")
 
 align(composite) <- paste0('ll', paste(rep('c', ncol(archaea)-1), collapse=""))
 
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0,nrow(composite)-1, nrow(composite)), comment=FALSE, size="tiny", rotate.colnames=TRUE)
+print(composite,
+		include.rownames=FALSE,
+		include.colnames=TRUE,
+		hline.after = c(-1,0,nrow(composite)-1, nrow(composite)),
+		comment=FALSE,
+		caption.placement = "top",
+		size="tiny",
+		table.placement="!ht",
+		rotate.colnames=TRUE
+		)
 
 ```

@@ -77,5 +77,13 @@ caption <- "\\textbf{Supplemental Table 1. Description of environmental categori
 
 composite <- xtable(text, caption=caption, label="")
 align(composite) <- "lllp{10cm}"
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="scriptsize")
+print(composite,
+		include.rownames=FALSE,
+		include.colnames=TRUE,
+		hline.after = c(-1, nrow(composite)),
+		comment=FALSE,
+		add.to.row=addtorow,
+		caption.placement = "top",
+		table.placement="!ht",
+		size="footnotesize")
 ```

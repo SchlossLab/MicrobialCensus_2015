@@ -4,7 +4,7 @@ output:
     includes:
       in_header: table_header.tex
 tables: true
-geometry: margin=0.2in
+geometry: margin=1.0in
 ---
 
 \captionsetup{labelformat=empty}
@@ -46,5 +46,13 @@ composite <- xtable(all, caption=caption, label="")
 align(composite) <- paste0('llcccccc')
 
 
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(0, nrow(composite)-1, nrow(composite)), comment=FALSE, add.to.row=addtorow, caption.placement = "top", size="scriptsize")
+print(composite,
+	include.rownames=FALSE,
+	include.colnames=TRUE,
+	hline.after = c(0, nrow(composite)-1, nrow(composite)),
+	comment=FALSE,
+	add.to.row=addtorow,
+	caption.placement = "top",
+	table.placement = "!ht",
+	size="scriptsize")
 ```

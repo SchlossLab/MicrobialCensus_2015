@@ -4,13 +4,10 @@ output:
     includes:
       in_header: table_header.tex
 tables: true
-geometry: margin=0.5in
+geometry: margin=1.0in
 ---
 
-
-**Supplementary Table 4. Frequency that each bacterial phylum was sequenced before and after 2006.**
-
-
+\captionsetup{labelformat=empty}
 
 ```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
@@ -29,11 +26,20 @@ total <- apply(data[, 1:3], 2, sum)
 data <- rbind(data, Total=c(total, "1.00"))
 
 data <- cbind(rownames(data), data)
-colnames(data) <- c("Phylum",  "<2006 and Before", "After 2006", "Total", "Ratio of Ratios")
+colnames(data) <- c("\\textbf{Phylum}",  "\\textbf{<2006 and Before}", "\\textbf{After 2006}", "\\textbf{Total}", "\\textbf{Ratio of Ratios}")
 
-composite <- xtable(data)
+caption <- "\\textbf{Supplementary Table 4. Frequency that each bacterial phylum was sequenced before and after 2006.}"
+
+composite <- xtable(data, caption=caption, label="")
 
 align(composite) <- paste0('ll', paste(rep('c', ncol(data)-1), collapse=""))
 
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0, nrow(composite)-1, nrow(composite)), comment=FALSE, size="scriptsize")
+print(composite,
+		include.rownames=FALSE,
+		include.colnames=TRUE,
+		hline.after = c(-1,0, nrow(composite)-1, nrow(composite)),
+		comment=FALSE,
+		caption.placement = "top",
+		table.placement="!ht",
+		size="scriptsize")
 ```

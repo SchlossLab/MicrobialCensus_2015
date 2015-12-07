@@ -8,8 +8,7 @@ geometry: margin=0.1in
 classoption: landscape
 ---
 
-
-**Supplementary Table 2. Frequency that each bacterial phylum was found across each of the environmental categories.**
+\captionsetup{labelformat=empty}
 
 
 ```{r results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
@@ -32,10 +31,23 @@ bacteria <- rbind(bacteria, Total=total)
 bacteria <- cbind(rownames(bacteria), bacteria)
 
 colnames(bacteria) <- c("", categories)
-composite <- xtable(bacteria)
+
+colnames(bacteria) <- paste0("\\textbf{", colnames(bacteria), "}")
+
+caption <- "\\textbf{Supplementary Table 2. Frequency that each bacterial phylum was found across each of the environmental categories.}"
+
+composite <- xtable(bacteria, caption=caption, label="")
 
 align(composite) <- paste0('ll', paste(rep('c', ncol(bacteria)-1), collapse=""))
 
-print(composite, include.rownames=FALSE, include.colnames=TRUE, hline.after = c(-1,0,nrow(composite)-1, nrow(composite)), comment=FALSE, size="tiny", rotate.colnames=TRUE)
+print(composite,
+	include.rownames=FALSE,
+	include.colnames=TRUE,
+	hline.after = c(-1,0,nrow(composite)-1, nrow(composite)),
+	comment=FALSE,
+	size="tiny",
+	caption.placement = "top",
+	table.placement="!ht",
+	rotate.colnames=TRUE)
 
 ```
