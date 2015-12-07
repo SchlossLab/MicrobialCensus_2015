@@ -194,13 +194,25 @@ Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 						$(PROCESS)/bacteria.cultured_by_time_counts.tsv\
 						$(PROCESS)/archaea.cultured_by_time_counts.tsv\
 						$(PROCESS)/otu_overlap_by_method.tsv\
-						$(FIG)/category_phylum_heatmap.pdf\
+						\
 						$(FIG)/domain_rarefaction.pdf\
-						$(FIG)/phylum_cultured.pdf\
-						$(FIG)/phylum_effort.pdf\
 						$(FIG)/time_course_figure.pdf\
+						$(FIG)/category_phylum_heatmap.pdf\
+						$(FIG)/phylum_effort.pdf\
+						$(FIG)/phylum_cultured.pdf\
 						$(FIG)/venn_otu_by_method.pdf\
-						$(TAB)/coverage_by_category_and_time_table.pdf\
+						\
+						$(TAB)/coverage_by_category.pdf\
+						\
+						$(TAB)/archaeal_category_phylum_table.pdf\
+						$(TAB)/archaeal_culture_effort_table.pdf\
+						$(TAB)/archaeal_phylum_effort_table.pdf\
+						$(TAB)/bacterial_category_phylum_table.pdf\
+						$(TAB)/bacterial_culture_effort_table.pdf\
+						$(TAB)/bacterial_phylum_effort_table.pdf\
+						$(TAB)/build_coverage_by_category.pdf\
+						$(TAB)/environmental_categories_table.pdf\
+						\
 						Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
