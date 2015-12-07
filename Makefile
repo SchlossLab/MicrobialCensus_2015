@@ -213,6 +213,8 @@ Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 						$(TAB)/build_coverage_by_category.pdf\
 						$(TAB)/environmental_categories_table.pdf\
 						\
+						mbio.csl\
+						references.bib\
 						Schloss_Census2_mBio_2015.Rmd
 	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md

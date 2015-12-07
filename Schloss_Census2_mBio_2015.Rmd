@@ -308,7 +308,7 @@ Given the relatively low number of archaeal sequences that have been deposited f
 
 
 \newpage
-\singlespacing
+\doublespacing
 
 **Figure results/figures/domain_rarefaction.pdf. Number of OTUs sampled among bacterial and archaeal 16S rRNA gene sequences for different OTU definitions and level of sequencing effort.** The number of bacterial and archaeal OTUs observed among the longest sequences in the SILVA database continues to grow at a rate too slow to ever reach estimates of 10^6^ to 10^11^ bacterial species.
 
@@ -329,7 +329,6 @@ Given the relatively low number of archaeal sequences that have been deposited f
 
 
 \newpage
-\doublespacing
 
 
 ## References
