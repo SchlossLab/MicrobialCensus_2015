@@ -9,6 +9,7 @@ geometry: margin=1.0in
 
 \captionsetup{labelformat=empty}
 
+**Table 1. Status of microbial census by habitat classifications and domain.** The isolation_source field from the SILVA reference database was manually curated to assign bacterial and archaeal sequences coarse and fine scale habitat classifications. We calculated the number of sequences and OTUs observed and the percent coverage on a sequence or OTU basis for each classification and domain.
 
 ```{r table1, results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
@@ -36,12 +37,9 @@ header <- c("", "", "\\bigcell{c}{Sequences \\\\ (N)}", "\\bigcell{c}{OTUs \\\\ 
 
 header <- paste0("\\textbf{", header, "}")
 
-caption <- "\\textbf{Table 1. Status of microbial census by habitat classifications and domain.}"
-#The isolation_source field from the SILVA reference database was manually curated to assign bacterial and archaeal sequences coarse and fine scale habitat classifications. We calculated the number of sequences and OTUs observed and the percent coverage on a sequence or OTU basis for each classification and domain."
-
 composite <- rbind(header, composite)
 
-composite <- xtable(composite, caption=caption, label="")
+composite <- xtable(composite)
 
 addtorow <- list(pos=list(0, 1),
 				command=c('\\multirow{4}{*}{\\textbf{Coarse}} & \\multirow{4}{*}{\\textbf{Fine}} & \\multicolumn{4}{c}{\\textbf{Bacteria}} & \\multicolumn{4}{c}{\\textbf{Archaea}} \\\\ \\cmidrule(r){3-6}	\\cmidrule(r){7-10}', '\\hline '))
