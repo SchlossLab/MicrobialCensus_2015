@@ -220,6 +220,7 @@ Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
 	rm Schloss_Census2_mBio_2015.utf8.md
 
-write.paper : Schloss_Census2_mBio_2015.md\
+write.paper :	Schloss_Census2_mBio_2015.pdf\
+				Schloss_Census2_mBio_2015.md\
 				$(NB)/Bacterial_data_acquisition.Rmd\
 				$(NB)/Archaeal_data_acquisition.Rmd
