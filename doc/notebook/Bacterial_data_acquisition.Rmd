@@ -247,7 +247,7 @@ cat data/mothur/bacteria.good.tax data/mothur/single_cell.bacteria.taxonomy data
 mothur "#set.dir(input=data/mothur, output=data/mothur);
         filter.seqs(fasta=all_bacteria.align, vertical=T, trump=., processors=8);
         unique.seqs();
-        pre.cluster(fasta=current, name=current, diffs=10);"
+        pre.cluster(fasta=current, name=current, diffs=12);"
 
 #need to make the taxonomy file match the fasta and names files...
 cut -f 1 data/mothur/all_bacteria.filter.unique.precluster.names > data/mothur/precluster.accnos
@@ -264,7 +264,8 @@ phylum level and cluster from there...
 
 ```{r cluster_data, engine="bash"}
 mothur "#set.dir(input=data/mothur, output=data/mothur, seed=1);
-        cluster.split(fasta=all_bacteria.filter.unique.precluster.fasta, name=all_bacteria.filter.unique.precluster.names, taxonomy=all_bacteria.pick.taxonomy, taxlevel=2, classic=T, processors=8)"
+	cluster.split(fasta=all_bacteria.filter.unique.precluster.fasta, name=all_bacteria.filter.unique.precluster.names, taxonomy=all_bacteria.pick.taxonomy, splitmethod=classify, classic=T, taxlevel=2, cluster=F, processors=12)
+	cluster.split(file=all_bacteria.filter.unique.precluster.file, processors=8, classic=TRUE)"
 ```
 
 XXXXXXXXXX
