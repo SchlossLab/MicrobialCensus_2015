@@ -1,13 +1,20 @@
 is_cultured <- function(db){
-	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
+	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db)) & !is_single_cell(db)
 }
 
 is_pcr <- function(db){
-	!((!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db))) & grepl("\\.", rownames(db))
+
+	!((!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db))) & grepl("\\.", rownames(db)) & !is_emirge(db)
 }
 
 is_single_cell <- function(db){
-	grepl("^[^.]*$", rownames(db)) | db$publication_doi == "10.1038/nature12352"
+	(grepl("^[^.]*$", rownames(db)) | (db$publication_doi == "10.1038/nature12352" & !is.na(db$publication_doi))) & !is_emirge(db)
+}
+
+is_emirge <- function(db){
+	emirge_dois <- c("10.1126/science.1224041", "10.1186/2049-2618-2-1", "10.1186/gb-2011-12-5-r44", "10.1371/journal.pone.0056018", "10.1371/journal.pone.0057819", "10.3389/fmicb.2015.00277")
+
+	db$publication_doi %in% emirge_dois
 }
 
 
@@ -18,6 +25,9 @@ get_data <- function(db){
 	pcrd <- is_pcr(db)
 	pcr_otus <- unique(db[pcrd, "otu"])
 
+	emirge <- is_emirge(db)
+	emirge_otus <- unique(db[emirge, "otu"])
+
 	sc <- is_single_cell(db)
 	sc_otus <- unique(db[sc, "otu"])
 
@@ -26,6 +36,7 @@ get_data <- function(db){
 
 	n_cult_otus <- length(cultured_otus) #Cultured OTUs	1
 	n_pcr_otus <- length(pcr_otus) #PCR OTUs				2
+	n_emirge_otus <- length(emirge_otus)
 	n_sc_otus <- length(sc_otus) #Single cell OTUs		3
 
 	n_cult_only <- sum(!cultured_otus %in% union(pcr_otus, sc_otus))
