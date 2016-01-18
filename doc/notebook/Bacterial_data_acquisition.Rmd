@@ -268,7 +268,6 @@ mothur "#set.dir(input=data/mothur, output=data/mothur, seed=1);
 	cluster.split(file=all_bacteria.filter.unique.precluster.file, processors=8, classic=TRUE)"
 ```
 
-XXXXXXXXXX
 
 ## Get metadata
 
@@ -381,10 +380,15 @@ names(seq_numbers) <- gsub(".* (P?SCGC \\S*) .*", "\\1", headers)
 full_spread_sheet <- spread_sheet[names(seq_numbers) %in% metadata_genome_id,]
 rownames(full_spread_sheet) <- seq_numbers
 
-#these sequences are missing from fasta file
-#metadata_genome_id[! metadata_genome_id %in% names(seq_numbers)]
-#probably not a horrible thing since not all genomes could give a 16S rRNA gene
-#sequence
+# these sequences are missing from fasta file
+# metadata_genome_id[! metadata_genome_id %in% names(seq_numbers)]
+# probably not a horrible thing since not all genomes could give a 16S rRNA gene
+# sequence
+#
+# [1] "SCGC AAA015-N04" "SCGC AAA536-N21" "SCGC AAA158-B04" "SCGC AAA036F23"
+# [5] "SCGC AAA001-B15" "SCGC AAA164-N20" "SCGC AAA536-J20" "SCGC AAA008-P15"
+# [9] "SCGC AAA536-G18" "SCGC AAA001-B15"
+
 
 bad_accnos_data <- read.table(file="data/mothur/single_cell.bacteria.bad.accnos", col.names=c("name.accnos", "reason"),  stringsAsFactors=FALSE)
 bad_accnos <- as.character(bad_accnos_data$name.accnos)
@@ -393,6 +397,18 @@ spread_sheet_good <- full_spread_sheet[-which(rownames(full_spread_sheet) %in% b
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/bacteria.good.metadata", quote=TRUE, na="NA", sep="\t", col.names=F, append=T)
 ```
+
+We'd also like to get the metadata from the EMIRGE data. We have an metadata file was created above with `code/get_emirge.metadata.sh` that we'll read in and concatenate to the end of `bacteria.good.metadata`.
+
+```{r emirge_metadata}
+emirge_metadata <- read.table(file="data/raw/emirge.metadata", row.names=1)
+bacteria_sequences <- read.table(file="data/mothur/emirge.bacteria.taxonomy", stringsAsFactors=FALSE)[1]
+bacteria_emirge_metadata <- emirge_metadata[bacteria_sequences$V1,]
+
+write.table(bacteria_emirge_metadata, file="data/mothur/bacteria.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
+```
+
+
 
 Let's now take the big metadata file that we have and concatenate on the OTU assignment and taxonomy information:
 
@@ -460,6 +476,15 @@ metadata$category[metadata$category == 'M'] <- 'AQM'
 metadata$category[metadata$category == 'AQFM'] <- 'AQFS'
 metadata$category[metadata$category == 'SV'] <- 'ZV'
 metadata$category[metadata$category == 'ZI'] <- 'ZA'
+
+table(metadata$category)
+
+#    AE    AQB   AQBS    AQF   AQFS    AQH    AQI    AQM   AQMS    AQO     BD
+#  3473   1094    390  59220  23979  10861   2073 134788  27811   8765  33152
+#    BF     BI     BO     BP     OT     PO     PR     PS     SA     SD     SO
+# 11813  16598   8556  38710  19417   9753  19695   4892  10051   3059  60335
+#    SP     ZA     ZN     ZO     ZV
+#  1922  13209   7476  10855 794492
 
 #need to change the name of this sequence to make it clear that it was not cultured
 rownames(metadata)[rownames(metadata) == 'AJ224540.MxeCultu'] <- 'AJ224540.UncMxeCultu'
