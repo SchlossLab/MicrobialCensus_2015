@@ -10,7 +10,6 @@ categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Fre
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 
 bact_phylum <- get_phylum(bact$taxonomy)
-bact_phylum[bact_phylum=="aquifer1"] <- NA
 
 b_phylum_cat_count <- table(bact_phylum, bact$category)
 b_phylum_cat_count <- cbind(b_phylum_cat_count, total=table(bact_phylum))
