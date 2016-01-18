@@ -11,7 +11,6 @@ b_is_cultured <- b_cult_time$sobs_precent > 0
 b_cultured <- b_cult_time[b_is_cultured,colnames(b_cult_time) %in% c("nseqs_precent", "sobs_precent")]
 b_order <- order(b_cultured$sobs_precent, decreasing=T)
 b_cultured <- b_cultured[b_order,]
-b_cultured <- b_cultured[rownames(b_cultured) != "Euryarchaeota",] #needs to be removed
 b_n_taxa <- nrow(b_cultured)
 
 
