@@ -10,7 +10,11 @@ get_year <- function(date){
 }
 
 is_cultured <- function(db){
-	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
+	cultured <- (!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
+
+	cultured[rownames(db)=="AJ224540.MxeCultu"] <- FALSE
+	cultured[db$publication_doi=="10.1073/pnas.1219809110"] <- FALSE
+	cultured
 }
 
 get_cultured_data <- function(cultured, phyla, otu){

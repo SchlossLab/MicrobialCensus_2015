@@ -1,0 +1,126 @@
+phyla <- factor(get_phylum(db$taxonomy))
+cultured <- is_cultured(db)
+
+
+
+db[cultured & phyla=="PAUC34f",]
+                  bio_material clone clone_lib collected_by collection_date
+HF912447.MnbS1085         <NA>  <NA>      <NA>         <NA>            <NA>
+                  country culture_collection                    date
+HF912447.MnbS1085    <NA>               <NA> 2013-05-22; 2013-05-22;
+                                                                        description
+HF912447.MnbS1085 Marinobacter sp. Gp-1-1.1 partial 16S rRNA gene, isolate Gp-1-1.1
+                  embl_class env_sample                 full_name host
+HF912447.MnbS1085   Standard       <NA> Marinobacter sp. Gp-1-1.1 <NA>
+                  identified_by insdc  isolate
+HF912447.MnbS1085          <NA>    NA Gp-1-1.1
+                                        isolation_source
+HF912447.MnbS1085 microbial community of Isops phlegraei
+                                                          journal lat_lon
+HF912447.MnbS1085 Thesis (2013), Berlin University of Technology.    <NA>
+                  publication_doi pubmed_id strain sub_species
+HF912447.MnbS1085            <NA>        NA   <NA>        <NA>
+                           submit_author
+HF912447.MnbS1085 Kaesler-Neumann I.; ;
+                                                                                                                               submit_date
+HF912447.MnbS1085 25-FEB-2013 Environmental Microbiology, Berlin University of Technology, Berlin, Ernst-Reuter-Platz 1, D-10587, GERMANY.
+                                                                                       title
+HF912447.MnbS1085 Investigation of sponge-associated bacteria from marine cold-water sponges
+                  depth_slv habitat_slv category  otu          taxonomy
+HF912447.MnbS1085      <NA>        <NA>       ZN 2718 Bacteria;PAUC34f;
+
+
+
+
+#both of these look legit, althoguh I wonder whethr they're really CKC4. They're annotated
+#as Fusobacterium or Firmicutes although they're ~97% similar to each other.
+
+> db[cultured & phyla=="CKC4",]
+                      bio_material clone clone_lib collected_by collection_date
+KM585593.FirBac16             <NA>  <NA>      <NA>         <NA>            <NA>
+JTLI01000095.CetSpec2         <NA>  <NA>      <NA>         <NA>     23-Jul-2012
+                         country culture_collection                    date
+KM585593.FirBac16           <NA>               <NA> 2014-12-24; 2014-12-24;
+JTLI01000095.CetSpec2 USA:Eugene               <NA> 2014-12-19; 2014-12-19;
+                                                                                 description
+KM585593.FirBac16     Firmicutes bacterium ZOR0006 16S ribosomal RNA gene, partial sequence.
+JTLI01000095.CetSpec2      Cetobacterium sp. ZOR0034 L992_95, whole genome shotgun sequence.
+                                embl_class env_sample
+KM585593.FirBac16                 Standard       <NA>
+JTLI01000095.CetSpec2 Whole Genome Shotgun       <NA>
+                                         full_name        host identified_by
+KM585593.FirBac16     Firmicutes bacterium ZOR0006   zebrafish          <NA>
+JTLI01000095.CetSpec2    Cetobacterium sp. ZOR0034 Danio rerio          <NA>
+                       insdc isolate isolation_source     journal
+KM585593.FirBac16     205588    <NA>        intestine Unpublished
+JTLI01000095.CetSpec2 205592    <NA>             <NA> Unpublished
+                               lat_lon publication_doi pubmed_id  strain
+KM585593.FirBac16                 <NA>            <NA>        NA ZOR0006
+JTLI01000095.CetSpec2 44.05 N 123.07 W            <NA>        NA ZOR0034
+                      sub_species
+KM585593.FirBac16            <NA>
+JTLI01000095.CetSpec2        <NA>
+                                                                                                       submit_author
+KM585593.FirBac16     Stephens W.Z.; Burns A.R.; Stagaman K.; Wong S.; Rawls J.F.; Guillemin K.; Bohannan B.J.M.; ;
+JTLI01000095.CetSpec2   Stephens W.Z.; Burns A.R.; Stagaman K.; Wong S.; Rawls J.F.; Guillemin K.; Bohannan B.J.; ;
+                                                                                                                             submit_date
+KM585593.FirBac16                            17-SEP-2014 Biology, University of Oregon, 1210 University of Oregon, Eugene, OR 97403, USA
+JTLI01000095.CetSpec2 10-OCT-2014 Institute of Molecular Biology, University of Oregon, 1210 University of Oregon, Eugene, OR 97403, USA
+                                                                                                                  title
+KM585593.FirBac16     Zebrafish development influences the composition and function of intestinal microbial communities
+JTLI01000095.CetSpec2 Zebrafish development influences the composition and function of intestinal microbial communities
+                      depth_slv habitat_slv category   otu       taxonomy
+KM585593.FirBac16          <NA>        <NA>       ZO 14511 Bacteria;CKC4;
+JTLI01000095.CetSpec2      <NA>        <NA>     <NA> 72153 Bacteria;CKC4;
+>
+
+
+
+
+
+
+
+db[cultured & phyla=="TM6",]
+
+> db[cultured & phyla=="TM6",]
+                  bio_material clone clone_lib collected_by collection_date
+GQ495224.DlaPro80         <NA>  <NA>      <NA>         <NA>            <NA>
+HG793133.CddBabel         <NA>  <NA>      <NA>         <NA>            <NA>
+FJ405888.VrbBact7         <NA>  <NA>      <NA>         <NA>            <NA>
+                  country culture_collection                    date
+GQ495224.DlaPro80    <NA>               <NA> 2009-09-24; 2009-09-24;
+HG793133.CddBabel    <NA>               <NA> 2013-12-04; 2015-02-27;
+FJ405888.VrbBact7    <NA>               <NA> 2008-12-16; 2008-12-16;
+                                                                                  description
+GQ495224.DlaPro80       Delta proteobacterium BABL1 16S ribosomal RNA gene, partial sequence.
+HG793133.CddBabel                 Candidatus Babela massiliensis strain BABL1 complete genome
+FJ405888.VrbBact7 Verrucomicrobia bacterium YJF2-48 16S ribosomal RNA gene, partial sequence.
+                  embl_class env_sample                         full_name host
+GQ495224.DlaPro80   Standard       <NA>    Candidatus Babela massiliensis <NA>
+HG793133.CddBabel   Standard       <NA>    Candidatus Babela massiliensis <NA>
+FJ405888.VrbBact7   Standard       <NA> Verrucomicrobia bacterium YJF2-48 <NA>
+                  identified_by insdc isolate  isolation_source     journal
+GQ495224.DlaPro80          <NA>    NA    <NA>              <NA> Unpublished
+HG793133.CddBabel          <NA>  4637    <NA>              <NA> Unpublished
+FJ405888.VrbBact7          <NA>    NA    <NA> bamboo grove soil Unpublished
+                  lat_lon publication_doi pubmed_id      strain sub_species
+GQ495224.DlaPro80    <NA>            <NA>        NA       BABL1        <NA>
+HG793133.CddBabel    <NA>            <NA>        NA 673862 e[G]        <NA>
+FJ405888.VrbBact7    <NA>            <NA>        NA     YJF2-48        <NA>
+                                           submit_author
+GQ495224.DlaPro80 Pagnier I.; Raoult D.; La Scola B.; ;
+HG793133.CddBabel                         GENOMES U.; ;
+FJ405888.VrbBact7                    Ding Y.; Cao H.; ;
+                                                                                                                                                       submit_date
+GQ495224.DlaPro80                                                         18-AUG-2009 URMITE, Universite Mediterrannee, 27 Bd Jean Moulin, Marseille 13385, France
+HG793133.CddBabel                                                           04-OCT-2013 Fac de medecine, URMITE, 27 Bd J Moulin, 13385 Marseille Cedex 05, FRANCE.
+FJ405888.VrbBact7 18-OCT-2008 Department of Microbiology, College of Life Science, Nanjing Agricultural University, 1 Weigang, Nanjing, Jiangsu 210095, P.R. China
+                                                                                                                                     title
+GQ495224.DlaPro80                                                                        Candidatus Babela massiliensis gen. nov. sp. nov.
+HG793133.CddBabel Babela massiliensis, a representative of a widespread bacterial phylum with unusual adaptations to parasitism in amoebae
+FJ405888.VrbBact7                                      PCR-RFLP analysis of bacterial 16S rDNA from different fertilized bamboo grove soil
+                  depth_slv habitat_slv category   otu      taxonomy
+GQ495224.DlaPro80      <NA>        <NA>     <NA> 25597 Bacteria;TM6;
+HG793133.CddBabel      <NA>        <NA>     <NA> 25597 Bacteria;TM6;
+FJ405888.VrbBact7      <NA>        <NA>       SO 72468 Bacteria;TM6;
+>
