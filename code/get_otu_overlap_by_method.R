@@ -1,77 +1,68 @@
-is_cultured <- function(db){
-	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db)) & !is_single_cell(db)
+source("code/partition_data.R")
+
+run_analysis <- function(ref, otus){
+	ref_otus <- otus[[ref]]
+	n_otus <- length(ref_otus)
+
+	cultured <- sum(ref_otus %in% otus[["cultured"]])
+	pcr <- sum(ref_otus %in% otus[["pcr"]])
+	sc <- sum(ref_otus %in% otus[["sc"]])
+	em_pcr <- sum(ref_otus %in% otus[["em_pcr"]])
+	em_meta <- sum(ref_otus %in% otus[["em_meta"]])
+	freq <- c(cultured=cultured, pcr=pcr, sc=sc, em_pcr=em_pcr, em_meta=em_meta)
+	freq[ref] <- sum(!ref_otus %in% unique(unlist(otus[ !names(otus) %in% ref])))
+
+	if(n_otus != 0){
+		percentage <- 100 * freq / n_otus
+	} else {
+		percentage <- c(cultured=NA, pcr=NA, sc=NA, em_pcr=NA, em_meta=NA)
+	}
+
 }
 
-is_pcr <- function(db){
 
-	!((!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db))) & grepl("\\.", rownames(db)) & !is_emirge(db)
-}
-
-is_single_cell <- function(db){
-	(grepl("^[^.]*$", rownames(db)) | (db$publication_doi == "10.1038/nature12352" & !is.na(db$publication_doi))) & !is_emirge(db)
-}
-
-is_emirge <- function(db){
-	emirge_dois <- c("10.1126/science.1224041", "10.1186/2049-2618-2-1", "10.1186/gb-2011-12-5-r44", "10.1371/journal.pone.0056018", "10.1371/journal.pone.0057819", "10.3389/fmicb.2015.00277")
-
-	db$publication_doi %in% emirge_dois
-}
-
-
-get_data <- function(db){
+compare_methods <- function(db){
 	cultured <- is_cultured(db)
 	cultured_otus <- unique(db[cultured, "otu"])
 
-	pcrd <- is_pcr(db)
-	pcr_otus <- unique(db[pcrd, "otu"])
-
-	emirge <- is_emirge(db)
-	emirge_otus <- unique(db[emirge, "otu"])
+	pcr <- (is_pcr(db))
+	pcr_otus <- unique(db[pcr, "otu"])
 
 	sc <- is_single_cell(db)
 	sc_otus <- unique(db[sc, "otu"])
 
+	em_pcr <- is_emirge_pcr(db)
+	em_pcr_otus <- unique(db[em_pcr, "otu"])
 
-	total_otus <- max(db$otu)	#Total OTUs
+	em_meta <- is_emirge_metag(db)
+	em_meta_otus <- unique(db[em_meta, "otu"])
 
-	n_cult_otus <- length(cultured_otus) #Cultured OTUs	1
-	n_pcr_otus <- length(pcr_otus) #PCR OTUs				2
-	n_emirge_otus <- length(emirge_otus)
-	n_sc_otus <- length(sc_otus) #Single cell OTUs		3
+	total_otus <- length(unique(db$otu))
 
-	n_cult_only <- sum(!cultured_otus %in% union(pcr_otus, sc_otus))
-	n_pcr_only <- sum(!pcr_otus %in% union(cultured_otus, sc_otus))
-	n_sc_only <- sum(!sc_otus %in% union(pcr_otus, cultured_otus))
+	n_cult_otus <- length(cultured_otus)
+	n_pcr_otus <- length(pcr_otus)
+	n_sc_otus <- length(sc_otus)
+	n_em_pcr_otus <- length(em_pcr_otus)
+	n_em_meta_otus <- length(em_meta_otus)
 
-	n_cult_pcr_otus <- sum(cultured_otus %in% pcr_otus)	#cult-pcr		12
-	n_cult_sc_otus <- sum(cultured_otus %in% sc_otus)	#cult-single	13
-	n_pcr_sc_otus <- sum(pcr_otus %in% sc_otus)			#pcr-single		23
-	n_three_otus <- length(intersect(intersect(cultured_otus, sc_otus), pcr_otus)) #cult-pcr-single
+	otu_list <- list(cultured=cultured_otus, pcr=pcr_otus, sc=sc_otus,
+					em_pcr=em_pcr_otus, em_meta=em_meta_otus)
 
-	c("n_cult"=sum(cultured, na.rm=T),
-	"n_pcr"=sum(pcrd, na.rm=T),
-	"n_sc"=sum(sc, na.rm=T),
-	"cult_all"=n_cult_otus,
-	"pcr_all"=n_pcr_otus,
-	"sc_all"=n_sc_otus,
-	"cult_only"=n_cult_only,
-	"pcr_only"=n_pcr_only,
-	"sc_only"=n_sc_only,
-	"cult-pcr"=n_cult_pcr_otus,
-	"cult-sc"=n_cult_sc_otus,
-	"pcr-sc"=n_pcr_sc_otus,
-	"cult-pcr-sc"=n_three_otus,
-	"total"=total_otus)
+	percentages <- t(sapply(names(otu_list), run_analysis, otus=otu_list))
+	n_seqs <- c(cultured=sum(cultured), pcr=sum(pcr), sc=sum(sc),
+					em_pcr=sum(em_pcr), em_meta=sum(em_meta))
+	n_otus <- c(cultured=length(cultured_otus), pcr=length(pcr_otus),
+				sc=length(sc_otus), em_pcr=length(em_pcr_otus),
+ 				em_meta=length(em_meta_otus))
+	cbind(percentages, n_seqs, n_otus)
 }
 
-
-
-
-
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
-bact_counts <- get_data(bact)
+b_overlap <- compare_methods(bact)
+b_overlap <- cbind(domain="bacteria", method=rownames(b_overlap), b_overlap)
 
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
-arch_counts <- get_data(arch)
+a_overlap <- compare_methods(arch)
+a_overlap <- cbind(domain="archaea", method=rownames(a_overlap), a_overlap)
 
-write.table(cbind(bact_counts, arch_counts), "data/process/otu_overlap_by_method.tsv", quote=F, sep='\t')
+write.table(rbind(b_overlap, a_overlap), "data/process/otu_overlap_by_method.tsv", quote=F, sep='\t', row.names=F)
