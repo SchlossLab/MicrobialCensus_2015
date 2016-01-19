@@ -21,3 +21,10 @@ is_emirge_metag <- function(db){
 
 	db$publication_doi %in% emirge_dois
 }
+
+#	10.1126/science.1224041			99		genomes
+#	10.1186/gb-2011-12-5-r44		4		genomes
+#	10.3389/fmicb.2015.00277 		17		genomes
+#	10.1186/2049-2618-2-1 			21447	PCR
+#	10.1371/journal.pone.0056018	37386	PCR
+#	10.1371/journal.pone.0057819	23		PCR
