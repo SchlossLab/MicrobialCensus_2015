@@ -1,5 +1,8 @@
 is_cultured <- function(db){
-	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db)) & !is_single_cell(db) & !(is_emirge_pcr(db) | is_emirge_metag(db))
+	cultured <- (!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db)) & !is_single_cell(db) & !(is_emirge_pcr(db) | is_emirge_metag(db))
+
+	cultured[rownames(db)=="AJ224540.MxeCultu"] <- FALSE
+	cultured
 }
 
 is_pcr <- function(db){

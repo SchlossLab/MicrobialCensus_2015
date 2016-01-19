@@ -7,10 +7,6 @@ get_phylum <- function(taxonomy){
 	phylum
 }
 
-is_cultured <- function(db){
-	(!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
-}
-
 get_cultured_data <- function(cultured, phyla, otu){
 	nseqs <- table(phyla, cultured)
 	nseqs <- cbind(cult_nseqs=nseqs[,"TRUE"], total_nseqs=apply(nseqs, 1, sum))
