@@ -1,4 +1,4 @@
-
+source("code/partition_data.R")
 
 get_year <- function(date){
 	gsub("^(\\d\\d\\d\\d)-.*", "\\1", date)
@@ -36,6 +36,7 @@ generate_table <- function(domain, threshold=2006){
 	metadata_file <- paste0('data/process/', domain, '.v123.metadata')
 	count_file <- paste0('data/process/', domain, '.phyla.counts.tsv')
 
+
 	input <- read.table(file=metadata_file, header=T, row.names=1, stringsAsFactors=FALSE)
-	write.table(summarize_phylum_data(input, threshold), file=count_file, quote=FALSE, sep='\t')
+	write.table(summarize_phylum_data(input[is_pcr(input) | is_cultured(input),], threshold), file=count_file, quote=FALSE, sep='\t')
 }

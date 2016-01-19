@@ -58,40 +58,47 @@ FIGSHARE : 	$(PROCESS)/bacteria.v123.metadata\
 
 #done
 $(PROCESS)/coverage_by_category_and_time.tsv : code/get_coverage_by_category_and_time.R\
+												code/partition_data.R\
 												$(PROCESS)/bacteria.v123.metadata\
 												$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_coverage_by_category_and_time.R")'
 
 #done
 $(PROCESS)/by_year_analysis.tsv : code/get_time_course_submission_data.R\
+									code/partition_data.R\
 									$(PROCESS)/archaea.v123.metadata\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_time_course_submission_data.R")'
 
 #done
 $(PROCESS)/bacteria.phyla.counts.tsv : code/get_phylum_counts.R\
+									code/partition_data.R\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_phylum_counts.R"); generate_table("bacteria")'
 
 #done
 $(PROCESS)/archaea.phyla.counts.tsv : code/get_phylum_counts.R\
+									code/partition_data.R\
 									$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_phylum_counts.R"); generate_table("archaea")'
 
 #done
 $(PROCESS)/phylum_category_counts.tsv : code/get_phylum_category_counts.R\
+									code/partition_data.R\
 									$(PROCESS)/archaea.v123.metadata\
 									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_phylum_category_counts.R")'
 
 #done
 $(PROCESS)/bacteria.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
-								$(PROCESS)/bacteria.v123.metadata
+										code/partition_data.R\
+										$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("bacteria")'
 
 #done
 $(PROCESS)/archaea.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
-								$(PROCESS)/archaea.v123.metadata
+										code/partition_data.R\
+										$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("archaea")'
 
 #xxx
