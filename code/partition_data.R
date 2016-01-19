@@ -6,7 +6,10 @@ is_cultured <- function(db){
 }
 
 is_pcr <- function(db){
-	!((!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db))) & grepl("\\.", rownames(db)) & !(is_emirge_pcr(db) | is_emirge_metag(db))
+	pcr <- !((!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db))) & grepl("\\.", rownames(db)) & !(is_emirge_pcr(db) | is_emirge_metag(db))
+
+	pcr[rownames(db)=="AJ224540.MxeCultu"] <- TRUE
+	pcr
 }
 
 is_single_cell <- function(db){
