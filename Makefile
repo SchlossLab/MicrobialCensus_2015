@@ -90,9 +90,10 @@ $(PROCESS)/phylum_category_counts.tsv : code/get_phylum_category_counts.R\
 	R -e 'source("code/get_phylum_category_counts.R")'
 
 #done
-$(PROCESS)/bacteria.cultured_by_time_counts.tsv : code/get_culture_by_time_counts.R\
-										code/partition_data.R\
-										$(PROCESS)/bacteria.v123.metadata
+$(PROCESS)/bacteria.cultured_by_time_counts.tsv : \
+									code/get_culture_by_time_counts.R\
+									code/partition_data.R\
+									$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("bacteria")'
 
 #done
@@ -121,11 +122,12 @@ SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
 
 
 #Figure 1
-$(FIG)/domain_rarefaction.pdf : $(PROCESS)/all_bacteria.filter.unique.precluster.an.rarefaction\
-								$(PROCESS)/all_archaea.filter.unique.precluster.an.rarefaction\
-								$(PROCESS)/all_bacteria.env_category.groups.rarefaction\
-								$(PROCESS)/all_archaea.env_category.groups.rarefaction\
-								code/build_domain_rarefaction_plot.R
+$(FIG)/domain_rarefaction.pdf : \
+				code/build_domain_rarefaction_plot.R\
+				$(PROCESS)/all_bacteria.filter.unique.precluster.an.rarefaction\
+				$(PROCESS)/all_archaea.filter.unique.precluster.an.rarefaction\
+				$(PROCESS)/all_bacteria.env_category.groups.rarefaction\
+				$(PROCESS)/all_archaea.env_category.groups.rarefaction
 	R -e 'source("code/build_domain_rarefaction_plot.R")'
 
 #Figure 2
