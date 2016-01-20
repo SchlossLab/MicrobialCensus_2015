@@ -463,13 +463,28 @@ metadata$taxonomy <- taxonomy_data[as.character(rownames(metadata))]
 metadata$category <- toupper(metadata$category)
 
 #correct typos:
+metadata$category[metadata$category == 'AF'] <- 'AE'
+metadata$category[metadata$category == 'AQBF'] <- 'AQB'
 metadata$category[metadata$category == 'AQD'] <- 'AQO'
 metadata$category[metadata$category == 'AQHS'] <- 'AQH'
 metadata$category[metadata$category == 'AQS'] <- 'AQMS'
+metadata$category[metadata$category == 'AWF'] <- 'AQF'
+metadata$category[metadata$category == 'DS'] <- 'BS'
+metadata$category[metadata$category == 'S'] <- 'SO'
+metadata$category[metadata$category == 'SI'] <- 'BI'
+metadata$category[metadata$category == 'V'] <- 'BO'
 metadata$category[metadata$category == 'VD'] <- 'BD'
-metadata$category[metadata$category == 'BM'] <- 'BI'
+metadata$category[metadata$category == 'ZOZO'] <- 'ZO'
 metadata$category[metadata$category == 'AH'] <- 'AQH'
-metadata$category[metadata$category == 'BDBD'] <- 'BD'
+metadata$category[metadata$category == 'AQOS'] <- 'AQS'
+metadata$category[metadata$category == 'BS'] <- 'BD'
+metadata$category[metadata$category == 'AQS'] <- 'AQFS'
+metadata$category[metadata$category == 'ZL'] <- 'ZV'
+metadata$category[metadata$category == 'SR'] <- 'PR'
+metadata$category[metadata$category == 'M'] <- 'AQM'
+metadata$category[metadata$category == 'AQFM'] <- 'AQFS'
+metadata$category[metadata$category == 'SV'] <- 'ZV'
+metadata$category[metadata$category == 'ZI'] <- 'ZA'
 
 #... and we pool the categories by environment
 metadata$environment <- rep(NA, nrow(metadata))
