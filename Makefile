@@ -15,43 +15,15 @@ $(PROCESS)/bacteria.v123.metadata : #
 	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672195
 	gunzip $@.gz
 
-$(PROCESS)/all_bacteria.filter.unique.precluster.an.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672069
-	gunzip $@.gz
-
-$(PROCESS)/all_bacteria.all_categories.groups.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672075
-	gunzip $@.gz
-
-$(PROCESS)/all_bacteria.env_category.groups.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672060
-	gunzip $@.gz
-
 
 $(PROCESS)/archaea.v123.metadata : #
 	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672198
 	gunzip $@.gz
 
-$(PROCESS)/all_archaea.filter.unique.precluster.an.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672057
-	gunzip $@.gz
 
-$(PROCESS)/all_archaea.all_categories.groups.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672078
-	gunzip $@.gz
-
-$(PROCESS)/all_archaea.env_category.groups.rarefaction : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672066
-	gunzip $@.gz
 
 FIGSHARE : 	$(PROCESS)/bacteria.v123.metadata\
-			$(PROCESS)/all_bacteria.filter.unique.precluster.an.rarefaction\
-			$(PROCESS)/all_bacteria.all_categories.groups.rarefaction\
-			$(PROCESS)/all_bacteria.env_category.groups.rarefaction\
-			$(PROCESS)/archaea.v123.metadata\
-			$(PROCESS)/all_archaea.filter.unique.precluster.an.rarefaction\
-			$(PROCESS)/all_archaea.all_categories.groups.rarefaction\
-			$(PROCESS)/all_archaea.env_category.groups.rarefaction
+			$(PROCESS)/archaea.v123.metadata
 
 
 
@@ -102,11 +74,31 @@ $(PROCESS)/archaea.cultured_by_time_counts.tsv : code/get_culture_by_time_counts
 										$(PROCESS)/archaea.v123.metadata
 	R -e 'source("code/get_culture_by_time_counts.R"); run_domain("archaea")'
 
-#xxx
+#done
 $(PROCESS)/otu_overlap_by_method.tsv : code/get_otu_overlap_by_method.R\
 								$(PROCESS)/archaea.v123.metadata\
 								$(PROCESS)/bacteria.v123.metadata
 	R -e 'source("code/get_otu_overlap_by_method.R")'
+
+#done
+$(PROCESS)/bacteria.all_rarefaction.tsv : 	code/rarefy_metadata.R\
+								$(PROCESS)/bacteria.v123.metadata
+	R -e 'source("code/rarefy_metadata.R"); rarefy_all("$(PROCESS)/bacteria.v123.metadata")'
+
+#done
+$(PROCESS)/archaea.all_rarefaction.tsv : 	code/rarefy_metadata.R\
+								$(PROCESS)/archaea.v123.metadata
+	R -e 'source("code/rarefy_metadata.R"); rarefy_all("$(PROCESS)/archaea.v123.metadata")'
+
+#done
+$(PROCESS)/bacteria.env_rarefaction.tsv : 	code/rarefy_metadata.R\
+								$(PROCESS)/bacteria.v123.metadata
+	R -e 'source("code/rarefy_metadata.R"); rarefy_by_coarse("$(PROCESS)/bacteria.v123.metadata")'
+
+#done
+$(PROCESS)/archaea.env_rarefaction.tsv : 	code/rarefy_metadata.R\
+								$(PROCESS)/archaea.v123.metadata
+	R -e 'source("code/rarefy_metadata.R"); rarefy_by_coarse("$(PROCESS)/archaea.v123.metadata")'
 
 
 SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
@@ -116,7 +108,12 @@ SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
 				$(PROCESS)/phylum_category_counts.tsv \
 				$(PROCESS)/bacteria.cultured_by_time_counts.tsv \
 				$(PROCESS)/archaea.cultured_by_time_counts.tsv \
-				$(PROCESS)/otu_overlap_by_method.tsv
+				$(PROCESS)/otu_overlap_by_method.tsv\
+				$(PROCESS)/bacteria.all_rarefaction.tsv\
+				$(PROCESS)/archaea.all_rarefaction.tsv\
+				$(PROCESS)/bacteria.env_rarefaction.tsv\
+				$(PROCESS)/archaea.env_rarefaction.tsv
+
 
 
 
@@ -124,10 +121,10 @@ SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
 #Figure 1
 $(FIG)/domain_rarefaction.pdf : \
 				code/build_domain_rarefaction_plot.R\
-				$(PROCESS)/all_bacteria.filter.unique.precluster.an.rarefaction\
-				$(PROCESS)/all_archaea.filter.unique.precluster.an.rarefaction\
-				$(PROCESS)/all_bacteria.env_category.groups.rarefaction\
-				$(PROCESS)/all_archaea.env_category.groups.rarefaction
+				$(PROCESS)/archaea.all_rarefaction.tsv\
+				$(PROCESS)/archaea.env_rarefaction.tsv\
+				$(PROCESS)/bacteria.all_rarefaction.tsv\
+				$(PROCESS)/bacteria.env_rarefaction.tsv
 	R -e 'source("code/build_domain_rarefaction_plot.R")'
 
 #Figure 2
@@ -159,12 +156,13 @@ $(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
 	R -e 'source("code/build_otu_overlap_by_method_venn.R")'
 
 
-FIGURES :	$(FIG)/domain_rarefaction.pdf \
+FIGURES :	\
+			$(FIG)/domain_rarefaction.pdf \
 			$(FIG)/time_course_figure.pdf \
 			$(FIG)/category_phylum_heatmap.pdf \
 			$(FIG)/phylum_effort.pdf \
-			$(FIG)/phylum_cultured.pdf \
-			$(FIG)/venn_otu_by_method.pdf
+			$(FIG)/phylum_cultured.pdf
+#			$(FIG)/venn_otu_by_method.pdf
 
 
 
