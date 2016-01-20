@@ -395,6 +395,8 @@ bad_accnos <- as.character(bad_accnos_data$name.accnos)
 
 spread_sheet_good <- full_spread_sheet[-which(rownames(full_spread_sheet) %in% bad_accnos),]
 
+spread_sheet_good$date <- "2013-07-25"
+
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/bacteria.good.metadata", quote=TRUE, na="NA", sep="\t", col.names=F, append=T)
 ```
 

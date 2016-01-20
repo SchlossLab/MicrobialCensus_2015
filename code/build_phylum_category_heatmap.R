@@ -6,12 +6,16 @@ rev_categories <- rev(names(categories))
 
 data <- read.table(file="data/process/phylum_category_counts.tsv", header=T)
 
-bacteria <- data[data$domain=="bacteria",-1]
+bacteria <- data[data$domain=="bacteria",]
+rownames(bacteria) <- bacteria[,1]
+bacteria <- bacteria[,-c(1,2)]
 bacteria <- bacteria[order(bacteria$total, decreasing=T),]
 bacteria_ra <- prop.table(as.matrix(bacteria), margin=2)
 bacteria_top <- as.matrix(bacteria_ra[1:10,rev_categories])
 
-archaea <- data[data$domain=="archaea",-1]
+archaea <- data[data$domain=="archaea",]
+rownames(archaea) <- archaea[,1]
+archaea <- archaea[,-c(1,2)]
 archaea <- archaea[order(archaea$total, decreasing=T),]
 archaea_ra <- prop.table(as.matrix(archaea), margin=2)
 archaea_top <- as.matrix(archaea_ra[1:10,rev_categories])

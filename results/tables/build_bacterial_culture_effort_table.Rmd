@@ -15,7 +15,6 @@ require(xtable, quietly=TRUE)
 options(xtable.sanitize.text.function=identity)
 
 data <- read.table(file="data/process/bacteria.cultured_by_time_counts.tsv", header=T, stringsAsFactors=F)
-data <- data[!rownames(data) %in% "aquifer1",]
 all <- data[,grepl("all_", colnames(data))]
 all$all_uncult_nseqs <- all$all_total_nseqs - all$all_cult_nseqs
 all$all_uncult_sobs <- all$all_total_sobs - all$all_cult_sobs

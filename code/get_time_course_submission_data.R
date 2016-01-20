@@ -1,3 +1,5 @@
+source("code/partition_data.R")
+
 first_year <- 1983
 final_year  <- 2015
 
@@ -7,9 +9,13 @@ get_year <- function(date_vector){
 
 
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+bact <- bact[is_pcr(bact) | is_cultured(bact),]
+
 bact_year_deposited <- get_year(bact$date)
 
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
+arch <- arch[is_pcr(arch) | is_cultured(arch),]
+
 arch_year_deposited <- get_year(arch$date)
 
 summary_table <- data.frame(matrix(rep(0, (final_year-first_year+1)*10), ncol=10))

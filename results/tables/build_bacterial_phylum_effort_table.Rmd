@@ -14,7 +14,6 @@ require(xtable, quietly=TRUE)
 options(xtable.sanitize.text.function=identity)
 
 data <- read.table(file="data/process/bacteria.phyla.counts.tsv", header=T)
-data <- data[!rownames(data) %in% "aquifer1",]
 data <- data[order(data$all, decreasing=T),]
 data$ratio_of_ratios <- round(data$ratio_of_ratios, 2)
 data$ratio_of_ratios[data$ratio_of_ratios=="Inf"] <- "NA"

@@ -1,3 +1,5 @@
+source("code/partition_data.R")
+
 get_phylum <- function(taxonomy){
 	phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", taxonomy)
 	phylum[grepl(';', phylum)] <- "Unclassified"
@@ -7,14 +9,6 @@ get_phylum <- function(taxonomy){
 
 get_year <- function(date){
 	gsub("^(\\d\\d\\d\\d)-.*", "\\1", date)
-}
-
-is_cultured <- function(db){
-	cultured <- (!is.na(db$strain) | !is.na(db$isolate)) & !grepl("\\.Unc", rownames(db)) & grepl("\\.", rownames(db))
-
-	cultured[rownames(db)=="AJ224540.MxeCultu"] <- FALSE
-	cultured[db$publication_doi=="10.1073/pnas.1219809110"] <- FALSE
-	cultured
 }
 
 get_cultured_data <- function(cultured, phyla, otu){
@@ -49,6 +43,6 @@ run_domain <- function(domain){
 	output_file <- paste0('data/process/', domain, '.cultured_by_time_counts.tsv')
 
 	domain_data <- read.table(file=metadata_file, header=T, row.names=1, stringsAsFactors=FALSE)
-	domain_data <- get_domain_data(domain_data)
+	domain_data <- get_domain_data(domain_data[is_pcr(domain_data) | is_cultured(domain_data),])
 	write.table(domain_data, file=output_file, sep='\t', quote=FALSE)
 }

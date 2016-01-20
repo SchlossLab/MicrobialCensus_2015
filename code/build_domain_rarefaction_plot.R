@@ -48,11 +48,11 @@ plot_category_curves <- function(rarefaction, cutoff=0.03){
 	box()
 }
 
-bact_domain <- read.table(file='data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction', header=T)
-arch_domain <- read.table(file='data/mothur/all_archaea.filter.unique.precluster.an.rarefaction', header=T)
+bact_domain <- read.table(file='data/process/all_bacteria.filter.unique.precluster.an.rarefaction', header=T)
+arch_domain <- read.table(file='data/process/all_archaea.filter.unique.precluster.an.rarefaction', header=T)
 
-bact_category <- read.table(file='data/mothur/all_bacteria.env_category.groups.rarefaction', header=T)
-arch_category <- read.table(file='data/mothur/all_archaea.env_category.groups.rarefaction', header=T)
+bact_category <- read.table(file='data/process/all_bacteria.env_category.groups.rarefaction', header=T)
+arch_category <- read.table(file='data/process/all_archaea.env_category.groups.rarefaction', header=T)
 
 pdf('results/figures/domain_rarefaction.pdf', width=7.5, height=7.5)
 par(mar=c(2.5,4,0.5,0.5))
