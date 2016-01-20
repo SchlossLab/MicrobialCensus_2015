@@ -25,7 +25,7 @@ compare_methods <- function(db){
 	pcr_otus <- unique(db[db$pcr, "X0.03"])
 	sc_otus <- unique(db[db$single_cell, "X0.03"])
 	em_pcr_otus <- unique(db[db$emirge_pcr, "X0.03"])
-	em_meta_otus <- unique(db[emirge_meta, "X0.03"])
+	em_meta_otus <- unique(db[db$emirge_meta, "X0.03"])
 
 	total_otus <- length(unique(db[,"X0.03"]))
 
