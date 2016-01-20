@@ -384,6 +384,10 @@ colnames(spread_sheet_good) <- gsub("\\.", "_", colnames(spread_sheet_good))
 spread_sheet_good$date <- "2013-07-25"
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
+
+#we'll output the sequence names so the sequences aren't included in the
+#rarefaction analysis
+write(rownames(spread_sheet_good), file="data/mothur/archaea.sc_emirge.accnos")
 ```
 
 We'd also like to get the metadata from the EMIRGE data. We have an metadata file was created above with `code/get_emirge.metadata.sh` that we'll read in and concatenate to the end of `archaea.good.metadata`.
@@ -394,32 +398,40 @@ archaea_sequences <- read.table(file="data/mothur/emirge.archaea.taxonomy", stri
 archaea_emirge_metadata <- emirge_metadata[archaea_sequences$V1,]
 
 write.table(archaea_emirge_metadata, file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
+
+#we'll output the sequence names so the sequences aren't included in the
+#rarefaction analysis
+write(rownames(archaea_emirge_metadata), file="data/mothur/archaea.sc_emirge.accnos", append=T)
 ```
 
 Let's now take the big metadata file that we have and concatenate on the OTU assignment and taxonomy information:
 
 ```{r}
-#here we'll read in the list file and extract the OTU assignments for the 0.03
-#cutoff
-list_text <- scan(file="data/mothur/all_archaea.filter.unique.precluster.an.list", sep="\n", what="")[5]
+#here we'll read in the list file and extract the OTU assignments for the
+# unique, 0.03, 0.05, 0.10, 0.20 cutoffs
+list_text <- scan(file="data/mothur/all_archaea.filter.unique.precluster.an.list", sep="\n", what="")[c(2,5,7,12,22)]
+names(list_text) <- c("0.00", "0.03", "0.05", "0.10", "0.20")
 
-#let's remove the otu label and the number of OTUs at this cutoff
-list_otus <- unlist(strsplit(list_text, "\t"))[-c(1,2)]
-n_otus <- length(list_otus)
+#let's remove the otu label and the number of OTUs at each cutoff
+parseList <- function(line){
 
-#this function will take the sequence names in an OTU, split them up and then
-#assign them the number of that OTU
-split_otu <- function(counter){
-    seq_vector <- unlist(strsplit(list_otus[counter], ","))
-    n_seqs <- length(seq_vector)
-    otu_number <- rep(counter, n_seqs)
-    names(otu_number) <- seq_vector
-    otu_number
+	list_otus <- unlist(strsplit(line, "\t"))[-c(1,2)]
+	n_otus <- length(list_otus)
+
+	#this function will take the sequence names in an OTU, split them up and then
+	#assign them the number of that OTU
+	split_otu <- function(counter){
+	seq_vector <- unlist(strsplit(list_otus[counter], ","))
+	n_seqs <- length(seq_vector)
+	otu_number <- rep(counter, n_seqs)
+	names(otu_number) <- seq_vector
+	otu_number
+	}
+
+	#now we get the OTU number for each sequence in the dataset
+	unlist(lapply(1:n_otus, split_otu))
 }
-
-#now we get the OTU number for each sequence in the dataset
-otu_assignment <- unlist(lapply(1:n_otus, split_otu))
-
+otu_data <- sapply(list_text, parseList)
 
 #let's get the sequence classification data and remove the confidence score data
 taxonomy_file <- read.table(file="data/mothur/all_archaea.taxonomy", header=F, row.names=1, stringsAsFactors=T)
@@ -429,7 +441,7 @@ names(taxonomy_data) <- rownames(taxonomy_file)
 
 #let's get the metadata file and paste in the OTU and taxonomy data
 metadata <- read.table(file="data/mothur/archaea.good.metadata", header=T, stringsAsFactors=FALSE)
-metadata$otu <- otu_assignment[as.character(rownames(metadata))]
+metadata <- cbind(metadata, otu_data[as.character(rownames(metadata)),])
 metadata$taxonomy <- taxonomy_data[as.character(rownames(metadata))]
 
 
@@ -445,39 +457,29 @@ metadata$category[metadata$category == 'BM'] <- 'BI'
 metadata$category[metadata$category == 'AH'] <- 'AQH'
 metadata$category[metadata$category == 'BDBD'] <- 'BD'
 
+#... and we pool the categories by environment
+metadata$environment <- rep(NA, nrow(metadata))
+metadata$environment[metadata$category == "AE"] <- "aerosol"
+metadata$environment[metadata$category == "OT"] <- "other"
+metadata$environment[metadata$category %in% c("AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "AQS")] <- "aquatic"
+metadata$environment[metadata$category %in% c("BD", "BF", "BI", "BO", "BP")] <- "built"
+metadata$environment[metadata$category %in% c("PO", "PR", "PS")] <- "plant"
+metadata$environment[metadata$category %in% c("SA", "SD", "SO", "SP")] <- "soil"
+metadata$environment[metadata$category %in% c("ZA", "ZN", "ZO", "ZV")] <- "zoonotic"
+
+
+#let's flag each sequence to indicate how each was generated
+source("code/partition_data.R")
+metadata$pcr <- is_pcr(metadata)
+metadata$cultured <- is_cultured(metadata)
+metadata$single_cell <- is_single_cell(metadata)
+metadata$emirge_pcr <- is_emirge_pcr(metadata)
+metadata$emirge_metag <- is_emirge_metag(metadata)
+
+
 
 #... and we output the metadata file...
 write.table(metadata, file="data/process/archaea.v123.metadata", sep="\t")
-
-#... and we output a group file to use for splitting up the list file into the individual categories...
-write.table(file="data/mothur/archaea.all_category.groups", x=cbind(rownames(metadata), metadata$category), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
-
-#... and we pool the categories by environment
-env_categories <- rep(NA, nrow(metadata))
-env_categories[metadata$category == "AE"] <- "aerosol"
-env_categories[metadata$category == "OT"] <- "other"
-env_categories[metadata$category %in% c("AQB", "AQBS", "AQF", "AQFS", "AQH", "AQI", "AQM", "AQMS", "AQO", "AQS")] <- "aquatic"
-env_categories[metadata$category %in% c("BD", "BF", "BI", "BO", "BP")] <- "built"
-env_categories[metadata$category %in% c("PO", "PR", "PS")] <- "plant"
-env_categories[metadata$category %in% c("SA", "SD", "SO", "SP")] <- "soil"
-env_categories[metadata$category %in% c("ZA", "ZN", "ZO", "ZV")] <- "zoonotic"
-write.table(file="data/mothur/archaea.env_category.groups", x=cbind(rownames(metadata), env_categories), quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
 ```
 
-One thing we'd like to look at are the rarefaction curves for each set of group files and the entire dataset. To do this we'll run the mothur command like so..
-
-```{r, engine="bash"}
-mothur "#set.dir(input=data/mothur, output=data/mothur);
-        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.all_category.groups, label=unique-0.03-0.05-0.10-0.20);
-        system(mv data/mothur/all_archaea.filter.unique.precluster.an.shared data/mothur/all_archaea.all_categories.shared);
-        rarefaction.single(shared=all_archaea.all_categories.shared, outputdir=data/process)"
-
-mothur "#set.dir(input=data/mothur, output=data/mothur);
-        make.shared(list=all_archaea.filter.unique.precluster.an.list, group=archaea.env_category.groups, label=unique-0.03-0.05-0.10-0.20);
-        system(mv data/mothur/all_archaea.filter.unique.precluster.an.shared data/mothur/all_archaea.env_category.shared);
-        rarefaction.single(shared=all_archaea.env_category.shared, outputdir=data/process)"
-
-mothur "#rarefaction.single(list=data/mothur/all_archaea.filter.unique.precluster.an.list, label=unique-0.03-0.05-0.10-0.20, outputdir=data/process);"
-
-rm data/mothur/*rabund data/mothur/mothur*logfile mothur*logfile
-```
+Viola! We'll upload data/process/archaea.v123.metadata to FigShare and start analyzing the data for the paper.
