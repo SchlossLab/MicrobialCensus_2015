@@ -21,13 +21,13 @@ run_analysis <- function(ref, otus){
 
 compare_methods <- function(db){
 
-	cultured_otus <- unique(db[db$cultured, "otu"])
-	pcr_otus <- unique(db[db$pcr, "otu"])
-	sc_otus <- unique(db[db$single_cell, "otu"])
-	em_pcr_otus <- unique(db[db$emirge_pcr, "otu"])
-	em_meta_otus <- unique(db[emirge_meta, "otu"])
+	cultured_otus <- unique(db[db$cultured, "X0.03"])
+	pcr_otus <- unique(db[db$pcr, "X0.03"])
+	sc_otus <- unique(db[db$single_cell, "X0.03"])
+	em_pcr_otus <- unique(db[db$emirge_pcr, "X0.03"])
+	em_meta_otus <- unique(db[emirge_meta, "X0.03"])
 
-	total_otus <- length(unique(db$otu))
+	total_otus <- length(unique(db[,"X0.03"]))
 
 	n_cult_otus <- length(cultured_otus)
 	n_pcr_otus <- length(pcr_otus)

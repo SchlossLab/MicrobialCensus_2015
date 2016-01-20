@@ -34,11 +34,11 @@ get_sobs <- function(category, db){
 	sobs <- NA
 
 	if(category == "no_source"){
-		sobs <- length(table(db[is.na(db$category), "otu"]))
+		sobs <- length(table(db[is.na(db$category), "X0.03"]))
 	} else if(category == "total"){
-		sobs <- length(table(db[, "otu"]))
+		sobs <- length(table(db[, "X0.03"]))
 	} else {
-		sobs <- length(table(db[db$category==category, "otu"]))
+		sobs <- length(table(db[db$category==category, "X0.03"]))
 	}
 	return(sobs)
 }
@@ -48,11 +48,11 @@ get_sobs <- function(category, db){
 # specified dataset (db)
 get_goods_coverage <- function(category, db){
 	if(category=="no_source"){
-		category_table <- table(db[is.na(db$category), "otu"])
+		category_table <- table(db[is.na(db$category), "X0.03"])
 	} else if(category == "total") {
-		category_table <- table(db[, "otu"])
+		category_table <- table(db[, "X0.03"])
 	} else {
-		category_table <- table(db[db$category==category, "otu"])
+		category_table <- table(db[db$category==category, "X0.03"])
 	}
 
 	singletons <- sum(category_table == 1)
@@ -70,11 +70,11 @@ get_goods_coverage <- function(category, db){
 # specified dataset (db)
 get_schloss_coverage <- function(category, db){
 	if(category=="no_source"){
-		category_table <- table(db[is.na(db$category), "otu"])
+		category_table <- table(db[is.na(db$category), "X0.03"])
 	} else if(category == "total") {
-		category_table <- table(db[, "otu"])
+		category_table <- table(db[, "X0.03"])
 	} else {
-		category_table <- table(db[db$category==category, "otu"])
+		category_table <- table(db[db$category==category, "X0.03"])
 	}
 
 	singletons <- sum(category_table == 1)

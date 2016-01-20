@@ -55,10 +55,10 @@ get_annual_otu_deposits <- function(year_deposited, otus){
 	new_otus_by_year
 }
 
-bact_data <- get_annual_otu_deposits(bact_year_deposited, bact$otu)
+bact_data <- get_annual_otu_deposits(bact_year_deposited, bact[,"X0.03"])
 summary_table[names(bact_data),'b_sobs'] <- bact_data
 
-arch_data <- get_annual_otu_deposits(arch_year_deposited, arch$otu)
+arch_data <- get_annual_otu_deposits(arch_year_deposited, arch[,"X0.03"])
 summary_table[names(arch_data),'a_sobs'] <- arch_data
 
 

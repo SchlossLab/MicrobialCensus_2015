@@ -23,9 +23,9 @@ get_domain_data <- function(db, threshold=2006){
 
 	pre <- get_year(db$date) < threshold
 
-	all <- get_cultured_data(cultured, phyla, db$otu)
-	pre <- get_cultured_data(cultured[pre], phyla[pre], db$otu[pre])
-	post <- get_cultured_data(cultured[!pre], phyla[!pre], db$otu[!pre])
+	all <- get_cultured_data(cultured, phyla, db[,"X0.03"])
+	pre <- get_cultured_data(cultured[pre], phyla[pre], db[pre, "X0.03"])
+	post <- get_cultured_data(cultured[!pre], phyla[!pre], db[!pre, "X0.03"])
 	pool <- cbind(pre, post, all)
 	colnames(pool) <- paste0(c(rep("pre_", 3), rep("post_", 3), rep("all_", 3)), colnames(pool))
 	pool
