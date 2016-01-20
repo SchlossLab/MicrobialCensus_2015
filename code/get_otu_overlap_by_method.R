@@ -1,5 +1,3 @@
-source("code/partition_data.R")
-
 run_analysis <- function(ref, otus){
 	ref_otus <- otus[[ref]]
 	n_otus <- length(ref_otus)
@@ -22,20 +20,12 @@ run_analysis <- function(ref, otus){
 
 
 compare_methods <- function(db){
-	cultured <- is_cultured(db)
-	cultured_otus <- unique(db[cultured, "otu"])
 
-	pcr <- (is_pcr(db))
-	pcr_otus <- unique(db[pcr, "otu"])
-
-	sc <- is_single_cell(db)
-	sc_otus <- unique(db[sc, "otu"])
-
-	em_pcr <- is_emirge_pcr(db)
-	em_pcr_otus <- unique(db[em_pcr, "otu"])
-
-	em_meta <- is_emirge_metag(db)
-	em_meta_otus <- unique(db[em_meta, "otu"])
+	cultured_otus <- unique(db[db$cultured, "otu"])
+	pcr_otus <- unique(db[db$pcr, "otu"])
+	sc_otus <- unique(db[db$single_cell, "otu"])
+	em_pcr_otus <- unique(db[db$emirge_pcr, "otu"])
+	em_meta_otus <- unique(db[emirge_meta, "otu"])
 
 	total_otus <- length(unique(db$otu))
 
@@ -49,8 +39,8 @@ compare_methods <- function(db){
 					em_pcr=em_pcr_otus, em_meta=em_meta_otus)
 
 	percentages <- t(sapply(names(otu_list), run_analysis, otus=otu_list))
-	n_seqs <- c(cultured=sum(cultured), pcr=sum(pcr), sc=sum(sc),
-					em_pcr=sum(em_pcr), em_meta=sum(em_meta))
+	n_seqs <- c(cultured=sum(db$cultured), pcr=sum(db$pcr), sc=sum(db$single_cell),
+					em_pcr=sum(db$emirge_pcr), em_meta=sum(db$emirge_meta))
 	n_otus <- c(cultured=length(cultured_otus), pcr=length(pcr_otus),
 				sc=length(sc_otus), em_pcr=length(em_pcr_otus),
  				em_meta=length(em_meta_otus))

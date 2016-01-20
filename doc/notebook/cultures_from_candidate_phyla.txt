@@ -1,5 +1,5 @@
 phyla <- factor(get_phylum(db$taxonomy))
-cultured <- is_cultured(db)
+cultured <- db$cultured
 
 
 

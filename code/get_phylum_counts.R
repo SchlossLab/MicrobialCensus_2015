@@ -1,5 +1,3 @@
-source("code/partition_data.R")
-
 get_year <- function(date){
 	gsub("^(\\d\\d\\d\\d)-.*", "\\1", date)
 }
@@ -38,5 +36,5 @@ generate_table <- function(domain, threshold=2006){
 
 
 	input <- read.table(file=metadata_file, header=T, row.names=1, stringsAsFactors=FALSE)
-	write.table(summarize_phylum_data(input[is_pcr(input) | is_cultured(input),], threshold), file=count_file, quote=FALSE, sep='\t')
+	write.table(summarize_phylum_data(input[input$pcr | input$cultured,], threshold), file=count_file, quote=FALSE, sep='\t')
 }

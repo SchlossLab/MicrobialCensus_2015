@@ -1,4 +1,3 @@
-source("code/partition_data.R")
 
 get_phylum <- function(taxonomy){
 	phylum <- gsub("^[^;]*;([^;]*);.*", "\\1", taxonomy)
@@ -25,7 +24,7 @@ get_cultured_data <- function(cultured, phyla, otu){
 get_domain_data <- function(db, threshold=2006){
 
 	phyla <- factor(get_phylum(db$taxonomy))
-	cultured <- is_cultured(db)
+	cultured <- db$cultured
 
 	pre <- get_year(db$date) < threshold
 
@@ -43,6 +42,6 @@ run_domain <- function(domain){
 	output_file <- paste0('data/process/', domain, '.cultured_by_time_counts.tsv')
 
 	domain_data <- read.table(file=metadata_file, header=T, row.names=1, stringsAsFactors=FALSE)
-	domain_data <- get_domain_data(domain_data[is_pcr(domain_data) | is_cultured(domain_data),])
+	domain_data <- get_domain_data(domain_data[db$pcr | db$cultured,])
 	write.table(domain_data, file=output_file, sep='\t', quote=FALSE)
 }

@@ -114,20 +114,19 @@ summarize_category_data <- function(db){
 	cbind(db_count_pre, db_sobs_pre, db_good_coverage_pre, db_schloss_coverage_pre, db_count_post, db_sobs_post, db_good_coverage_post, db_schloss_coverage_post, db_count, db_sobs, db_good_coverage, db_schloss_coverage)
 }
 
-source("code/partition_data.R")
 
 abbreviation <- c("AE", "AQB", "AQBS", "AQF", "AQFS", "AQM", "AQMS", "AQH", "AQI", "AQO", "BD", "BF", "BI", "BP", "BO", "PR", "PS", "PO", "SA", "SD", "SP", "SO", "ZV", "ZA", "ZN",  "ZO", "OT", "no_source", "total")
 
 
 bact <- read.table(file='data/process/bacteria.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 
-bact_summary <- summarize_category_data(bact[is_pcr(bact) | is_cultured(bact),])
+bact_summary <- summarize_category_data(bact[bact$pcr | bact$cultured,])
 colnames(bact_summary) <- gsub("db_", "bact_", colnames(bact_summary))
 
 
 arch <- read.table(file='data/process/archaea.v123.metadata', header=T, row.names=1, stringsAsFactors=FALSE)
 
-arch_summary <- summarize_category_data(arch[is_pcr(arch) | is_cultured(arch),])
+arch_summary <- summarize_category_data(arch[arch$pcr | arch$cultured,])
 colnames(arch_summary) <- gsub("db_", "arch_", colnames(arch_summary))
 
 composite <- cbind(bact_summary, arch_summary)
