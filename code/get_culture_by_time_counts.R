@@ -42,6 +42,6 @@ run_domain <- function(domain){
 	output_file <- paste0('data/process/', domain, '.cultured_by_time_counts.tsv')
 
 	domain_data <- read.table(file=metadata_file, header=T, row.names=1, stringsAsFactors=FALSE)
-	domain_data <- get_domain_data(domain_data[db$pcr | db$cultured,])
+	domain_data <- get_domain_data(domain_data[domain_data$pcr | domain_data$cultured,])
 	write.table(domain_data, file=output_file, sep='\t', quote=FALSE)
 }
