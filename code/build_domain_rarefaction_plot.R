@@ -1,4 +1,8 @@
-my_domain_col <- c( X0.00=rainbow(5)[1], X0.03='orange', X0.05=rainbow(5)[3], X0.10=rainbow(5)[4], X0.20=rainbow(5)[5] )
+#devtools::install_github("karthik/wesanderson")
+library("wesanderson")
+clrs <- c(wes_palette("Darjeeling"))
+
+my_domain_col <- c( X0.00=clrs[1], X0.03=clrs[2], X0.05=clrs[3], X0.10=clrs[4], X0.20=clrs[5] )
 my_domain_pch <- c(X0.00=16, X0.03=16, X0.05=17, X0.10=21, X0.20=22)
 
 plot_domain_curves <- function(rarefaction){
@@ -20,7 +24,8 @@ plot_domain_curves <- function(rarefaction){
 
 my_categories <- c(aerosol="Aerosol", aquatic="Aquatic", built="Built", plant="Plant", soil="Soil", zoonotic="Zoonotic", other="Other")
 
-my_categories_col <- rainbow(7)
+set.seed(1)
+my_categories_col <- sample(wes_palette("Zissou", 7, type = "continuous"), 7)#rainbow(7)
 names(my_categories_col) <- names(my_categories)
 
 my_categories_pch <- c(aerosol=19, aquatic=22, built=23, plant=24, soil=15, zoonotic=17, other=21)
