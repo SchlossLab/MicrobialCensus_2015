@@ -119,12 +119,11 @@ SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
 
 
 #Figure 1
-$(FIG)/domain_rarefaction.pdf : \
-				code/build_domain_rarefaction_plot.R\
-				$(PROCESS)/archaea.all_rarefaction.tsv\
-				$(PROCESS)/archaea.env_rarefaction.tsv\
-				$(PROCESS)/bacteria.all_rarefaction.tsv\
-				$(PROCESS)/bacteria.env_rarefaction.tsv
+$(FIG)/domain_rarefaction.pdf : code/build_domain_rarefaction_plot.R\
+								$(PROCESS)/archaea.all_rarefaction.tsv\
+								$(PROCESS)/archaea.env_rarefaction.tsv\
+								$(PROCESS)/bacteria.all_rarefaction.tsv\
+								$(PROCESS)/bacteria.env_rarefaction.tsv
 	R -e 'source("code/build_domain_rarefaction_plot.R")'
 
 #Figure 2
@@ -156,8 +155,7 @@ $(FIG)/otu_overlap_by_method.pdf : code/build_otu_overlap_by_method_figure.R\
 	R -e 'source("code/build_otu_overlap_by_method_figure.R")'
 
 
-FIGURES :	\
-			$(FIG)/domain_rarefaction.pdf \
+FIGURES :	$(FIG)/domain_rarefaction.pdf \
 			$(FIG)/time_course_figure.pdf \
 			$(FIG)/category_phylum_heatmap.pdf \
 			$(FIG)/phylum_effort.pdf \
