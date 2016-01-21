@@ -151,9 +151,9 @@ $(FIG)/phylum_cultured.pdf : code/build_culture_effort_plot.R\
 
 #Figure 6
 #xxx
-$(FIG)/venn_otu_by_method.pdf : code/build_otu_overlap_by_method_venn.R\
+$(FIG)/otu_overlap_by_method.pdf : code/build_otu_overlap_by_method_figure.R\
 							$(PROCESS)/otu_overlap_by_method.tsv
-	R -e 'source("code/build_otu_overlap_by_method_venn.R")'
+	R -e 'source("code/build_otu_overlap_by_method_figure.R")'
 
 
 FIGURES :	\
@@ -161,8 +161,8 @@ FIGURES :	\
 			$(FIG)/time_course_figure.pdf \
 			$(FIG)/category_phylum_heatmap.pdf \
 			$(FIG)/phylum_effort.pdf \
-			$(FIG)/phylum_cultured.pdf
-#			$(FIG)/venn_otu_by_method.pdf
+			$(FIG)/phylum_cultured.pdf \
+			$(FIG)/otu_overlap_by_method.pdf
 
 
 
