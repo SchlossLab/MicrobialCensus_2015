@@ -121,23 +121,21 @@ Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Sc
 ## Results and Discussion
 
 ```{r rarefaction}
-# take these data out of the rarefaciton files so that we can have the unique,
+# take these data out of the rarefaction files so that we can have the unique,
 # 0.03, 0.05, 0.10, and 0.20 OTU definitions for both the bacterial and archaeal
 # data
 
-get_sobs <- function(data){
-	rownames(data) <- data[,1]
-	data <- data[,-1]
-	data <- data[,!grepl('ci', colnames(data))]
-	unlist(data[nrow(data),])
-}
+b_sobs <- read.table(file="data/process/bacteria.all_rarefaction.tsv", header=T)
+b_sobs <- b_sobs[nrow(b_sobs),]
+b_nseqs <- as.numeric(rownames(b_sobs))
 
-b_sobs <- get_sobs(read.table(file='data/mothur/all_bacteria.filter.unique.precluster.an.rarefaction', header=T))
-a_sobs <- get_sobs(read.table(file='data/mothur/all_archaea.filter.unique.precluster.an.rarefaction', header=T))
+a_sobs <- read.table(file="data/process/archaea.all_rarefaction.tsv", header=T)
+a_sobs <- a_sobs[nrow(a_sobs),]
+a_nseqs <- as.numeric(rownames(a_sobs))
 ```
 
 ***The status of the bacterial and archaeal census.***
-To assess the field's progress in characterizing the biodiversity of bacteria and archaea we assigned each 16S rRNA gene sequence to OTUs using distance threshold varying between 0 and 20%. Although it is not possible to link a specific taxonomic level (e.g. species, genus, family, etc.) to a specific distance threshold, we selected distances of 0, 3, 5, 10, and 20% because they are widely regarded as representing the range of genetic diversity of the 16S rRNA gene within each domain. By rarefaction, it was clear that the ongoing sampling efforts have started to saturate the number of current OTUs. After sampling `r b_nseqs` near full-length bacterial 16S rRNA gene sequences we have identified `r b_sobs['unique']`, `r b_sobs['X0.03']`, `r b_sobs['X0.05']`, `r b_sobs['X0.10']`, and `r b_sobs['X0.20']` OTUs at the respective thresholds (Figure results/figures/domain_rarefaction.pdf A, Table 1). Using only the OTUs generated using a 3% threshold, we calculated a `r b_goods`% Good's coverage (percent of sequences belonging to OTUs that have been observed more than once), but only `r b_schloss`% OTU coverage (percent of the OTUs that have been observed more than once). Paralleling the bacterial results, after sampling `r a_nseqs` archaeal 16S rRNA gene sequences we have identified `r a_sobs['unique']`, `r a_sobs['X0.03']`, `r a_sobs['X0.05']`, `r a_sobs['X0.10']`, and `r a_sobs['X0.20']` OTUs (Figure results/figures/domain_rarefaction.pdf B, Table 1). Using only the OTUs generated using a 3% threshold, we calculated a `r a_goods`% Good's coverage, but only `r a_schloss`% OTU coverage. These results indicate that regardless of the domain, continued sampling with the current strategies for generating full-length sequences will largely reveal OTUs that have already been observed, even though a large fraction of OTUs have only been sampled once. Furthermore, considering more than `r 100-min(b_schloss, a_schloss)`% of the OTUs have only been observed once, it is likely that an even larger number of OTUs have yet to be sampled for both domains.
+To assess the field's progress in characterizing the biodiversity of bacteria and archaea we assigned each 16S rRNA gene sequence to OTUs using distance threshold varying between 0 and 20%. Although it is not possible to link a specific taxonomic level (e.g. species, genus, family, etc.) to a specific distance threshold, we selected distances of 0, 3, 5, 10, and 20% because they are widely regarded as representing the range of genetic diversity of the 16S rRNA gene within each domain. By rarefaction, it was clear that the ongoing sampling efforts have started to saturate the number of current OTUs. After sampling `r b_nseqs` near full-length bacterial 16S rRNA gene sequences we have identified `r b_sobs['X0.00']`, `r b_sobs['X0.03']`, `r b_sobs['X0.05']`, `r b_sobs['X0.10']`, and `r b_sobs['X0.20']` OTUs at the respective thresholds (Figure results/figures/domain_rarefaction.pdf A, Table 1). Using only the OTUs generated using a 3% threshold, we calculated a `r b_goods`% Good's coverage (percent of sequences belonging to OTUs that have been observed more than once), but only `r b_schloss`% OTU coverage (percent of the OTUs that have been observed more than once). Paralleling the bacterial results, after sampling `r a_nseqs` archaeal 16S rRNA gene sequences we have identified `r a_sobs['X0.00']`, `r a_sobs['X0.03']`, `r a_sobs['X0.05']`, `r a_sobs['X0.10']`, and `r a_sobs['X0.20']` OTUs (Figure results/figures/domain_rarefaction.pdf B, Table 1). Using only the OTUs generated using a 3% threshold, we calculated a `r a_goods`% Good's coverage, but only `r a_schloss`% OTU coverage. These results indicate that regardless of the domain, continued sampling with the current strategies for generating full-length sequences will largely reveal OTUs that have already been observed, even though a large fraction of OTUs have only been sampled once. Furthermore, considering more than `r 100-min(b_schloss, a_schloss)`% of the OTUs have only been observed once, it is likely that an even larger number of OTUs have yet to be sampled for both domains.
 
 
 ```{r time_course}

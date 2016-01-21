@@ -173,9 +173,6 @@ $(TAB)/coverage_by_category.pdf : \
 	R -e 'render("$(TAB)/build_coverage_by_category.Rmd", output_file="coverage_by_category.pdf")'
 
 
-
-
-
 #generate supplmentary files
 #Table S1
 $(TAB)/environmental_categories_table.pdf : \
@@ -242,7 +239,7 @@ TABLES :	$(TAB)/coverage_by_category.pdf \
 Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 						FIGSHARE \
 						SUMMARY_TABLES\
-						FIGRURES \
+						FIGURES \
 						TABLES \
 						\
 						mbio.csl\
