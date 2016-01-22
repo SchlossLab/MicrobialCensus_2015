@@ -18,8 +18,8 @@ opts_chunk$set("eval" = TRUE)
 opts_chunk$set("warning" = FALSE)
 opts_chunk$set("cache" = FALSE)
 
-inline_hook <- function(x){
-	print(x)
+custom_print <- function(x){
+
 	if(is.numeric(x)){
 		if(abs(x - round(x)) < .Machine$double.eps^0.5){
 			paste(format(x,big.mark=',', digits=0, scientific=FALSE))
@@ -30,6 +30,12 @@ inline_hook <- function(x){
 	} else {
     	paste(x)      
 	}
+
+}
+
+inline_hook <- function(x){
+	print(x)
+	custom_print(x)
 }
 knitr::knit_hooks$set(inline=inline_hook)
 

@@ -236,7 +236,7 @@ TABLES :	$(TAB)/coverage_by_category.pdf \
 
 
 #need to fix dependencies
-Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
+Schloss_Census2_mBio_2016.md : \
 						FIGSHARE \
 						SUMMARY_TABLES\
 						FIGURES \
@@ -244,12 +244,14 @@ Schloss_Census2_mBio_2015.pdf Schloss_Census2_mBio_2015.md : \
 						\
 						mbio.csl\
 						references.bib\
-						Schloss_Census2_mBio_2015.Rmd
-	R -e 'render("Schloss_Census2_mBio_2015.Rmd", clean=FALSE)'
-	mv Schloss_Census2_mBio_2015.knit.md Schloss_Census2_mBio_2015.md
-	rm Schloss_Census2_mBio_2015.utf8.md
+						Schloss_Census2_mBio_2016.Rmd
+	R -e 'render("Schloss_Census2_mBio_2016.Rmd", clean=FALSE)'
+	mv Schloss_Census2_mBio_2016.knit.md Schloss_Census2_mBio_2016.md
+	rm Schloss_Census2_mBio_2016.utf8.md
 
-write.paper :	Schloss_Census2_mBio_2015.pdf\
-				Schloss_Census2_mBio_2015.md\
+Schloss_Census2_mBio_2016.pdf : Schloss_Census2_mBio_2016.md
+
+write.paper :	Schloss_Census2_mBio_2016.pdf\
+				Schloss_Census2_mBio_2016.md\
 				$(NB)/Bacterial_data_acquisition.Rmd\
 				$(NB)/Archaeal_data_acquisition.Rmd
