@@ -32,7 +32,7 @@ total_lines <- b_n_taxa + a_n_taxa + 2
 
 pdf("results/figures/phylum_cultured.pdf",  width=3.75, height=4.75)
 par(mar=c(5,10,1.0,0.5), cex=0.7)
-plot(NA, xlim=c(0,50), ylim=c(1,total_lines), axes=F, xlab="", ylab="")
+plot(NA, xlim=c(0,70), ylim=c(1,total_lines), axes=F, xlab="", ylab="")
 abline(h=c(1:a_n_taxa, (a_n_taxa+3):total_lines), lty=3, col="gray")
 
 points(x=a_cultured$nseqs_precent, y=a_n_taxa:1, pch=1)
@@ -45,9 +45,9 @@ axis(2, at=total_lines:(a_n_taxa+3), label=rownames(b_cultured), las=1, tick=F)
 axis(2, at=a_n_taxa:1, label=rownames(a_cultured), las=1, tick=F)
 
 box()
-axis(1, at=seq(0,50,10), label=seq(0,50,10))
+axis(1, at=seq(0,100,10), label=seq(0,100,10))
 
-legend(x=20, y=15, legend=c("Cultured sequences", "Cultured OTUs"), pch=c(1, 19), bg="white", cex=0.8)
+legend(x=30, y=15, legend=c("Cultured sequences", "Cultured OTUs"), pch=c(1, 19), bg="white", cex=0.8)
 mtext("Bacteria", side=2, line=5, at=total_lines+1.2, las=1, font=2, cex=0.8, xpd=T)
 mtext("Archaea", side=2, line=5, at=a_n_taxa+1.2, las=1, font=2, cex=0.8)
 
