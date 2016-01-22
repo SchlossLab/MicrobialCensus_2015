@@ -396,10 +396,6 @@ spread_sheet_good <- full_spread_sheet[-which(rownames(full_spread_sheet) %in% b
 spread_sheet_good$date <- "2013-07-25"
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/bacteria.good.metadata", quote=TRUE, na="NA", sep="\t", col.names=F, append=T)
-
-#we'll output the sequence names so the sequences aren't included in the
-#rarefaction analysis
-write(rownames(spread_sheet_good), file="data/mothur/bacteria.sc_emirge.accnos")
 ```
 
 We'd also like to get the metadata from the EMIRGE data. We have an metadata file was created above with `code/get_emirge.metadata.sh` that we'll read in and concatenate to the end of `bacteria.good.metadata`.
@@ -410,10 +406,6 @@ bacteria_sequences <- read.table(file="data/mothur/emirge.bacteria.taxonomy", st
 bacteria_emirge_metadata <- emirge_metadata[bacteria_sequences$V1,]
 
 write.table(bacteria_emirge_metadata, file="data/mothur/bacteria.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
-
-#we'll output the sequence names so the sequences aren't included in the
-#rarefaction analysis
-write(rownames(bacteria_emirge_metadata), file="data/mothur/bacteria.sc_emirge.accnos", append=T)
 ```
 
 
@@ -504,7 +496,6 @@ metadata$cultured <- is_cultured(metadata)
 metadata$single_cell <- is_single_cell(metadata)
 metadata$emirge_pcr <- is_emirge_pcr(metadata)
 metadata$emirge_metag <- is_emirge_metag(metadata)
-
 
 
 #... and we output the metadata file...

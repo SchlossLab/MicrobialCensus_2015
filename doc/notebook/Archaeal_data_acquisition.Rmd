@@ -384,10 +384,6 @@ colnames(spread_sheet_good) <- gsub("\\.", "_", colnames(spread_sheet_good))
 spread_sheet_good$date <- "2013-07-25"
 
 write.table(spread_sheet_good[,colnames(metadata_good)], file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
-
-#we'll output the sequence names so the sequences aren't included in the
-#rarefaction analysis
-write(rownames(spread_sheet_good), file="data/mothur/archaea.sc_emirge.accnos")
 ```
 
 We'd also like to get the metadata from the EMIRGE data. We have an metadata file was created above with `code/get_emirge.metadata.sh` that we'll read in and concatenate to the end of `archaea.good.metadata`.
@@ -398,10 +394,6 @@ archaea_sequences <- read.table(file="data/mothur/emirge.archaea.taxonomy", stri
 archaea_emirge_metadata <- emirge_metadata[archaea_sequences$V1,]
 
 write.table(archaea_emirge_metadata, file="data/mothur/archaea.good.metadata", quote=TRUE, sep="\t", col.names=F, append=T)
-
-#we'll output the sequence names so the sequences aren't included in the
-#rarefaction analysis
-write(rownames(archaea_emirge_metadata), file="data/mothur/archaea.sc_emirge.accnos", append=T)
 ```
 
 Let's now take the big metadata file that we have and concatenate on the OTU assignment and taxonomy information:
