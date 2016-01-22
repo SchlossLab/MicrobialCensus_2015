@@ -9,7 +9,7 @@ geometry: margin=1.0in
 
 \captionsetup{labelformat=empty}
 
-**Table 1. Status of microbial census by habitat classifications and domain.** The isolation_source field from the SILVA reference database was manually curated to assign bacterial and archaeal sequences coarse and fine scale habitat classifications. We calculated the number of sequences and OTUs observed and the percent coverage on a sequence or OTU basis for each classification and domain.
+**Table 1. Status of microbial census by habitat classifications and domain.** The isolation_source field from the SILVA reference database was manually curated to assign bacterial and archaeal sequences coarse and fine scale habitat classifications. We calculated the number of sequences and OTUs observed and the percent coverage on a sequence or OTU basis for each classification and domain. Descriptions of each category are provided in Table S1.
 
 ```{r table1, results='asis', echo=FALSE, warning=FALSE, eval=TRUE}
 require(xtable, quietly=TRUE)
