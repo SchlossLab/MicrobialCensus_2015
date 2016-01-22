@@ -21,7 +21,7 @@ is_emirge_pcr <- function(db){
 	is_emirge_doi <- db$publication_doi %in% emirge_dois
 
 
-	gb <- gsub("^(.*)\\..*", "\\1", rownames(metdata))
+	gb <- gsub("^(.*)\\..*", "\\1", rownames(metadata))
 	search <- c(paste0("KC", 716084:731398), paste0("JX", 221725:226064))
 	is_emirge_gb <- gb %in% search
 
