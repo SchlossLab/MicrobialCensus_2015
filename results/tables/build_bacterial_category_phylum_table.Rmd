@@ -34,7 +34,7 @@ colnames(bacteria) <- c("", categories)
 
 colnames(bacteria) <- paste0("\\textbf{", colnames(bacteria), "}")
 
-caption <- "\\textbf{Supplementary Table 2. Frequency that each bacterial phylum was found across each of the environmental categories.}"
+caption <- "\\textbf{Supplementary Table 4. Frequency that each bacterial phylum was found across each of the environmental categories.}"
 
 composite <- xtable(bacteria, caption=caption, label="")
 

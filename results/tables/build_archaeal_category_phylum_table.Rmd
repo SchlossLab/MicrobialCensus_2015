@@ -34,7 +34,7 @@ colnames(archaea) <- c("", categories)
 
 colnames(archaea) <- paste0("\\textbf{", colnames(archaea), "}")
 
-caption <- "\\textbf{Supplementary Table 3. Frequency that each archaeal phylum was found across each of the environmental categories.}"
+caption <- "\\textbf{Supplementary Table 5. Frequency that each archaeal phylum was found across each of the environmental categories.}"
 
 composite <- xtable(archaea, caption=caption, label="")
 

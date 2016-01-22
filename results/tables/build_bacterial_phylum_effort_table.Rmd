@@ -27,7 +27,7 @@ data <- rbind(data, Total=c(total, "1.00"))
 data <- cbind(rownames(data), data)
 colnames(data) <- c("\\textbf{Phylum}",  "\\textbf{<2006 and Before}", "\\textbf{After 2006}", "\\textbf{Total}", "\\textbf{Ratio of Ratios}")
 
-caption <- "\\textbf{Supplementary Table 4. Frequency that each bacterial phylum was sequenced before and after 2006.}"
+caption <- "\\textbf{Supplementary Table 2. Frequency that each bacterial phylum was sequenced before and after 2006.}"
 
 composite <- xtable(data, caption=caption, label="")
 
