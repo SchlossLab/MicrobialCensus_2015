@@ -12,12 +12,12 @@ $(NB)/%_data_acquisition.Rmd:
 
 
 $(PROCESS)/bacteria.v123.metadata : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672195
+	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3678546
 	gunzip $@.gz
 
 
 $(PROCESS)/archaea.v123.metadata : #
-	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3672198
+	wget --no-check-certificate -O $@.gz https://ndownloader.figshare.com/files/3678552
 	gunzip $@.gz
 
 
