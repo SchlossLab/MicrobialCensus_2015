@@ -102,6 +102,7 @@
       </choose>
     </group>
   </macro>
+
   <macro name="locators">
     <choose>
       <if type="article-journal">
@@ -109,6 +110,7 @@
           <text variable="volume" font-weight="bold"/>
           <text variable="page"/>
         </group>
+		<text variable="doi" prefix=". doi:"/>
       </if>
     </choose>
   </macro>
