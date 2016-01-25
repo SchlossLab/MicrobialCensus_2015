@@ -248,10 +248,25 @@ Schloss_Census2_mBio_2016.md : \
 	R -e 'render("Schloss_Census2_mBio_2016.Rmd", clean=FALSE)'
 	mv Schloss_Census2_mBio_2016.knit.md Schloss_Census2_mBio_2016.md
 	rm Schloss_Census2_mBio_2016.utf8.md
+	mv Schloss_Census2_mBio_2016.pdf submission/Schloss_Census2_mBio_2016.pdf
 
-Schloss_Census2_mBio_2016.pdf : Schloss_Census2_mBio_2016.md
+submission/Schloss_Census2_mBio_2016.pdf : Schloss_Census2_mBio_2016.md
 
-write.paper :	Schloss_Census2_mBio_2016.pdf\
-				Schloss_Census2_mBio_2016.md\
+submission/table_1.pdf : $(TAB)/coverage_by_category.pdf
+	cp $^ $@
+
+submission/figure_packet.pdf : FIGURES
+	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $(FIG)/domain_rarefaction.pdf $(FIG)/time_course_figure.pdf $(FIG)/phylum_effort.pdf $(FIG)/category_phylum_heatmap.pdf $(FIG)/phylum_cultured.pdf $(FIG)/otu_overlap_by_method.pdf
+
+submission/supplement_packet.pdf : FIGURES
+	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $(TAB)/environmental_categories_table.pdf $(TAB)/bacterial_phylum_effort_table.pdf $(TAB)/archaeal_phylum_effort_table.pdf $(TAB)/bacterial_category_phylum_table.pdf $(TAB)/archaeal_category_phylum_table.pdf $(TAB)/bacterial_culture_effort_table.pdf $(TAB)/archaeal_culture_effort_table.pdf
+
+
+
+write.paper :	Schloss_Census2_mBio_2016.md\
+				submission/Schloss_Census2_mBio_2016.pdf\
+				submission/table_1.pdf\
+				submission/figure_packet.pdf\
+				submission/supplement_packet.pdf\
 				$(NB)/Bacterial_data_acquisition.Rmd\
 				$(NB)/Archaeal_data_acquisition.Rmd
