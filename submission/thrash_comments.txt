@@ -1,35 +1,88 @@
 Abstract- do we need to report more concrete results here? This sounds a lot more like what I imagined the "Importance" section to sound like. I'll defer to your judgement.
 
+> Yeah, I kind of had the same feeling. See what you think of what I've added. I've added some details and removed some other text to meet the 250 word limit.
+
+
 Line 79- I think this is actually Fig. 2A, which poses the question- do we need to rearrange the order of Figs 1 and 2?
+
+> You're right. Hmmm. I like the current flow of the Results section and how we have the figures ordered. Since this was a gratuitous citation of the figure, I'm going to drop it here and use it to bait the readers to read on.
+
 
 Lines 86, 106, 126- these headings are redundant and confusing. I propose we keep the first one (Line 86), remove the headings on lines 106 and 126, and create a new section heading on line 106 titled "Sequencing efforts are a source of bias in the census". The following two paragraphs for bacteria and archaea can then remain intact.
 
+> +1
+
+
 Line 143- where did this information come from? I'm wondering because I'm thinking about all the candidate phyla proposed by the Banfield group in the last couple years, and how we are supposed to account for that. For example, the PER phylum. Many of these have EMIRGE-based sequences to back up concatenated ribosomal protein trees. Similarly, the new Lokiarchaea are new Archaeal phyla, and I think there are others. If all we are reporting are new phylum designations that have appeared in SILVA, then that's ok, but we should add a couple words about that here.
+
+> This comes from the SILVA database. I've added a clause to the beginning of those two sentences to indicate this.
+
 
 Line 152- I would add, "...and encouragingly, show that some underrepresented phyla are becoming better sampled."
 
-Line 165- space btwn "to53.1" 
+> +1
+
+
+Line 165- space btwn "to53.1"
+
+> +1
+
 
 Line 170- code looks like it might not be working- there are two (N= )
 
+> Thanks for catching this - should be fixed now.
+
+
 Line 186- Figure 5?
+
+> +1
+
 
 Line 188- paragraph break at "Considering..."
 
-Lines 191-199- It looks as though these statments need modifying because the figure has changed. I can't find an older version, but what I wrote here before no longer applies to the current Figure 5. Only Firmicutes stand out as being having a higher percentage of sequences coming from cultures than would be expected based on the number of cultured OTUs. Can you check to see why this changed so much? Is this from the introduction of the PCR-EMIRGE sequences? If so, that seems sketchy to me considering how poorly they matched known taxa....
+> +1
+
+
+Lines 191-199- It looks as though these statements need modifying because the figure has changed. I can't find an older version, but what I wrote here before no longer applies to the current Figure 5. Only Firmicutes stand out as being having a higher percentage of sequences coming from cultures than would be expected based on the number of cultured OTUs. Can you check to see why this changed so much? Is this from the introduction of the PCR-EMIRGE sequences? If so, that seems sketchy to me considering how poorly they matched known taxa....
+
+> Good catch. I didn't realize it at the time, but there were 5 or so EMIRGE studies that were already in the SILVA database that were included in the previous analysis. I also rewrote the code that binned sequences as being cultured, PCR'd, single cell, or from the two EMIRGE approaches. I've edited the text in this location.
+
 
 Line 211- change "using" to "with"
 
+> +1
+
+
 Lines 213-14, delete "culture-independent amplification and cultivation-based" from the sentence
+
+> +1
+
 
 Line 217- what does "met our criteria" mean?
 
+> I axed this clause.
+
+
 Line 220- replace "cultivation or PCR-based" with "previous"
+
+> +1
+
 
 Line 221- six studies mentioned, only one reference
 
+> +1
+
+
 Line 238- replace "our current methods and sampling schemes would never reach these estimates" with "our current sampling methods will prevent us from acquiring full-length sequences for that level of diversity."
+
+> +1
+
 
 Line 244- "length" is misspelled
 
+> +1
+
+
 Line 253- replace "is" with "are"
+
+> +1
