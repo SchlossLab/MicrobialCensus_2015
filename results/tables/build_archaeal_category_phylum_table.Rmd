@@ -19,8 +19,10 @@ categories <- c(AE="Aerosol", AQB="Brackish", AQBS="Brackish sediment", AQF="Fre
 
 
 data <- read.table(file="data/process/phylum_category_counts.tsv", header=T)
+archaea <- data[data$domain=="archaea",]
+rownames(archaea) <- archaea$phylum
+archaea <- archaea[,-c(1,2)]
 
-archaea <- data[data$domain=="archaea",-1]
 archaea <- archaea[order(archaea$total, decreasing=T), names(categories)]
 colnames(archaea) <- gsub("total", "Total", colnames(archaea))
 rownames(archaea) <- gsub("Candidate_division_", "", rownames(archaea))
