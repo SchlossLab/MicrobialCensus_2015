@@ -258,8 +258,26 @@ submission/table_1.pdf : $(TAB)/coverage_by_category.pdf
 submission/figure_packet.pdf : FIGURES
 	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $(FIG)/domain_rarefaction.pdf $(FIG)/time_course_figure.pdf $(FIG)/phylum_effort.pdf $(FIG)/category_phylum_heatmap.pdf $(FIG)/phylum_cultured.pdf $(FIG)/otu_overlap_by_method.pdf
 
-submission/supplement_packet.pdf : FIGURES
-	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $(TAB)/environmental_categories_table.pdf $(TAB)/bacterial_phylum_effort_table.pdf $(TAB)/archaeal_phylum_effort_table.pdf $(TAB)/bacterial_category_phylum_table.pdf $(TAB)/archaeal_category_phylum_table.pdf $(TAB)/bacterial_culture_effort_table.pdf $(TAB)/archaeal_culture_effort_table.pdf
+submission/table_s1.pdf : $(TAB)/environmental_categories_table.pdf
+	cp $^ $@
+
+submission/table_s2.pdf : $(TAB)/bacterial_phylum_effort_table.pdf
+	cp $^ $@
+
+submission/table_s3.pdf : $(TAB)/archaeal_phylum_effort_table.pdf
+	cp $^ $@
+
+submission/table_s4.pdf : $(TAB)/bacterial_category_phylum_table.pdf
+	cp $^ $@
+
+submission/table_s5.pdf : $(TAB)/archaeal_category_phylum_table.pdf
+	cp $^ $@
+
+submission/table_s6.pdf : $(TAB)/bacterial_culture_effort_table.pdf
+	cp $^ $@
+
+submission/table_s7.pdf : $(TAB)/archaeal_culture_effort_table.pdf
+	cp $^ $@
 
 
 
@@ -267,6 +285,12 @@ write.paper :	Schloss_Census2_mBio_2016.md\
 				submission/Schloss_Census2_mBio_2016.pdf\
 				submission/table_1.pdf\
 				submission/figure_packet.pdf\
-				submission/supplement_packet.pdf\
+				submission/table_s1.pdf\
+				submission/table_s2.pdf\
+				submission/table_s3.pdf\
+				submission/table_s4.pdf\
+				submission/table_s5.pdf\
+				submission/table_s6.pdf\
+				submission/table_s7.pdf\
 				$(NB)/Bacterial_data_acquisition.Rmd\
 				$(NB)/Archaeal_data_acquisition.Rmd
