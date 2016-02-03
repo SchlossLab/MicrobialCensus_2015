@@ -133,7 +133,7 @@ where S~t~ is the total number of OTUs. Whereas Good’s coverage estimates the 
 
 
 ***Data analysis.***
-Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Schloss2009], and R (v.3.2.2) [@language2015]. Within R we utilized the knitr (v.1.10.5), wesanderson (v.0.3.3.99), and openxlsx (v. 2.4.0) packages. A reproducible version of this manuscript including data extraction and processing is available at https://www.github.com/SchlossLab/Schloss_Census2_mBio_2016.
+Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Schloss2009], and R (v.3.2.0) [@language2015]. Within R we utilized the knitr (v.1.10.5), wesanderson (v.0.3.2), and openxlsx (v. 2.4.0) packages. A reproducible version of this manuscript including data extraction and processing is available at https://www.github.com/SchlossLab/Schloss_Census2_mBio_2016.
 
 
 \newpage
