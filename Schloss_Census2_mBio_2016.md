@@ -156,6 +156,8 @@ Our analysis made use of ARB (OS X v.6.0) [@Pruesse2007], mothur (v.1.37.0) [@Sc
 
 **Figure 6. The percentage of bacterial and archaeal OTUs found by single cell genomics and EMIRGE using PCR or metagenomics that were also detected by other.** The bars comparing a method to itself indicate the percentage of OTUs that were only detected by that method.
 
+\newpage
+
 **Supplemental Table 1. Description of environmental categories and the criteria used to assign sequences to each category.**
 
 **Supplementary Table 2. Frequency that each bacterial phylum was sequenced before and after 2006.**
