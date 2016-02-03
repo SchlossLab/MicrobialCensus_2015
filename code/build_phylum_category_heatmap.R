@@ -27,7 +27,7 @@ rownames(archaea_top) <- gsub("_", " ", rownames(archaea_top))
 
 
 
-pdf(file="results/figures/category_phylum_heatmap.pdf", width=7.5, height=5)
+cairo_ps(file="results/figures/category_phylum_heatmap.eps", width=7.5, height=5)
 
 layout(matrix(c(3,1,2), nrow=1), widths=c(0.5,1,1))
 par(mar=c(11, 0.5, 0.5, 0.5))

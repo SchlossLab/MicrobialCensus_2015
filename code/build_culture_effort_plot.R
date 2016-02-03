@@ -30,7 +30,7 @@ a_n_taxa <- nrow(a_cultured)
 
 total_lines <- b_n_taxa + a_n_taxa + 2
 
-pdf("results/figures/phylum_cultured.pdf",  width=3.75, height=4.75)
+cairo_ps("results/figures/phylum_cultured.eps",  width=3.75, height=4.75)
 par(mar=c(5,10,1.0,0.5), cex=0.7)
 plot(NA, xlim=c(0,70), ylim=c(1,total_lines), axes=F, xlab="", ylab="")
 abline(h=c(1:a_n_taxa, (a_n_taxa+3):total_lines), lty=3, col="gray")

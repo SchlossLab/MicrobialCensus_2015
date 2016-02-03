@@ -119,7 +119,7 @@ SUMMARY_TABLES: $(PROCESS)/coverage_by_category_and_time.tsv \
 
 
 #Figure 1
-$(FIG)/domain_rarefaction.pdf : code/build_domain_rarefaction_plot.R\
+$(FIG)/domain_rarefaction.eps : code/build_domain_rarefaction_plot.R\
 								$(PROCESS)/archaea.all_rarefaction.tsv\
 								$(PROCESS)/archaea.env_rarefaction.tsv\
 								$(PROCESS)/bacteria.all_rarefaction.tsv\
@@ -127,40 +127,40 @@ $(FIG)/domain_rarefaction.pdf : code/build_domain_rarefaction_plot.R\
 	R -e 'source("code/build_domain_rarefaction_plot.R")'
 
 #Figure 2
-$(FIG)/time_course_figure.pdf : code/build_time_course_plots.R\
+$(FIG)/time_course_figure.eps : code/build_time_course_plots.R\
 								$(PROCESS)/by_year_analysis.tsv
 	R -e 'source("code/build_time_course_plots.R")'
 
 #Figure 3
-$(FIG)/category_phylum_heatmap.pdf : code/build_phylum_category_heatmap.R\
+$(FIG)/category_phylum_heatmap.eps : code/build_phylum_category_heatmap.R\
 									$(PROCESS)/phylum_category_counts.tsv
 	R -e 'source("code/build_phylum_category_heatmap.R")'
 
 #Figure 4
-$(FIG)/phylum_effort.pdf : code/build_phylum_effort_plot.R\
+$(FIG)/phylum_effort.eps : code/build_phylum_effort_plot.R\
 							$(PROCESS)/bacteria.phyla.counts.tsv\
 						 	$(PROCESS)/archaea.phyla.counts.tsv
 	R -e 'source("code/build_phylum_effort_plot.R")'
 
 #Figure 5
-$(FIG)/phylum_cultured.pdf : code/build_culture_effort_plot.R\
+$(FIG)/phylum_cultured.eps : code/build_culture_effort_plot.R\
 							$(PROCESS)/bacteria.cultured_by_time_counts.tsv\
 							$(PROCESS)/archaea.cultured_by_time_counts.tsv
 	R -e 'source("code/build_culture_effort_plot.R")'
 
 #Figure 6
 #xxx
-$(FIG)/otu_overlap_by_method.pdf : code/build_otu_overlap_by_method_figure.R\
+$(FIG)/otu_overlap_by_method.eps : code/build_otu_overlap_by_method_figure.R\
 							$(PROCESS)/otu_overlap_by_method.tsv
 	R -e 'source("code/build_otu_overlap_by_method_figure.R")'
 
 
-FIGURES :	$(FIG)/domain_rarefaction.pdf \
-			$(FIG)/time_course_figure.pdf \
-			$(FIG)/category_phylum_heatmap.pdf \
-			$(FIG)/phylum_effort.pdf \
-			$(FIG)/phylum_cultured.pdf \
-			$(FIG)/otu_overlap_by_method.pdf
+FIGURES :	$(FIG)/domain_rarefaction.eps \
+			$(FIG)/time_course_figure.eps \
+			$(FIG)/category_phylum_heatmap.eps \
+			$(FIG)/phylum_effort.eps \
+			$(FIG)/phylum_cultured.eps \
+			$(FIG)/otu_overlap_by_method.eps
 
 
 
@@ -252,11 +252,30 @@ Schloss_Census2_mBio_2016.md : \
 
 submission/Schloss_Census2_mBio_2016.pdf : Schloss_Census2_mBio_2016.md
 
+submission/Schloss_Census2_mBio_2016_w_table.pdf : submission/Schloss_Census2_mBio_2016.pdf submission/table_1.pdf
+	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $^
+
+
 submission/table_1.pdf : $(TAB)/coverage_by_category.pdf
 	cp $^ $@
 
-submission/figure_packet.pdf : FIGURES
-	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ $(FIG)/domain_rarefaction.pdf $(FIG)/time_course_figure.pdf $(FIG)/phylum_effort.pdf $(FIG)/category_phylum_heatmap.pdf $(FIG)/phylum_cultured.pdf $(FIG)/otu_overlap_by_method.pdf
+submission/figure_1.eps : $(FIG)/domain_rarefaction.eps
+	cp $^ $@
+
+submission/figure_2.eps : $(FIG)/time_course_figure.eps
+	cp $^ $@
+
+submission/figure_3.eps : $(FIG)/phylum_effort.eps
+	cp $^ $@
+
+submission/figure_4.eps : $(FIG)/category_phylum_heatmap.eps
+	cp $^ $@
+
+submission/figure_5.eps :  $(FIG)/phylum_cultured.eps
+	cp $^ $@
+
+submission/figure_6.eps :  $(FIG)/otu_overlap_by_method.eps
+	cp $^ $@
 
 submission/table_s1.pdf : $(TAB)/environmental_categories_table.pdf
 	cp $^ $@
@@ -283,8 +302,14 @@ submission/table_s7.pdf : $(TAB)/archaeal_culture_effort_table.pdf
 
 write.paper :	Schloss_Census2_mBio_2016.md\
 				submission/Schloss_Census2_mBio_2016.pdf\
+				submission/Schloss_Census2_mBio_2016_w_table.pdf\
 				submission/table_1.pdf\
-				submission/figure_packet.pdf\
+				submission/figure_1.eps\
+				submission/figure_2.eps\
+				submission/figure_3.eps\
+				submission/figure_4.eps\
+				submission/figure_5.eps\
+				submission/figure_6.eps\
 				submission/table_s1.pdf\
 				submission/table_s2.pdf\
 				submission/table_s3.pdf\

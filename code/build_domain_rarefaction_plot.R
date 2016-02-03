@@ -53,7 +53,7 @@ arch_domain <- read.table(file='data/process/archaea.all_rarefaction.tsv', heade
 bact_category <- read.table(file='data/process/bacteria.env_rarefaction.tsv', header=T)
 arch_category <- read.table(file='data/process/archaea.env_rarefaction.tsv', header=T)
 
-pdf('results/figures/domain_rarefaction.pdf', width=7.5, height=7.5)
+cairo_ps('results/figures/domain_rarefaction.eps', width=7.5, height=7.5)
 par(mar=c(2.5,4,0.5,0.5))
 
 layout(matrix(c(5,1,2,5,3,4,0,6,6), nrow=3, byrow=T), widths=c(0.1,1,1), heights=c(1, 1, 0.10))

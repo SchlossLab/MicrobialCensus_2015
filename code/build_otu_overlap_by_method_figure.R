@@ -23,7 +23,7 @@ plot_overlap <- function(domain){
 overlap <- read.table(file="data/process/otu_overlap_by_method.tsv", header=T)
 
 
-pdf(file="results/figures/otu_overlap_by_method.pdf", width=6.0, height=5.0)
+cairo_ps(file="results/figures/otu_overlap_by_method.eps", width=6.0, height=5.0)
 
 layout(matrix(c(3,1,3,2,0,4), nrow=3, byrow=T), widths=c(0.1,1), heights=c(1, 1, 0.18))
 plot_overlap("bacteria")

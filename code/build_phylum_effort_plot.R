@@ -18,7 +18,7 @@ names(arch_ratios) <- gsub("Miscellaneous_Crenarchaeotic_Group", "Misc. Crenarch
 arch_ratios <- sort(arch_ratios)
 n_arch_ratios <- length(arch_ratios)
 
-pdf(file="results/figures/phylum_effort.pdf", width=3.75, height=5)
+cairo_ps(file="results/figures/phylum_effort.eps", width=3.75, height=5)
 	par(mar=c(5,10, 1.0, 0.5), cex=0.7)
 
 	plot("", ylim=c(1,n_bact_ratios+n_arch_ratios+2), xlim=c(-3,4), type="n", xlab="", ylab="", axes=F)
