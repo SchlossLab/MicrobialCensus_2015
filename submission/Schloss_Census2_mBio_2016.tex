@@ -41,15 +41,6 @@
             linkcolor=magenta,
             pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{graphicx,grffile}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
@@ -369,15 +360,15 @@ environmental categories based on the metadata that accompanied the
 SILVA database (Tables 1). Across these broad categories there was wide
 variation in the number of sequences that have been sampled. Among
 bacterial sequences, the three best represented groups were from
-zoonotic (N=804,585), aquatic (N=214,085), and built environment
+host-associated (N=804,585), aquatic (N=214,085), and built environment
 (N=108,799) sources. Among the archaeal sequences the three best
 represented groups were the same, but ordered differently: aquatic
-(N=34,400), built environment (N=7,286), and zoonotic (N=5,597) (Figure
-1C,D)). For both domains, soil samples were the fourth most represented
-category (bacteria: 74,870; archaea: 2,517). The orders of these
-categories was surprising considering soil and aquatic environments
-harbor the most microbial biomass and biodiversity (21). In spite of
-wide variation in sequencing depth and coverage (Table 1), the
+(N=34,400), built environment (N=7,286), and host-associated (N=5,597)
+(Figure 1C,D)). For both domains, soil samples were the fourth most
+represented category (bacteria: 74,870; archaea: 2,517). The orders of
+these categories was surprising considering soil and aquatic
+environments harbor the most microbial biomass and biodiversity (21). In
+spite of wide variation in sequencing depth and coverage (Table 1), the
 interquartile range across the fine-level categories for the bacterial
 OTU coverage only varied between 34.5 to 40.0 (median coverage=36.7\%).
 The interquartile range in the OTU coverage by environment for the
@@ -553,7 +544,7 @@ sequences, such as PacBio and potentially Oxford Nanopore. Initial
 application of PacBio to sequencing full-length fragments suggests that
 the sequences suffered from a high error rate (39). To obtain a more
 direct investigation of rare organisms, microbiologists are developing
-novel cultivation and single cell genomics techniques (\textbf{???},
+novel cultivation and single cell genomics techniques ({\textbf{???}},
 40--42). The ability to enrich or select for specific populations using
 these approaches could limit the need for redundant brute force
 sequencing. These approaches are still in active development, and we
@@ -658,8 +649,8 @@ novel, and high OTU coverage means that any new OTU is unlikely to be
 novel.
 
 \textbf{\emph{Data analysis.}} Our analysis made use of ARB (OS X v.6.0)
-(43), mothur (v.1.37.0) (44), and R (v.3.2.3) (47). Within R we utilized
-the knitr (v.1.12.3), wesanderson (v.0.3.3.99), and openxlsx (v. 2.4.0)
+(43), mothur (v.1.37.0) (44), and R (v.3.2.0) (47). Within R we utilized
+the knitr (v.1.10.5), wesanderson (v.0.3.2), and openxlsx (v. 2.4.0)
 packages. A reproducible version of this manuscript including data
 extraction and processing is available at
 \url{https://www.github.com/SchlossLab/Schloss_Census2_mBio_2016}.
@@ -739,11 +730,11 @@ OTU was retrieved by cultivation or by culture-independent methods.}
 
 \newpage
 
+\hyperdef{}{references}{\label{references}}
 \subsection*{References}\label{references}
 \addcontentsline{toc}{subsection}{References}
 
-\hypertarget{refs}{}
-\hypertarget{ref-McGill2007}{}
+\hyperdef{}{ref-McGill2007}{\label{ref-McGill2007}}
 1. \textbf{McGill BJ}, \textbf{Etienne RS}, \textbf{Gray JS},
 \textbf{Alonso D}, \textbf{Anderson MJ}, \textbf{Benecha HK},
 \textbf{Dornelas M}, \textbf{Enquist BJ}, \textbf{Green JL}, \textbf{He
@@ -752,62 +743,60 @@ F}, \textbf{Hurlbert AH}, \textbf{Magurran AE}, \textbf{Marquet PA},
 \textbf{Ugland KI}, \textbf{White EP}. 2007. Species abundance
 distributions: Moving beyond single prediction theories to integration
 within an ecological framework. Ecology Letters \textbf{10}:995--1015.
-doi:\href{https://doi.org/10.1111/j.1461-0248.2007.01094.x}{10.1111/j.1461-0248.2007.01094.x}.
+doi:\url{http://doi.org/10.1111/j.1461-0248.2007.01094.x}.
 
-\hypertarget{ref-Hubbell2001}{}
+\hyperdef{}{ref-Hubbell2001}{\label{ref-Hubbell2001}}
 2. \textbf{Hubbell SP}. 2001. A Unified Theory of Biodiversity and
 Biogeography. Princeton University Press, Princeton.
 
-\hypertarget{ref-Konstantinidis2006}{}
+\hyperdef{}{ref-Konstantinidis2006}{\label{ref-Konstantinidis2006}}
 3. \textbf{Konstantinidis KT}, \textbf{Ramette A}, \textbf{Tiedje JM}.
 2006. The bacterial species definition in the genomic era. Philosophical
 Transactions of the Royal Society B: Biological Sciences
 \textbf{361}:1929--1940.
-doi:\href{https://doi.org/10.1098/rstb.2006.1920}{10.1098/rstb.2006.1920}.
+doi:\url{http://doi.org/10.1098/rstb.2006.1920}.
 
-\hypertarget{ref-Oren2013}{}
+\hyperdef{}{ref-Oren2013}{\label{ref-Oren2013}}
 4. \textbf{Oren A}, \textbf{Garrity GM}. 2013. Then and now: A
 systematic review of the systematics of prokaryotes in the last
 80~years. Antonie van Leeuwenhoek \textbf{106}:43--56.
-doi:\href{https://doi.org/10.1007/s10482-013-0084-1}{10.1007/s10482-013-0084-1}.
+doi:\url{http://doi.org/10.1007/s10482-013-0084-1}.
 
-\hypertarget{ref-Brosius1978}{}
+\hyperdef{}{ref-Brosius1978}{\label{ref-Brosius1978}}
 5. \textbf{Brosius J}, \textbf{Palmer ML}, \textbf{Kennedy PJ},
 \textbf{Noller HF}. 1978. Complete nucleotide sequence of a 16S
 ribosomal RNA gene from \emph{Escherichia coli.} Proceedings of the
 National Academy of Sciences \textbf{75}:4801--4805.
-doi:\href{https://doi.org/10.1073/pnas.75.10.4801}{10.1073/pnas.75.10.4801}.
+doi:\url{http://doi.org/10.1073/pnas.75.10.4801}.
 
-\hypertarget{ref-Schloss2004}{}
+\hyperdef{}{ref-Schloss2004}{\label{ref-Schloss2004}}
 6. \textbf{Schloss PD}, \textbf{Handelsman J}. 2004. Status of the
 microbial census. Microbiology and Molecular Biology Reviews
 \textbf{68}:686--691.
-doi:\href{https://doi.org/10.1128/mmbr.68.4.686-691.2004}{10.1128/mmbr.68.4.686-691.2004}.
+doi:\url{http://doi.org/10.1128/mmbr.68.4.686-691.2004}.
 
-\hypertarget{ref-Dykhuizen1998}{}
+\hyperdef{}{ref-Dykhuizen1998}{\label{ref-Dykhuizen1998}}
 7. \textbf{Dykhuizen DE}. 1998. Santa Rosalia revisited: Why are there
 so many species of bacteria? Antonie van Leeuwenhoek \textbf{73}:25--33.
-doi:\href{https://doi.org/10.1023/a:1000665216662}{10.1023/a:1000665216662}.
+doi:\url{http://doi.org/10.1023/a:1000665216662}.
 
-\hypertarget{ref-Curtis2002}{}
+\hyperdef{}{ref-Curtis2002}{\label{ref-Curtis2002}}
 8. \textbf{Curtis TP}, \textbf{Sloan WT}, \textbf{Scannell JW}. 2002.
 Estimating prokaryotic diversity and its limits. Proceedings of the
 National Academy of Sciences \textbf{99}:10494--10499.
-doi:\href{https://doi.org/10.1073/pnas.142680199}{10.1073/pnas.142680199}.
+doi:\url{http://doi.org/10.1073/pnas.142680199}.
 
-\hypertarget{ref-HMP2012}{}
+\hyperdef{}{ref-HMP2012}{\label{ref-HMP2012}}
 9. \textbf{The Human Microbiome Consortium}. 2012. Structure, function
 and diversity of the healthy human microbiome. Nature
-\textbf{486}:207--214.
-doi:\href{https://doi.org/10.1038/nature11234}{10.1038/nature11234}.
+\textbf{486}:207--214. doi:\url{http://doi.org/10.1038/nature11234}.
 
-\hypertarget{ref-Gilbert2014}{}
+\hyperdef{}{ref-Gilbert2014}{\label{ref-Gilbert2014}}
 10. \textbf{Gilbert JA}, \textbf{Jansson JK}, \textbf{Knight R}. 2014.
 The Earth Microbiome Project: Successes and aspirations. BMC Biology
-\textbf{12}:69.
-doi:\href{https://doi.org/10.1186/s12915-014-0069-1}{10.1186/s12915-014-0069-1}.
+\textbf{12}:69. doi:\url{http://doi.org/10.1186/s12915-014-0069-1}.
 
-\hypertarget{ref-AmaralZettler2010}{}
+\hyperdef{}{ref-AmaralZettler2010}{\label{ref-AmaralZettler2010}}
 11. \textbf{Amaral-Zettler L}, \textbf{Artigas LF}, \textbf{Baross J},
 \textbf{P.A. LB}, \textbf{Boetius A}, \textbf{Chandramohan D},
 \textbf{Herndl G}, \textbf{Kogure K}, \textbf{Neal P},
@@ -816,23 +805,22 @@ doi:\href{https://doi.org/10.1186/s12915-014-0069-1}{10.1186/s12915-014-0069-1}.
 M}. 2010. A global census of marine microbes, pp. 221--245. \emph{In}
 Life in the worlds oceans. Wiley-Blackwell.
 
-\hypertarget{ref-Youssef2009}{}
+\hyperdef{}{ref-Youssef2009}{\label{ref-Youssef2009}}
 12. \textbf{Youssef N}, \textbf{Sheik CS}, \textbf{Krumholz LR},
 \textbf{Najar FZ}, \textbf{Roe BA}, \textbf{Elshahed MS}. 2009.
 Comparison of species richness estimates obtained using nearly complete
 fragments and simulated pyrosequencing-generated fragments in 16S rRNA
 gene-based environmental surveys. Applied and Environmental Microbiology
-\textbf{75}:5227--5236.
-doi:\href{https://doi.org/10.1128/aem.00592-09}{10.1128/aem.00592-09}.
+\textbf{75}:5227--5236. doi:\url{http://doi.org/10.1128/aem.00592-09}.
 
-\hypertarget{ref-Schloss2010}{}
+\hyperdef{}{ref-Schloss2010}{\label{ref-Schloss2010}}
 13. \textbf{Schloss PD}. 2010. The effects of alignment quality,
 distance calculation method, sequence filtering, and region on the
 analysis of 16S rRNA gene-based studies. PLoS Comput Biol
 \textbf{6}:e1000844.
-doi:\href{https://doi.org/10.1371/journal.pcbi.1000844}{10.1371/journal.pcbi.1000844}.
+doi:\url{http://doi.org/10.1371/journal.pcbi.1000844}.
 
-\hypertarget{ref-Alivisatos2015}{}
+\hyperdef{}{ref-Alivisatos2015}{\label{ref-Alivisatos2015}}
 14. \textbf{Alivisatos AP}, \textbf{Blaser MJ}, \textbf{Brodie EL},
 \textbf{Chun M}, \textbf{Dangl JL}, \textbf{Donohue TJ},
 \textbf{Dorrestein PC}, \textbf{Gilbert JA}, \textbf{Green JL},
@@ -840,9 +828,9 @@ doi:\href{https://doi.org/10.1371/journal.pcbi.1000844}{10.1371/journal.pcbi.100
 \textbf{McFall-Ngai MJ}, \textbf{Miller JF}, \textbf{Pollard KS},
 \textbf{Ruby EG}, \textbf{Taha SA}. 2015. A unified initiative to
 harness Earth's microbiomes. Science \textbf{350}:507--508.
-doi:\href{https://doi.org/10.1126/science.aac8480}{10.1126/science.aac8480}.
+doi:\url{http://doi.org/10.1126/science.aac8480}.
 
-\hypertarget{ref-Liux5f2012}{}
+\hyperdef{}{ref-Liux5f2012}{\label{ref-Liux5f2012}}
 15. \textbf{Li E}, \textbf{Hamm CM}, \textbf{Gulati AS}, \textbf{Sartor
 RB}, \textbf{Chen H}, \textbf{Wu X}, \textbf{Zhang T}, \textbf{Rohlf
 FJ}, \textbf{Zhu W}, \textbf{Gu C}, \textbf{Robertson CE}, \textbf{Pace
@@ -851,27 +839,27 @@ NR}, \textbf{Boedeker EC}, \textbf{Harpaz N}, \textbf{Yuan J},
 Inflammatory bowel diseases phenotype, textitC. difficile and NOD2
 genotype are associated with shifts in human ileum associated microbial
 composition. PLoS ONE \textbf{7}:e26284.
-doi:\href{https://doi.org/10.1371/journal.pone.0026284}{10.1371/journal.pone.0026284}.
+doi:\url{http://doi.org/10.1371/journal.pone.0026284}.
 
-\hypertarget{ref-Kongux5f2012}{}
+\hyperdef{}{ref-Kongux5f2012}{\label{ref-Kongux5f2012}}
 16. \textbf{Kong HH}, \textbf{Oh J}, \textbf{Deming C}, \textbf{Conlan
 S}, \textbf{Grice EA}, \textbf{Beatson MA}, \textbf{Nomicos E},
 \textbf{Polley EC}, \textbf{Komarow HD}, \textbf{Murray PR},
 \textbf{Turner ML}, \textbf{Segre JA}. 2012. Temporal shifts in the skin
 microbiome associated with disease flares and treatment in children with
 atopic dermatitis. Genome Research \textbf{22}:850--859.
-doi:\href{https://doi.org/10.1101/gr.131029.111}{10.1101/gr.131029.111}.
+doi:\url{http://doi.org/10.1101/gr.131029.111}.
 
-\hypertarget{ref-Griceux5f2009}{}
+\hyperdef{}{ref-Griceux5f2009}{\label{ref-Griceux5f2009}}
 17. \textbf{Grice EA}, \textbf{Kong HH}, \textbf{Conlan S},
 \textbf{Deming CB}, \textbf{Davis J}, \textbf{Young AC},
 \textbf{Bouffard GG}, \textbf{Blakesley RW}, \textbf{Murray PR},
 \textbf{Green ED}, \textbf{Turner ML}, \textbf{Segre JA}. 2009.
 Topographical and temporal diversity of the human skin microbiome.
 Science \textbf{324}:1190--1192.
-doi:\href{https://doi.org/10.1126/science.1171700}{10.1126/science.1171700}.
+doi:\url{http://doi.org/10.1126/science.1171700}.
 
-\hypertarget{ref-Griceux5f2010}{}
+\hyperdef{}{ref-Griceux5f2010}{\label{ref-Griceux5f2010}}
 18. \textbf{Grice EA}, \textbf{Snitkin ES}, \textbf{Yockey LJ},
 \textbf{Bermudez DM}, \textbf{Liechty KW}, \textbf{Segre JA},
 \textbf{Mullikin J}, \textbf{Blakesley R}, \textbf{Young A}, \textbf{Chu
@@ -889,32 +877,32 @@ G}, \textbf{Ramsahoye C}, \textbf{Lovett S}, \textbf{Han J},
 Longitudinal shift in diabetic wound microbiota correlates with
 prolonged skin defense response. Proceedings of the National Academy of
 Sciences \textbf{107}:14799--14804.
-doi:\href{https://doi.org/10.1073/pnas.1004204107}{10.1073/pnas.1004204107}.
+doi:\url{http://doi.org/10.1073/pnas.1004204107}.
 
-\hypertarget{ref-Kirkux5fHarrisux5f2012}{}
+\hyperdef{}{ref-Kirkux5fHarrisux5f2012}{\label{ref-Kirkux5fHarrisux5f2012}}
 19. \textbf{Harris JK}, \textbf{Caporaso JG}, \textbf{Walker JJ},
 \textbf{Spear JR}, \textbf{Gold NJ}, \textbf{Robertson CE},
 \textbf{Hugenholtz P}, \textbf{Goodrich J}, \textbf{McDonald D},
 \textbf{Knights D}, \textbf{Marshall P}, \textbf{Tufo H}, \textbf{Knight
 R}, \textbf{Pace NR}. 2012. Phylogenetic stratigraphy in the guerrero
 negro hypersaline microbial mat. The ISME Journal \textbf{7}:50--60.
-doi:\href{https://doi.org/10.1038/ismej.2012.79}{10.1038/ismej.2012.79}.
+doi:\url{http://doi.org/10.1038/ismej.2012.79}.
 
-\hypertarget{ref-Sogin2006}{}
+\hyperdef{}{ref-Sogin2006}{\label{ref-Sogin2006}}
 20. \textbf{Sogin ML}, \textbf{Morrison HG}, \textbf{Huber JA},
 \textbf{Welch DM}, \textbf{Huse SM}, \textbf{Neal PR}, \textbf{Arrieta
 JM}, \textbf{Herndl GJ}. 2006. Microbial diversity in the deep sea and
 the underexplored ``rare biosphere''. Proceedings of the National
 Academy of Sciences \textbf{103}:12115--12120.
-doi:\href{https://doi.org/10.1073/pnas.0605127103}{10.1073/pnas.0605127103}.
+doi:\url{http://doi.org/10.1073/pnas.0605127103}.
 
-\hypertarget{ref-Whitman1998}{}
+\hyperdef{}{ref-Whitman1998}{\label{ref-Whitman1998}}
 21. \textbf{Whitman WB}, \textbf{Coleman DC}, \textbf{Wiebe WJ}. 1998.
 Prokaryotes: The unseen majority. Proceedings of the National Academy of
 Sciences \textbf{95}:6578--6583.
-doi:\href{https://doi.org/10.1073/pnas.95.12.6578}{10.1073/pnas.95.12.6578}.
+doi:\url{http://doi.org/10.1073/pnas.95.12.6578}.
 
-\hypertarget{ref-Rinke2013}{}
+\hyperdef{}{ref-Rinke2013}{\label{ref-Rinke2013}}
 22. \textbf{Rinke C}, \textbf{Schwientek P}, \textbf{Sczyrba A},
 \textbf{Ivanova NN}, \textbf{Anderson IJ}, \textbf{Cheng J-F},
 \textbf{Darling A}, \textbf{Malfatti S}, \textbf{Swan BK}, \textbf{Gies
@@ -923,24 +911,23 @@ EA}, \textbf{Dodsworth JA}, \textbf{Hedlund BP}, \textbf{Tsiamis G},
 SJ}, \textbf{Kyrpides NC}, \textbf{Stepanauskas R}, \textbf{Rubin EM},
 \textbf{Hugenholtz P}, \textbf{Woyke T}. 2013. Insights into the
 phylogeny and coding potential of microbial dark matter. Nature
-\textbf{499}:431--437.
-doi:\href{https://doi.org/10.1038/nature12352}{10.1038/nature12352}.
+\textbf{499}:431--437. doi:\url{http://doi.org/10.1038/nature12352}.
 
-\hypertarget{ref-Miller2011}{}
+\hyperdef{}{ref-Miller2011}{\label{ref-Miller2011}}
 23. \textbf{Miller CS}, \textbf{Baker BJ}, \textbf{Thomas BC},
 \textbf{Singer SW}, \textbf{Banfield JF}. 2011. EMIRGE: Reconstruction
 of full-length ribosomal genes from microbial community short read
 sequencing data. Genome Biol \textbf{12}:R44.
-doi:\href{https://doi.org/10.1186/gb-2011-12-5-r44}{10.1186/gb-2011-12-5-r44}.
+doi:\url{http://doi.org/10.1186/gb-2011-12-5-r44}.
 
-\hypertarget{ref-Miller2013}{}
+\hyperdef{}{ref-Miller2013}{\label{ref-Miller2013}}
 24. \textbf{Miller CS}, \textbf{Handley KM}, \textbf{Wrighton KC},
 \textbf{Frischkorn KR}, \textbf{Thomas BC}, \textbf{Banfield JF}. 2013.
 Short-read assembly of full-length 16S amplicons reveals bacterial
 diversity in subsurface sediments. PLoS ONE \textbf{8}:e56018.
-doi:\href{https://doi.org/10.1371/journal.pone.0056018}{10.1371/journal.pone.0056018}.
+doi:\url{http://doi.org/10.1371/journal.pone.0056018}.
 
-\hypertarget{ref-Markowitz2013}{}
+\hyperdef{}{ref-Markowitz2013}{\label{ref-Markowitz2013}}
 25. \textbf{Markowitz VM}, \textbf{Chen I-MA}, \textbf{Palaniappan K},
 \textbf{Chu K}, \textbf{Szeto E}, \textbf{Pillay M}, \textbf{Ratner A},
 \textbf{Huang J}, \textbf{Woyke T}, \textbf{Huntemann M},
@@ -948,35 +935,33 @@ doi:\href{https://doi.org/10.1371/journal.pone.0056018}{10.1371/journal.pone.005
 \textbf{Mavromatis K}, \textbf{Pati A}, \textbf{Ivanova NN},
 \textbf{Kyrpides NC}. 2013. IMG 4 version of the integrated microbial
 genomes comparative analysis system. Nucleic Acids Research
-\textbf{42}:D560--D567.
-doi:\href{https://doi.org/10.1093/nar/gkt963}{10.1093/nar/gkt963}.
+\textbf{42}:D560--D567. doi:\url{http://doi.org/10.1093/nar/gkt963}.
 
-\hypertarget{ref-Wrighton2012}{}
+\hyperdef{}{ref-Wrighton2012}{\label{ref-Wrighton2012}}
 26. \textbf{Wrighton KC}, \textbf{Thomas BC}, \textbf{Sharon I},
 \textbf{Miller CS}, \textbf{Castelle CJ}, \textbf{VerBerkmoes NC},
 \textbf{Wilkins MJ}, \textbf{Hettich RL}, \textbf{Lipton MS},
 \textbf{Williams KH}, \textbf{Long PE}, \textbf{Banfield JF}. 2012.
 Fermentation, hydrogen, and sulfur metabolism in multiple uncultivated
 bacterial phyla. Science \textbf{337}:1661--1665.
-doi:\href{https://doi.org/10.1126/science.1224041}{10.1126/science.1224041}.
+doi:\url{http://doi.org/10.1126/science.1224041}.
 
-\hypertarget{ref-NunesdaRocha2015}{}
+\hyperdef{}{ref-NunesdaRocha2015}{\label{ref-NunesdaRocha2015}}
 27. \textbf{Rocha UN da}, \textbf{Cadillo-Quiroz H}, \textbf{Karaoz U},
 \textbf{Rajeev L}, \textbf{Klitgord N}, \textbf{Dunn S}, \textbf{Truong
 V}, \textbf{Buenrostro M}, \textbf{Bowen BP}, \textbf{Garcia-Pichel F},
 \textbf{Mukhopadhyay A}, \textbf{Northen TR}, \textbf{Brodie EL}. 2015.
 Isolation of a significant fraction of non-phototroph diversity from a
 desert biological soil crust. Front Microbiol \textbf{6}:277.
-doi:\href{https://doi.org/10.3389/fmicb.2015.00277}{10.3389/fmicb.2015.00277}.
+doi:\url{http://doi.org/10.3389/fmicb.2015.00277}.
 
-\hypertarget{ref-Hamilton2015}{}
+\hyperdef{}{ref-Hamilton2015}{\label{ref-Hamilton2015}}
 28. \textbf{Hamilton TL}, \textbf{Jones DS}, \textbf{Schaperdoth I},
 \textbf{Macalady JL}. 2015. Metagenomic insights into S(0) precipitation
 in a terrestrial subsurface lithoautotrophic ecosystem. Front Microbiol
-\textbf{5}:756.
-doi:\href{https://doi.org/10.3389/fmicb.2014.00756}{10.3389/fmicb.2014.00756}.
+\textbf{5}:756. doi:\url{http://doi.org/10.3389/fmicb.2014.00756}.
 
-\hypertarget{ref-Handley2012}{}
+\hyperdef{}{ref-Handley2012}{\label{ref-Handley2012}}
 29. \textbf{Handley KM}, \textbf{VerBerkmoes NC}, \textbf{Steefel CI},
 \textbf{Williams KH}, \textbf{Sharon I}, \textbf{Miller CS},
 \textbf{Frischkorn KR}, \textbf{Chourey K}, \textbf{Thomas BC},
@@ -984,25 +969,25 @@ doi:\href{https://doi.org/10.3389/fmicb.2014.00756}{10.3389/fmicb.2014.00756}.
 \textbf{Banfield JF}. 2012. Biostimulation induces syntrophic
 interactions that impact c, s and n cycling in a sediment microbial
 community. The ISME Journal \textbf{7}:800--816.
-doi:\href{https://doi.org/10.1038/ismej.2012.148}{10.1038/ismej.2012.148}.
+doi:\url{http://doi.org/10.1038/ismej.2012.148}.
 
-\hypertarget{ref-Gladden2011}{}
+\hyperdef{}{ref-Gladden2011}{\label{ref-Gladden2011}}
 30. \textbf{Gladden JM}, \textbf{Allgaier M}, \textbf{Miller CS},
 \textbf{Hazen TC}, \textbf{VanderGheynst JS}, \textbf{Hugenholtz P},
 \textbf{Simmons BA}, \textbf{Singer SW}. 2011. Glycoside hydrolase
 activities of thermophilic bacterial consortia adapted to switchgrass.
 Applied and Environmental Microbiology \textbf{77}:5804--5812.
-doi:\href{https://doi.org/10.1128/aem.00032-11}{10.1128/aem.00032-11}.
+doi:\url{http://doi.org/10.1128/aem.00032-11}.
 
-\hypertarget{ref-Brooks2014}{}
+\hyperdef{}{ref-Brooks2014}{\label{ref-Brooks2014}}
 31. \textbf{Brooks B}, \textbf{Firek BA}, \textbf{Miller CS},
 \textbf{Sharon I}, \textbf{Thomas BC}, \textbf{Baker R},
 \textbf{Morowitz MJ}, \textbf{Banfield JF}. 2014. Microbes in the
 neonatal intensive care unit resemble those found in the gut of
 premature infants. Microbiome \textbf{2}:1.
-doi:\href{https://doi.org/10.1186/2049-2618-2-1}{10.1186/2049-2618-2-1}.
+doi:\url{http://doi.org/10.1186/2049-2618-2-1}.
 
-\hypertarget{ref-Wilkins2013}{}
+\hyperdef{}{ref-Wilkins2013}{\label{ref-Wilkins2013}}
 32. \textbf{Wilkins MJ}, \textbf{Wrighton KC}, \textbf{Nicora CD},
 \textbf{Williams KH}, \textbf{McCue LA}, \textbf{Handley KM},
 \textbf{Miller CS}, \textbf{Giloteaux L}, \textbf{Montgomery AP},
@@ -1010,18 +995,18 @@ doi:\href{https://doi.org/10.1186/2049-2618-2-1}{10.1186/2049-2618-2-1}.
 \textbf{Lipton MS}. 2013. Fluctuations in species-level protein
 expression occur during element and nutrient cycling in the subsurface.
 PLoS ONE \textbf{8}:e57819.
-doi:\href{https://doi.org/10.1371/journal.pone.0057819}{10.1371/journal.pone.0057819}.
+doi:\url{http://doi.org/10.1371/journal.pone.0057819}.
 
-\hypertarget{ref-Handley2014}{}
+\hyperdef{}{ref-Handley2014}{\label{ref-Handley2014}}
 33. \textbf{Handley KM}, \textbf{Wrighton KC}, \textbf{Miller CS},
 \textbf{Wilkins MJ}, \textbf{Kantor RS}, \textbf{Thomas BC},
 \textbf{Williams KH}, \textbf{Gilbert JA}, \textbf{Long PE},
 \textbf{Banfield JF}. 2014. Disturbed subsurface microbial communities
 follow equivalent trajectories despite different structural starting
 points. Environ Microbiol \textbf{17}:622--636.
-doi:\href{https://doi.org/10.1111/1462-2920.12467}{10.1111/1462-2920.12467}.
+doi:\url{http://doi.org/10.1111/1462-2920.12467}.
 
-\hypertarget{ref-Alessi2014}{}
+\hyperdef{}{ref-Alessi2014}{\label{ref-Alessi2014}}
 34. \textbf{Alessi DS}, \textbf{Lezama-Pacheco JS}, \textbf{Janot N},
 \textbf{Suvorova EI}, \textbf{Cerrato JM}, \textbf{Giammar DE},
 \textbf{Davis JA}, \textbf{Fox PM}, \textbf{Williams KH}, \textbf{Long
@@ -1029,71 +1014,71 @@ PE}, \textbf{Handley KM}, \textbf{Bernier-Latmani R}, \textbf{Bargar
 JR}. 2014. Speciation and reactivity of uranium products formed during
 in situ bioremediation in a shallow alluvial aquifer. Environmental
 Science \& Technology \textbf{48}:12842--12850.
-doi:\href{https://doi.org/10.1021/es502701u}{10.1021/es502701u}.
+doi:\url{http://doi.org/10.1021/es502701u}.
 
-\hypertarget{ref-Locey2015}{}
+\hyperdef{}{ref-Locey2015}{\label{ref-Locey2015}}
 35. \textbf{Locey KJ}, \textbf{Lennon JT}. 2015. Scaling laws predict
 global microbial diversity. PeerJ PrePrints.
-doi:\href{https://doi.org/10.7287/peerj.preprints.1451v1}{10.7287/peerj.preprints.1451v1}.
+doi:\url{http://doi.org/10.7287/peerj.preprints.1451v1}.
 
-\hypertarget{ref-Parada2015}{}
+\hyperdef{}{ref-Parada2015}{\label{ref-Parada2015}}
 36. \textbf{Parada AE}, \textbf{Needham DM}, \textbf{Fuhrman JA}. 2015.
 Every base matters: Assessing small subunit rRNA primers for marine
 microbiomes with mock communities, time series and global field samples.
 Environ Microbiol n/a--n/a.
-doi:\href{https://doi.org/10.1111/1462-2920.13023}{10.1111/1462-2920.13023}.
+doi:\url{http://doi.org/10.1111/1462-2920.13023}.
 
-\hypertarget{ref-Brown2015}{}
+\hyperdef{}{ref-Brown2015}{\label{ref-Brown2015}}
 37. \textbf{Brown CT}, \textbf{Hug LA}, \textbf{Thomas BC},
 \textbf{Sharon I}, \textbf{Castelle CJ}, \textbf{Singh A},
 \textbf{Wilkins MJ}, \textbf{Wrighton KC}, \textbf{Williams KH},
 \textbf{Banfield JF}. 2015. Unusual biology across a group comprising
 more than 15\% of domain bacteria. Nature \textbf{523}:208--211.
-doi:\href{https://doi.org/10.1038/nature14486}{10.1038/nature14486}.
+doi:\url{http://doi.org/10.1038/nature14486}.
 
-\hypertarget{ref-EloeFadrosh2016}{}
+\hyperdef{}{ref-EloeFadrosh2016}{\label{ref-EloeFadrosh2016}}
 38. \textbf{Eloe-Fadrosh EA}, \textbf{Ivanova NN}, \textbf{Woyke T},
 \textbf{Kyrpides NC}. 2016. Metagenomics uncovers gaps in amplicon-based
 detection of microbial diversity. Nat Microbiol 15032.
-doi:\href{https://doi.org/10.1038/nmicrobiol.2015.32}{10.1038/nmicrobiol.2015.32}.
+doi:\url{http://doi.org/10.1038/nmicrobiol.2015.32}.
 
-\hypertarget{ref-Schloss2015}{}
+\hyperdef{}{ref-Schloss2015}{\label{ref-Schloss2015}}
 39. \textbf{Schloss PD}, \textbf{Westcott SL}, \textbf{Jenior ML},
 \textbf{Highlander SK}. 2015. Sequencing 16S rRNA gene fragments using
 the pacBio sMRT dNA sequencing system. PeerJ PrePrints.
-doi:\href{https://doi.org/10.7287/peerj.preprints.778v1}{10.7287/peerj.preprints.778v1}.
+doi:\url{http://doi.org/10.7287/peerj.preprints.778v1}.
 
-\hypertarget{ref-Nichols2010}{}
+\hyperdef{}{ref-Nichols2010}{\label{ref-Nichols2010}}
 40. \textbf{Nichols D}, \textbf{Cahoon N}, \textbf{Trakhtenberg EM},
 \textbf{Pham L}, \textbf{Mehta A}, \textbf{Belanger A}, \textbf{Kanigan
 T}, \textbf{Lewis K}, \textbf{Epstein SS}. 2010. Use of iChip for
 high-throughput in situ cultivation of ``uncultivable'' microbial
 species. Applied and Environmental Microbiology \textbf{76}:2445--2450.
-doi:\href{https://doi.org/10.1128/aem.01754-09}{10.1128/aem.01754-09}.
+doi:\url{http://doi.org/10.1128/aem.01754-09}.
 
-\hypertarget{ref-Buerger2012}{}
+\hyperdef{}{ref-Buerger2012}{\label{ref-Buerger2012}}
 41. \textbf{Buerger S}, \textbf{Spoering A}, \textbf{Gavrish E},
 \textbf{Leslin C}, \textbf{Ling L}, \textbf{Epstein SS}. 2012. Microbial
 scout hypothesis, stochastic exit from dormancy, and the nature of slow
 growers. Applied and Environmental Microbiology \textbf{78}:3221--3228.
-doi:\href{https://doi.org/10.1128/aem.07307-11}{10.1128/aem.07307-11}.
+doi:\url{http://doi.org/10.1128/aem.07307-11}.
 
-\hypertarget{ref-Das2015}{}
+\hyperdef{}{ref-Das2015}{\label{ref-Das2015}}
 42. \textbf{Das N}, \textbf{Tripathi N}, \textbf{Basu S}, \textbf{Bose
 C}, \textbf{Maitra S}, \textbf{Khurana S}. 2015. Progress in the
 development of gelling agents for improved culturability of
 microorganisms. Front Microbiol \textbf{6}:698.
-doi:\href{https://doi.org/10.3389/fmicb.2015.00698}{10.3389/fmicb.2015.00698}.
+doi:\url{http://doi.org/10.3389/fmicb.2015.00698}.
 
-\hypertarget{ref-Pruesse2007}{}
+\hyperdef{}{ref-Pruesse2007}{\label{ref-Pruesse2007}}
 43. \textbf{Pruesse E}, \textbf{Quast C}, \textbf{Knittel K},
 \textbf{Fuchs BM}, \textbf{Ludwig W}, \textbf{Peplies J},
 \textbf{Glockner FO}. 2007. SILVA: A comprehensive online resource for
 quality checked and aligned ribosomal RNA sequence data compatible with
 ARB. Nucleic Acids Research \textbf{35}:7188--7196.
-doi:\href{https://doi.org/10.1093/nar/gkm864}{10.1093/nar/gkm864}.
+doi:\url{http://doi.org/10.1093/nar/gkm864}.
 
-\hypertarget{ref-Schloss2009}{}
+\hyperdef{}{ref-Schloss2009}{\label{ref-Schloss2009}}
 44. \textbf{Schloss PD}, \textbf{Westcott SL}, \textbf{Ryabin T},
 \textbf{Hall JR}, \textbf{Hartmann M}, \textbf{Hollister EB},
 \textbf{Lesniewski RA}, \textbf{Oakley BB}, \textbf{Parks DH},
@@ -1102,22 +1087,21 @@ doi:\href{https://doi.org/10.1093/nar/gkm864}{10.1093/nar/gkm864}.
 Introducing mothur: Open-source, platform-independent,
 community-supported software for describing and comparing microbial
 communities. Applied and Environmental Microbiology
-\textbf{75}:7537--7541.
-doi:\href{https://doi.org/10.1128/aem.01541-09}{10.1128/aem.01541-09}.
+\textbf{75}:7537--7541. doi:\url{http://doi.org/10.1128/aem.01541-09}.
 
-\hypertarget{ref-Westcott2015}{}
+\hyperdef{}{ref-Westcott2015}{\label{ref-Westcott2015}}
 45. \textbf{Westcott SL}, \textbf{Schloss PD}. 2015. De novo clustering
 methods outperform reference-based methods for assigning 16S rRNA gene
 sequences to operational taxonomic units. PeerJ \textbf{3}:e1487.
-doi:\href{https://doi.org/10.7717/peerj.1487}{10.7717/peerj.1487}.
+doi:\url{http://doi.org/10.7717/peerj.1487}.
 
-\hypertarget{ref-Good1953}{}
+\hyperdef{}{ref-Good1953}{\label{ref-Good1953}}
 46. \textbf{Good IJ}. 1953. The population frequencies of species and
 the estimation of population parameters. Biometrika
 \textbf{40}:237--264.
-doi:\href{https://doi.org/10.1093/biomet/40.3-4.237}{10.1093/biomet/40.3-4.237}.
+doi:\url{http://doi.org/10.1093/biomet/40.3-4.237}.
 
-\hypertarget{ref-language2015}{}
+\hyperdef{}{ref-language2015}{\label{ref-language2015}}
 47. \textbf{R Core Team}. 2015. R: A language and environment for
 statistical computing. R Foundation for Statistical Computing, Vienna,
 Austria.
