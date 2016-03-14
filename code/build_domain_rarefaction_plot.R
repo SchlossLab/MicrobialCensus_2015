@@ -76,7 +76,7 @@ axis(2, las=1, at=seq(0,50000,10000), label=format(seq(0,50000,10000), big.mark=
 
 text(par()$usr[2]*0.95, par()$usr[4]*0.95, "C", cex=2, font=2)
 
-legend(x=6e5, y=20000, legend=my_categories, lwd=2, pch=my_categories_pch, col=my_categories_col, pt.bg="white", bty="n", pt.cex=1.25)
+legend(x=5e5, y=20000, legend=my_categories, lwd=2, pch=my_categories_pch, col=my_categories_col, pt.bg="white", bty="n", pt.cex=1.25)
 
 
 
