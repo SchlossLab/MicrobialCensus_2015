@@ -207,7 +207,7 @@ b_class_percent <- 100*sum(coverage_by_category[-nrow(coverage_by_category), "ba
 a_class_percent <- 100*sum(coverage_by_category[-nrow(coverage_by_category), "arch_count"])/sum(totals["arch_count"])
 
 
-coarse_map <- c("A"=="aerosol", "AQ" = "aquatic", "B" = "built environment", "O" = "other", "P" = "plant", "S" = "soil", "Z" = "zoonotic")
+coarse_map <- c("A"=="aerosol", "AQ" = "aquatic", "B" = "built environment", "O" = "other", "P" = "plant", "S" = "soil", "Z" = "host-associated")
 
 coarse <- gsub("^(.)[A-Z]$", "\\1", rownames(coverage_by_category))
 coarse <- gsub("^(..)[A-Z]+$", "\\1", coarse)

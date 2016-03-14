@@ -18,7 +18,7 @@ options(xtable.sanitize.text.function=identity)
 data <- read.table(file="data/process/coverage_by_category_and_time.tsv", header=T)
 data_current <- data[,!(grepl("pre", colnames(data)) | grepl("post", colnames(data)))]
 
-coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Zoological", "", "", "", "Other", "No source data", "Total")
+coarse <- c("Aerosol", "Aquatic", "", "", "", "", "", "", "", "", "Built", "", "", "", "", "Plant associated", "", "", "Soil", "", "", "", "Host-associated", "", "", "", "Other", "No source data", "Total")
 
 fine <- c("", "Brackish", "Brackish sediment", "Freshwater", "Freshwater sediment", "Marine", "Marine sediment", "Hydrothermal vent", "Ice", "Other", "Digesters", "Food-associated", "Industrial/mining", "Pollution associated", "Other", "Root", "Surface", "Other", "Agriculture", "Desert", "Permafrost", "Other", "Vertebrate", "Arthropod", "Other invertebrate", "Other", "", "", "")
 

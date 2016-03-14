@@ -35,7 +35,7 @@ coarse <- c("\\midrule\\multirow{1}{*}{Aerosol}",
 			"\\midrule\\multirow{10}{*}{Built}", "", "", "", "",
 			"\\midrule\\multirow{5}{*}{Plant associated}", "", "",
 			"\\midrule\\multirow{6}{*}{Soil}", "", "", "",
-			"\\midrule\\multirow{6}{*}{Zoological}", "", "", "",
+			"\\midrule\\multirow{6}{*}{Host-associated}", "", "", "",
 			"\\midrule\\multirow{1}{*}{Other}")
 
 text <- cbind(coarse, text)
