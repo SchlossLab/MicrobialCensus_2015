@@ -325,12 +325,12 @@ submission/Schloss_Census2_mBio_2016.docx : submission/Schloss_Census2_mBio_2016
 submission/ResponseToReviewerComments.docx : submission/rebuttal.md
 	pandoc $< -o $@
 
-
 submission/TrackChanges.pdf : submission/Schloss_Census2_mBio_2016.md
+	OPTS="--csl=submission/mbio.csl --filter /usr/local/bin/pandoc-citeproc --template /Users/pschloss/Library/R/3.2/library/rmarkdown/rmd/latex/default-1.14.tex --include-in-header submission/header.tex --bibliography submission/references.bib"
+	git show 83f25b83db:Schloss_Census2_mBio_2016.md > orig.md
 	pandoc orig.md -o orig.tex $(OPTS)
-	pandoc revised.md -o revised.tex $(OPTS)
+	pandoc submission/Schloss_Census2_mBio_2016.md -o revised.tex $(OPTS)
 	latexdiff orig.tex revised.tex > diff.tex
 	pdflatex diff
-	rm {revised,orig,diff}.tex
-
-git show 83f25b83db:filename.md > oldfile.md
+	mv diff.pdf submission/TrackChanges.pdf
+	rm {revised,orig,diff}.tex orig.md diff.*
