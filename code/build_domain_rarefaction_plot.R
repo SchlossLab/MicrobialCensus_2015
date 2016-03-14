@@ -22,7 +22,7 @@ plot_domain_curves <- function(rarefaction){
 	box()
 }
 
-my_categories <- c(aerosol="Aerosol", aquatic="Aquatic", built="Built", plant="Plant", soil="Soil", zoonotic="Zoonotic", other="Other")
+my_categories <- c(aerosol="Aerosol", aquatic="Aquatic", built="Built", plant="Plant", soil="Soil", zoonotic="Host-Associated", other="Other")
 
 set.seed(1)
 my_categories_col <- sample(wes_palette("Zissou", 7, type = "continuous"), 7)#rainbow(7)

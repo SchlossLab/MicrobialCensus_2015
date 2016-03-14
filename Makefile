@@ -235,20 +235,18 @@ TABLES :	$(TAB)/coverage_by_category.pdf \
 
 
 
-#need to fix dependencies
-Schloss_Census2_mBio_2016.md : \
+submission/Schloss_Census2_mBio_2016.md : \
 						FIGSHARE \
 						SUMMARY_TABLES\
 						FIGURES \
 						TABLES \
 						\
-						mbio.csl\
-						references.bib\
-						Schloss_Census2_mBio_2016.Rmd
-	R -e 'render("Schloss_Census2_mBio_2016.Rmd", clean=FALSE)'
-	mv Schloss_Census2_mBio_2016.knit.md Schloss_Census2_mBio_2016.md
-	rm Schloss_Census2_mBio_2016.utf8.md
-	mv Schloss_Census2_mBio_2016.pdf submission/Schloss_Census2_mBio_2016.pdf
+						submission/mbio.csl\
+						submission/references.bib\
+						submission/Schloss_Census2_mBio_2016.Rmd
+	R -e 'render("submission/Schloss_Census2_mBio_2016.Rmd", clean=FALSE)'
+	mv submission/Schloss_Census2_mBio_2016.knit.md submission/Schloss_Census2_mBio_2016.md
+	rm submission/Schloss_Census2_mBio_2016.utf8.md
 
 submission/Schloss_Census2_mBio_2016.pdf : Schloss_Census2_mBio_2016.md
 
@@ -300,7 +298,8 @@ submission/table_s7.pdf : $(TAB)/archaeal_culture_effort_table.pdf
 
 
 
-write.paper :	Schloss_Census2_mBio_2016.md\
+write.paper :	submission/Schloss_Census2_mBio_2016.md\
+				submission/Schloss_Census2_mBio_2016.tex\
 				submission/Schloss_Census2_mBio_2016.pdf\
 				submission/Schloss_Census2_mBio_2016_w_table.pdf\
 				submission/table_1.pdf\
@@ -319,3 +318,19 @@ write.paper :	Schloss_Census2_mBio_2016.md\
 				submission/table_s7.pdf\
 				$(NB)/Bacterial_data_acquisition.Rmd\
 				$(NB)/Archaeal_data_acquisition.Rmd
+
+submission/Schloss_Census2_mBio_2016.docx : submission/Schloss_Census2_mBio_2016.tex
+	pandoc -s $< -o $@
+
+submission/ResponseToReviewerComments.docx : submission/rebuttal.md
+	pandoc $< -o $@
+
+
+submission/TrackChanges.pdf : submission/Schloss_Census2_mBio_2016.md
+	pandoc orig.md -o orig.tex $(OPTS)
+	pandoc revised.md -o revised.tex $(OPTS)
+	latexdiff orig.tex revised.tex > diff.tex
+	pdflatex diff
+	rm {revised,orig,diff}.tex
+
+git show 83f25b83db:filename.md > oldfile.md
