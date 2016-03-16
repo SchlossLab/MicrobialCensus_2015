@@ -257,6 +257,9 @@ submission/Schloss_Census2_mBio_2016_w_table.pdf : submission/Schloss_Census2_mB
 submission/table_1.pdf : $(TAB)/coverage_by_category.pdf
 	cp $^ $@
 
+submission/table_1.tex : $(TAB)/coverage_by_category.tex
+	cp $^ $@
+
 submission/figure_1.eps : $(FIG)/domain_rarefaction.eps
 	cp $^ $@
 
@@ -303,6 +306,7 @@ write.paper :	submission/Schloss_Census2_mBio_2016.md\
 				submission/Schloss_Census2_mBio_2016.pdf\
 				submission/Schloss_Census2_mBio_2016_w_table.pdf\
 				submission/table_1.pdf\
+				submission/table_1.tex\
 				submission/figure_1.eps\
 				submission/figure_2.eps\
 				submission/figure_3.eps\
