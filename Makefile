@@ -331,7 +331,7 @@ submission/ResponseToReviewerComments.docx : submission/rebuttal.md
 
 
 submission/TrackChanges.pdf : submission/Schloss_Census2_mBio_2016.tex
-	OPTS="--csl=submission/mbio.csl --filter pandoc-citeproc --include-in-header" submission/header.tex --bibliography submission/references.bib
+	OPTS="--csl=submission/mbio.csl --filter pandoc-citeproc --include-in-header submission/header.tex --bibliography submission/references.bib"
 	git show 83f25b83db:Schloss_Census2_mBio_2016.md > orig.md
 	pandoc orig.md -o orig.tex $(OPTS)
 	latexdiff orig.tex submission/Schloss_Census2_mBio_2016.tex > diff.tex
